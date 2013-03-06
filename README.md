@@ -61,7 +61,7 @@ We'll assume we're using the deb packages in the rest of this document.
 
 # Inventory
 
-Before continuin, you need an inventory file. The default place for such a
+Before continuing, you need an inventory file. The default place for such a
 file is  `/etc/ansible/hosts`. However, you can configure ansible to look
 somewhere else, use an environment variable, or use the `-i` flag in ansible
 commands an provide the inventory path.
