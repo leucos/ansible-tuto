@@ -1,5 +1,5 @@
 Ansible tutorial
-----------------
+================
 
 This tutorial presents ansible step-by-step. You'll need to have a (vitual of
 physical) machine to act as an ansible node.
