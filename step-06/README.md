@@ -1,8 +1,8 @@
 Ansible tutorial
 ================
 
-Restating when config is fine
------------------------------
+Restarting when config is fine
+------------------------------
 
 We've instaled apache, pushed our virtualhost and restarted the server.
 but what if we wanted the playbook to restart the server only if the config is fine ?

@@ -1,8 +1,8 @@
 Ansible tutorial
 ================
 
-Restating when config is fine
------------------------------
+Using conditionals
+------------------
 
 We've instaled apache, pushed our virtualhost and restarted the server. But we want 
 to revert things in a stable state if something goes wrong.

@@ -59,6 +59,21 @@ build it. You need a few packages to build the deb :
 
 We'll assume we're using the deb packages in the rest of this tutorial.
 
-Now head to the first step in `./step-1` (or click
-[here](https://github.com/leucos/ansible-tuto/tree/master/step-1)).
+Now head to the first step in `./step-01` (or click
+[here](https://github.com/leucos/ansible-tuto/tree/master/step-01)).
 
+## Contents
+
+Just in case you want to skip to a specific step, here is a topic table of contents.
+
+01. [Basic inventory](https://github.com/leucos/ansible-tuto/tree/master/step-01)
+02. [First modules and facts](https://github.com/leucos/ansible-tuto/tree/master/step-02)
+03. [Groups and variables](https://github.com/leucos/ansible-tuto/tree/master/step-03)
+04. [Playbooks](https://github.com/leucos/ansible-tuto/tree/master/step-04)
+05. [Playbooks, pushing files on nodes](https://github.com/leucos/ansible-tuto/tree/master/step-05)
+06. [Playbooks and failures](https://github.com/leucos/ansible-tuto/tree/master/step-06)
+07. [Playbook conditionals](https://github.com/leucos/ansible-tuto/tree/master/step-07)
+08. [Git module](https://github.com/leucos/ansible-tuto/tree/master/step-08)
+09. [Extending to several hosts](https://github.com/leucos/ansible-tuto/tree/master/step-09)
+10. [Templates](https://github.com/leucos/ansible-tuto/tree/master/step-10)
+11. [...tbd...](https://github.com/leucos/ansible-tuto/tree/master/step-11)

@@ -1,140 +1,100 @@
 Ansible tutorial
 ================
 
-Deploying our website from git
-------------------------------
+Addding another Webserver
+-------------------------
 
-We've instaled apache, pushed our virtualhost and restarted the server safely.
-Now we'll use the git module to deploy our application.
+We have one web server. Now we want two.
 
-# The git module
+# Updating the inventory
 
-Well, this is a kind of break. Nothing necessarily new here. The `git` module is 
-just another module. But we'll try it out just for fun. And we'll be familiar with 
-it when it comes to `ansible-pull` later on.
+Since we have big expectations, we'll add another web server and a load
+balancer we'll configure in the next step. But let's complete the inventory now.
 
-Our virtualhost is set, but we need a few changes to finish our deployment. First, 
-we're deploying a PHP application. So we need to install the `libapache2-mod-php5` package.
+    [web]
+    host1.example.org ansible_ssh_host=192.168.0.134
+    host2.example.org ansible_ssh_host=192.168.0.135
 
-We also need to clone our application's git repository.
+    [haproxy]
+    host0.example.org ansible_ssh_host=192.168.0.136
 
-    - hosts: web
-      tasks:
-        - name: Installs apache web server
-          action: apt pkg=apache2 state=installed
+Remember we're specifying `ansible_ssh_host` here because the host has a
+different IP than expected (or can't be resolved). You could add these hosts
+in your `/etc/hosts` and not have to  worry, or use real host names (which is
+what you would do in a classic situation).
 
-        - name: Installs php5 module
-          action: apt pkg=libapache2-mod-php5 state=installed
+# Building another web server
 
-        - name: Push future default virtual host configuration
-          action: copy src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640
+We didn't do all this work for nothing. Deploying another web server is dead simple 
+:
 
-        - name: Activates our virtualhost
-          action: command a2ensite awesome-app
-
-        - name: Check that our config is valid
-          action: command apache2ctl configtest
-          register: result
-          ignore_errors: True
-
-        - name: Rolling back - Restoring old default virtualhost
-          action: command a2ensite default
-          when_failed: $result
-
-        - name: Rolling back - Removing out virtualhost
-          action: command a2dissite awesome-app
-          when_failed: $result
-
-        - name: Rolling back - Ending playbook
-          action: fail msg="Configuration file is not valid. Please check that before re-running the playbook."
-          when_failed: $result
-
-        - name: Deploy our awesome application
-          action: git repo=https://github.com/leucos/ansible-tuto-demosite.git dest=/var/www/awesome-app
-          tags: deploy
-
-        - name: Deactivates the default virtualhost
-          action: command a2dissite default
-
-        - name: Deactivates the default ssl virtualhost
-          action: command a2dissite default-ssl
-          notify:
-            - restart apache
-
-      handlers:
-        - name: restart apache
-          action: service name=apache2 state=restarted
-
-Here we go :
-
-    $ ansible-playbook -i hosts -l host1.example.org step-09/apache.yml
+    $ ansible-playbook -i hosts step-09/apache.yml
 
     PLAY [web] ********************* 
 
     GATHERING FACTS ********************* 
     ok: [host1.example.org]
+    ok: [host2.example.org]
 
     TASK: [Installs apache web server] ********************* 
     ok: [host1.example.org]
+    changed: [host2.example.org]
 
     TASK: [Installs php5 module] ********************* 
-    changed: [host1.example.org]
+    ok: [host1.example.org]
+    changed: [host2.example.org]
 
     TASK: [Push future default virtual host configuration] ********************* 
     ok: [host1.example.org]
+    changed: [host2.example.org]
 
     TASK: [Activates our virtualhost] ********************* 
-    changed: [host1.example.org]
+    ok: [host1.example.org]
+    changed: [host2.example.org]
 
     TASK: [Check that our config is valid] ********************* 
     changed: [host1.example.org]
+    changed: [host2.example.org]
 
     TASK: [Rolling back - Restoring old default virtualhost] ********************* 
     skipping: [host1.example.org]
+    skipping: [host2.example.org]
 
     TASK: [Rolling back - Removing out virtualhost] ********************* 
     skipping: [host1.example.org]
+    skipping: [host2.example.org]
 
     TASK: [Rolling back - Ending playbook] ********************* 
     skipping: [host1.example.org]
+    skipping: [host2.example.org]
 
     TASK: [Deploy our awesome application] ********************* 
-    changed: [host1.example.org]
+    ok: [host1.example.org]
+    changed: [host2.example.org]
 
     TASK: [Deactivates the default virtualhost] ********************* 
+    changed: [host1.example.org]
     changed: [host1.example.org]
 
     TASK: [Deactivates the default ssl virtualhost] ********************* 
     changed: [host1.example.org]
+    changed: [host1.example.org]
 
     NOTIFIED: [restart apache] ********************* 
     changed: [host1.example.org]
+    changed: [host2.example.org]
 
     PLAY RECAP ********************* 
-    host1.example.org              : ok=11   changed=8    unreachable=0    failed=0    
+    host1.example.org              : ok=11   changed=4    unreachable=0    failed=0    
+    host2.example.org              : ok=11   changed=9    unreachable=0    failed=0    
 
-You can now browse to your server, and it should display a kitten, and the server 
-hostname.
+All we had to do was to remove `-l host1.example.org` from our command line. Remember 
+`-l` is a switch that limits the playbook run on specific hosts. Now that we don't 
+limit anymore, it will run on all hosts where the playbook is intended to run on 
+(i.e. `web`).
 
-Note the `tags: deploy` line ? It allow you to execute just a part of the playbook. 
-Let's say you push a new version for your site. You want to speed up and execute 
-only the part that takes care of deployment. tags allows you to do it :
+If we had other servers in group `web` but wanted to limit the playbook to a subset, 
+we could have used, for instance : `-l firsthost:secondhost:...`.
 
-    $ ansible-playbook -i hosts -l host1.example.org step-09/apache.yml -t deploy 
-    X11 forwarding request failed on channel 0
-
-    PLAY [web] ********************* 
-
-    GATHERING FACTS ********************* 
-    ok: [host1.example.org]
-
-    TASK: [Deploy our awesome application] ********************* 
-    changed: [host1.example.org]
-
-    PLAY RECAP ********************* 
-    host1.example.org              : ok=2    changed=1    unreachable=0    failed=0    
-
-See ?
-
-Ok, let's deploy another web server in the next step (`./step-10`, or click
-[here](https://github.com/leucos/ansible-tuto/tree/master/step-10)).
+Now that we have this nice farm of web servers, let's turn it into a cluster,
+putting a load balancer in front of them in [step-10](https://github.com/leucos/ansible-tuto/tree/master/step-10)).
