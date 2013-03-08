@@ -28,7 +28,7 @@ Let's change our `awesome-app` virtual host configuration file and break it :
 As said, when a task fails, processing stops. So we'll ensure that the
 configuration is valid before restarting the server. We also start by adding
 our  virtualhost _before_ removing the default virtualhost, so a subsequent
-restart (possibly  done directly on the server) won't break apache.
+restart (possibly done directly on the server) won't break apache.
 
 Note that we should have done the in the first place. Since we ran our
 playbook already, the default virtualhost is already deactivated. Nevermind :
@@ -63,7 +63,7 @@ this playbook might be used on other innocent hosts, so let's protect them.
 
 Here we go :
 
-    $ ansible-playbook -i hosts -l host1.example.org apache.yml
+    $ ansible-playbook -i hosts -l host1.example.org step-6/apache.yml
 
     PLAY [web] ********************* 
 

@@ -11,8 +11,8 @@ commands an provide the inventory path.
 For now, we'll create an inventory file in our home dir and use an environment
 variable :
 
-    echo "localhost" > ~/hosts
-    export ANSIBLE_HOSTS=~/hosts
+    echo "localhost" > hosts
+    export ANSIBLE_HOSTS=`pwd`/hosts
 
 # Testing
 

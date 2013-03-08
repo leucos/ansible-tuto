@@ -14,7 +14,7 @@ If you have access to a machine with you current key, you can test if ansible
 can  talk to it by using the command showned previously. Let's say we want to
 manage `host0.example.org`, we first need to add this host to our inventory file :
 
-    echo "host0.example.com" >> ~/hosts
+    echo "host0.example.com" >> hosts
 
 Now :
 
@@ -30,7 +30,8 @@ using `ANSIBLE_REMOTE_USER` environment variable :
 
     export ANSIBLE_REMOTE_USER=root
 
-Don't worry, we'll use a config file later so we don't have to set those variables.
+Don't worry, we'll see how we can fit all this in a config file later so we
+don't have to set those variables.
 
 # Doing something useful
 
@@ -56,21 +57,21 @@ Easy !
 ## Copy module
 
 No surprise, with this module you can copy a file from the controlling machine to 
-the node. Let's say we want to copy our `/etc/hosts` in `/tmp` of our target node :
+the node. Let's say we want to copy our `/etc/motd` in `/tmp` of our target node :
 
-    ansible -m copy -a 'src=/etc/hosts dest=/tmp/' host0.example.com
+    ansible -m copy -a 'src=/etc/motd dest=/tmp/' host0.example.com
 
 might reply :
 
     host0.example.com | success >> {
         "changed": true, 
-        "dest": "/tmp/hosts", 
+        "dest": "/tmp/motd", 
         "group": "root", 
         "md5sum": "fa676fd2ef2ecf37f50ffd2bc57b79ae", 
         "mode": "0644", 
         "owner": "root", 
         "size": 409, 
-        "src": "/root/.ansible/tmp/ansible-1362580394.39-32669960647560/hosts", 
+        "src": "/root/.ansible/tmp/ansible-1362580394.39-32669960647560/motd", 
         "state": "file"
     }
 
@@ -84,10 +85,10 @@ easy (it doesn't even have to be python, it just needs to speak  JSON).
 
 # Many hosts, same command
 
-Ok, the above stuff is fun, but we have node_s_ to manage. Let's add few
+Ok, the above stuff is fun, but we have node__s__ to manage. Let's add few
 others in our inventory :
 
-    echo -e "host1.example.com\nhost2.example.com" >> ~/hosts
+    echo -e "host1.example.com\nhost2.example.com" >> hosts
 
 Now, if we want to know which Ubuntu version we have deployed on the nodes,
 it's pretty easy :

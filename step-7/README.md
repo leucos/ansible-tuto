@@ -70,7 +70,7 @@ contains a failed status.
 
 Here we go :
 
-    $ ansible-playbook -i hosts -l host1.example.org apache.yml
+    $ ansible-playbook -i hosts -l host1.example.org step-7/apache.yml
 
     PLAY [web] ********************* 
 

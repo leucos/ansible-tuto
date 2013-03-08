@@ -29,27 +29,27 @@ Let' build a playbook that will install apache on machines in the `web` group.
     - hosts: web
       tasks:
         - name: Installs apache web server
-          action: apt pkg=apache state=installed
+          action: apt pkg=apache2 state=installed
 
-We just need to say wnat we want to do using the right ansible module. Here,
+We just need to say want we want to do using the right ansible module. Here,
 we're using the [apt](http://ansible.cc/docs/modules.html#apt) module that
 can install debian packages.
 
 We also added a name for this task. While this is not necessary, it's very
 informative when the playbook is run so it's highly recommended.
 
-all in all, this was quite easy !
+All in all, this was quite easy !
 
 You can run the playbook (let's it's called `apache.yml`) :
 
-    $ ansible-playbook -i hosts -l host1.example.org apache.yml
+    ansible-playbook -i hosts -l host1.example.org step-4/apache.yml
 
 Here, `hosts` is the inventory file, `-l` limits run to `host1.example.org`
 and `apache.yml` is our playbook.
 
-If you don't want to use `-i hosts` every time, you can just set ANSIBLE_HOSTS
-environment variable like this (assuming inventory resides in your current
-directory) :
+As stated earlier, if you don't want to use `-i hosts` every time, you can
+just set ANSIBLE_HOSTS environment variable like this (assuming inventory
+resides in your current directory) :
     
     export ANSIBLE_HOSTS=`pwd`/hosts
 
@@ -76,8 +76,8 @@ Let's analyse the output one line at a time.
 
     PLAY [web] ********************* 
 
-Ansible tells us he's running the plya on hosts `web`. A play is a suite of ansible 
-instructions relating to a host. If we'd have another `-host: blah` line in our playbook, 
+Ansible tells us he's running the play on hosts `web`. A play is a suite of ansible 
+instructions related to a host. If we'd have another `-host: blah` line in our playbook, 
 it would show up too (but after the first play has completed).
 
     GATHERING FACTS ********************* 
@@ -103,7 +103,7 @@ change anything).
 
 Now let's try to run it again and see what happens :
 
-$ ansible-playbook -i hosts -l host1.example.org apache.yml
+$ ansible-playbook -i hosts -l host1.example.org step-4/apache.yml
 
     PLAY [web] ********************* 
 

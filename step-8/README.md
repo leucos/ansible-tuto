@@ -70,7 +70,7 @@ We also need to clone our application's git repository.
 
 Here we go :
 
-    $ ansible-playbook -i hosts -l host1.example.org apache.yml
+    $ ansible-playbook -i hosts -l host1.example.org step-8/apache.yml
 
     PLAY [web] ********************* 
 
@@ -126,7 +126,7 @@ Note the `tags: deploy` line ? It allow you to execute just a part of the playbo
 Let's say you push a new version for your site. You want to speed up and execute 
 only the part that takes care of deployment. tags allows you to do it :
 
-    $ ansible-playbook -i hosts -l host1.example.org apache.yml -t deploy 
+    $ ansible-playbook -i hosts -l host1.example.org step-8/apache.yml -t deploy 
     X11 forwarding request failed on channel 0
 
     PLAY [web] ********************* 

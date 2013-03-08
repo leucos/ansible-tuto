@@ -52,7 +52,7 @@ Now, a quick update to our apache playbook and we're set :
 
 Here we go :
 
-    $ ansible-playbook -i hosts -l host1.example.org apache.yml
+    $ ansible-playbook -i hosts -l host1.example.org step-5/apache.yml
 
     PLAY [web] ********************* 
 
