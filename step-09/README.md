@@ -56,9 +56,6 @@ We also need to clone our application's git repository.
         - name: Deactivates the default virtualhost
           action: command a2dissite default
 
-        - name: Deactivates the default virtualhost
-          action: command a2dissite default
-
         - name: Deactivates the default ssl virtualhost
           action: command a2dissite default-ssl
           notify:
@@ -107,9 +104,6 @@ Here we go :
     TASK: [Deactivates the default virtualhost] ********************* 
     changed: [host1.example.org]
 
-    TASK: [Deactivates the default virtualhost] ********************* 
-    changed: [host1.example.org]
-
     TASK: [Deactivates the default ssl virtualhost] ********************* 
     changed: [host1.example.org]
 
@@ -142,5 +136,5 @@ only the part that takes care of deployment. tags allows you to do it :
 
 See ?
 
-Ok, let's deploy another web server in the next step (`./step-09`, or click
-[here](https://github.com/leucos/ansible-tuto/tree/master/step-09)).
+Ok, let's deploy another web server in the next step (`./step-10`, or click
+[here](https://github.com/leucos/ansible-tuto/tree/master/step-10)).

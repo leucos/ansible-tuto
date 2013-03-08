@@ -51,9 +51,6 @@ processing if there is a failure but only to revert what we've done.
         - name: Deactivates the default virtualhost
           action: command a2dissite default
 
-        - name: Deactivates the default virtualhost
-          action: command a2dissite default
-
         - name: Deactivates the default ssl virtualhost
           action: command a2dissite default-ssl
 

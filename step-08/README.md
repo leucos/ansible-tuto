@@ -56,9 +56,6 @@ We also need to clone our application's git repository.
         - name: Deactivates the default virtualhost
           action: command a2dissite default
 
-        - name: Deactivates the default virtualhost
-          action: command a2dissite default
-
         - name: Deactivates the default ssl virtualhost
           action: command a2dissite default-ssl
           notify:
@@ -102,9 +99,6 @@ Here we go :
     skipping: [host1.example.org]
 
     TASK: [Deploy our awesome application] ********************* 
-    changed: [host1.example.org]
-
-    TASK: [Deactivates the default virtualhost] ********************* 
     changed: [host1.example.org]
 
     TASK: [Deactivates the default virtualhost] ********************* 
