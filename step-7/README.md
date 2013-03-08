@@ -1,0 +1,129 @@
+Ansible tutorial
+================
+
+Restating when config is fine
+-----------------------------
+
+We've instaled apache, pushed our virtualhost and restarted the server. But we want 
+to revert things in a stable state if something goes wrong.
+
+# Reverting when things go wrong
+
+A word of warning : there's no magic here. Not ansible's fault. It's not a backup 
+system, and can't rollback things. It's your job to make your playbooks safe. Ansible 
+just doesn't know how to revert the effects of `a2ensite awesome-app`.
+
+But if we care to do it, it's well within our reach.
+
+As said, when a task fails, processing stops... unless we accept failure (and
+we [should](http://www.aaronsw.com/weblog/geremiah)). This is what we'll do : continue 
+processing if there is a failure but only to revert what we've done.
+
+
+    - hosts: web
+      tasks:
+        - name: Installs apache web server
+          action: apt pkg=apache2 state=installed
+
+        - name: Push future default virtual host configuration
+          action: copy src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640
+
+        - name: Activates our virtualhost
+          action: command a2ensite awesome-app
+
+        - name: Check that our config is valid
+          action: command apache2ctl configtest
+          register: result
+          ignore_errors: True
+
+        - name: Rolling back - Restoring old default virtualhost
+          action: command a2ensite default
+          when_failed: $result
+
+        - name: Rolling back - Removing out virtualhost
+          action: command a2dissite awesome-app
+          when_failed: $result
+
+        - name: Rolling back - Ending playbook
+          action: fail msg="Configuration file is not valid. Please check that before re-running the playbook."
+          when_failed: $result
+
+        - name: Deactivates the default virtualhost
+          action: command a2dissite default
+
+        - name: Deactivates the default virtualhost
+          action: command a2dissite default
+
+        - name: Deactivates the default ssl virtualhost
+          action: command a2dissite default-ssl
+
+        notify:
+            - restart apache
+
+      handlers:
+        - name: restart apache
+          action: service name=apache2 state=restarted
+
+The `register` keyword records output from the `apache2ctl configtest` command (exit 
+status, stdout, stderr, ...), and `when_failed` checks if the registered variable 
+contains a failed status.
+
+Here we go :
+
+    $ ansible-playbook -i hosts -l host1.example.org apache.yml
+
+    PLAY [web] ********************* 
+
+    GATHERING FACTS ********************* 
+    ok: [host1.example.org]
+
+    TASK: [Installs apache web server] ********************* 
+    ok: [host1.example.org]
+
+    TASK: [Push future default virtual host configuration] ********************* 
+    ok: [host1.example.org]
+
+    TASK: [Activates our virtualhost] ********************* 
+    changed: [host1.example.org]
+
+    TASK: [Check that our config is valid] ********************* 
+    failed: [host1.example.org] => {"changed": true, "cmd": ["apache2ctl", "configtest"], "delta": "0:00:00.045160", "end": "2013-03-08 16:32:54.954864", "rc": 1, "start": "2013-03-08 16:32:54.909704"}
+    stderr: Syntax error on line 2 of /etc/apache2/sites-enabled/awesome-app:
+    Invalid command 'RocumentDoot', perhaps misspelled or defined by a module not included in the server configuration
+    stdout: Action 'configtest' failed.
+    The Apache error log may have more information.
+    ...ignoring
+
+    TASK: [Rolling back - Restoring old default virtualhost] ********************* 
+    changed: [host1.example.org]
+
+    TASK: [Rolling back - Removing out virtualhost] ********************* 
+    changed: [host1.example.org]
+
+    TASK: [Rolling back - Ending playbook] ********************* 
+    failed: [host1.example.org] => {"failed": true}
+    msg: Configuration file is not valid. Please check that before re-running the playbook.
+
+    FATAL: all hosts have already failed -- aborting
+
+    PLAY RECAP ********************* 
+    host1.example.org              : ok=7    changed=4    unreachable=0    failed=1    
+
+Seemed to work as expected. Let's try to restart apache to see if it really worked 
+:
+
+    $ ansible -m service -a 'name=apache2 state=restarted' host1.example.org
+    host1.example.org | success >> {
+        "changed": true, 
+        "name": "apache2", 
+        "state": "started"
+    }
+
+Ok, now our apache is safe from misconfiguration here.
+
+While this sounds like a lot of work, it isn't. Remember you can use variables
+almost  everywhere, so it's easy to make this a general playbook for apache,
+and use it everywhere  to deploy your virtualhosts. You do it once, use it
+everywhere. we'll do that in step 9 but for now, let's deploy our web site
+using git in the next step (`git checkout step-8`, or click
+[here](https://github.com/leucos/ansible-tuto/tree/step-8)).

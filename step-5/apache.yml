@@ -1,0 +1,22 @@
+    - hosts: web
+      tasks:
+        - name: Installs apache web server
+          action: apt pkg=apache2 state=installed
+
+        - name: Push default virtual host configuration
+          action: copy src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640 
+
+        - name: Deactivates the default virtualhost
+          action: command a2dissite default
+
+        - name: Deactivates the default ssl virtualhost
+          action: command a2dissite default-ssl
+
+        - name: Activates our virtualhost
+          action: command a2ensite awesome-app
+          notify:
+            - restart apache
+            
+      handlers:
+        - name: restart apache
+          action: service name=apache2 state=restarted

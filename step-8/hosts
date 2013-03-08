@@ -1,0 +1,4 @@
+127.0.0.1 ansible_python_interpreter=python2
+
+[web]
+host1.example.org ansible_ssh_host=192.168.0.134
