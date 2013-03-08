@@ -128,7 +128,7 @@ Sure our playbook can install apache server, but it could be a bit more
 complete. It could add a virtualhost, ensure apache is restarted. It could
 event deploy our web site  from a git repository. Let's "[make it so][]"
 
-Head to next step with `git checkout step-5` (or click
-[here](https://github.com/leucos/ansible-tuto/tree/step-5)).
+Head to next step in `./step-5` (or click
+[here](https://github.com/leucos/ansible-tuto/tree/master/step-5)).
 
 [make it so]: https://www.google.fr/search?q=Michael+DeHaan+%22make+it+so%22 "© Michael DeHaan"

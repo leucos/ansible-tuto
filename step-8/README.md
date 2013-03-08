@@ -142,5 +142,5 @@ only the part that takes care of deployment. tags allows you to do it :
 
 See ?
 
-Ok, let's deploy another web server in the next step (`git checkout step-9`, or click
-[here](https://github.com/leucos/ansible-tuto/tree/step-9)).
+Ok, let's deploy another web server in the next step (`./step-9`, or click
+[here](https://github.com/leucos/ansible-tuto/tree/master/step-9)).

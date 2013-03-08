@@ -82,5 +82,5 @@ Pretty cool ! Well, thinking of it, we're getting ahead of ourselves here. Shoul
 we check that the config is ok before restarting apache ? This way we won't end up 
 interrupting the service if our configuration file is incorrect.
 
-Lets do that in the next step (`git checkout step-6`, or click
-[here](https://github.com/leucos/ansible-tuto/tree/step-6)).
+Lets do that in the next step (`./step-6`, or click
+[here](https://github.com/leucos/ansible-tuto/tree/master/step-6)).
