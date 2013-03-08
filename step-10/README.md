@@ -88,7 +88,6 @@ We didn't do all this work for nothing. Deploying another web server is dead sim
     host1.example.org              : ok=11   changed=4    unreachable=0    failed=0    
     host2.example.org              : ok=11   changed=9    unreachable=0    failed=0    
 
-
 All we had to do was to remove `-l host1.example.org` from our command line. Remember 
 `-l` is a switch that limits the playbook run on specific hosts. Now that we don't 
 limit anymore, it will run on all hosts where the playbook is intended to run on 
@@ -97,5 +96,6 @@ limit anymore, it will run on all hosts where the playbook is intended to run on
 If we had other servers in group `web` but wanted to limit the playbook to a subset, 
 we could have used, for instance : `-l firsthost:secondhost:...`.
 
-Now that we have this nice cluster of web servers, let's put a load balancer
-in front of  it in [step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11)).
+Now that we have this nice farm of web servers, let's turn it into a cluster,
+putting a load balancer in front of them in [step-11](https://github.com/leucos
+/ansible-tuto/tree/master/step-11)).
