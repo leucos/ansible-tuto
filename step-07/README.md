@@ -70,7 +70,7 @@ contains a failed status.
 
 Here we go :
 
-    $ ansible-playbook -i hosts -l host1.example.org step-7/apache.yml
+    $ ansible-playbook -i hosts -l host1.example.org step-07/apache.yml
 
     PLAY [web] ********************* 
 
@@ -125,5 +125,5 @@ While this sounds like a lot of work, it isn't. Remember you can use variables
 almost  everywhere, so it's easy to make this a general playbook for apache,
 and use it everywhere  to deploy your virtualhosts. You do it once, use it
 everywhere. we'll do that in step 9 but for now, let's deploy our web site
-using git in the next step (`./step-8`, or click
-[here](https://github.com/leucos/ansible-tuto/tree/master/step-8)).
+using git in the next step (`./step-08`, or click
+[here](https://github.com/leucos/ansible-tuto/tree/master/step-08)).

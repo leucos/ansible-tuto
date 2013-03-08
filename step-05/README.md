@@ -52,7 +52,7 @@ Now, a quick update to our apache playbook and we're set :
 
 Here we go :
 
-    $ ansible-playbook -i hosts -l host1.example.org step-5/apache.yml
+    $ ansible-playbook -i hosts -l host1.example.org step-05/apache.yml
 
     PLAY [web] ********************* 
 
@@ -82,5 +82,5 @@ Pretty cool ! Well, thinking of it, we're getting ahead of ourselves here. Shoul
 we check that the config is ok before restarting apache ? This way we won't end up 
 interrupting the service if our configuration file is incorrect.
 
-Lets do that in the next step (`./step-6`, or click
-[here](https://github.com/leucos/ansible-tuto/tree/master/step-6)).
+Lets do that in the next step (`./step-06`, or click
+[here](https://github.com/leucos/ansible-tuto/tree/master/step-06)).

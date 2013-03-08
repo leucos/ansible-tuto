@@ -33,6 +33,6 @@ connect, it will use your current username by default. If you don't have your
 own SSH key  in your `authorized_keys` file, you'll need to type your password
 (an  tell ansible to ask for it). This is why --ask-pass is used.
 
-Now head to next step in directory `./step-2` (or click
-[here](https://github.com/leucos/ansible-tuto/tree/master/step-2)).
+Now head to next step in directory `./step-02` (or click
+[here](https://github.com/leucos/ansible-tuto/tree/master/step-02)).
 

@@ -63,7 +63,7 @@ this playbook might be used on other innocent hosts, so let's protect them.
 
 Here we go :
 
-    $ ansible-playbook -i hosts -l host1.example.org step-6/apache.yml
+    $ ansible-playbook -i hosts -l host1.example.org step-06/apache.yml
 
     PLAY [web] ********************* 
 
@@ -98,5 +98,5 @@ Mmmh, not so great in fact... Our virtual host has been added anyway. Any subseq
 apache restart will complain about our config and bail out. So we need a way to catch 
 failures and revert back.
 
-Lets do that in the next step (`./step-7`, or click
-[here](https://github.com/leucos/ansible-tuto/tree/master/step-7)).
+Lets do that in the next step (`./step-07`, or click
+[here](https://github.com/leucos/ansible-tuto/tree/master/step-07)).

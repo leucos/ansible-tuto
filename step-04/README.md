@@ -42,7 +42,7 @@ All in all, this was quite easy !
 
 You can run the playbook (let's it's called `apache.yml`) :
 
-    ansible-playbook -i hosts -l host1.example.org step-4/apache.yml
+    ansible-playbook -i hosts -l host1.example.org step-04/apache.yml
 
 Here, `hosts` is the inventory file, `-l` limits run to `host1.example.org`
 and `apache.yml` is our playbook.
@@ -103,7 +103,7 @@ change anything).
 
 Now let's try to run it again and see what happens :
 
-$ ansible-playbook -i hosts -l host1.example.org step-4/apache.yml
+$ ansible-playbook -i hosts -l host1.example.org step-04/apache.yml
 
     PLAY [web] ********************* 
 
@@ -128,7 +128,7 @@ Sure our playbook can install apache server, but it could be a bit more
 complete. It could add a virtualhost, ensure apache is restarted. It could
 event deploy our web site  from a git repository. Let's "[make it so][]"
 
-Head to next step in `./step-5` (or click
-[here](https://github.com/leucos/ansible-tuto/tree/master/step-5)).
+Head to next step in `./step-05` (or click
+[here](https://github.com/leucos/ansible-tuto/tree/master/step-05)).
 
 [make it so]: https://www.google.fr/search?q=Michael+DeHaan+%22make+it+so%22 "© Michael DeHaan"

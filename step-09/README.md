@@ -1,8 +1,8 @@
 Ansible tutorial
 ================
 
-Deploying our webstire from git
--------------------------------
+Deploying our website from git
+------------------------------
 
 We've instaled apache, pushed our virtualhost and restarted the server safely.
 Now we'll use the git module to deploy our application.
@@ -70,7 +70,7 @@ We also need to clone our application's git repository.
 
 Here we go :
 
-    $ ansible-playbook -i hosts -l host1.example.org step-9/apache.yml
+    $ ansible-playbook -i hosts -l host1.example.org step-09/apache.yml
 
     PLAY [web] ********************* 
 
@@ -126,7 +126,7 @@ Note the `tags: deploy` line ? It allow you to execute just a part of the playbo
 Let's say you push a new version for your site. You want to speed up and execute 
 only the part that takes care of deployment. tags allows you to do it :
 
-    $ ansible-playbook -i hosts -l host1.example.org step-9/apache.yml -t deploy 
+    $ ansible-playbook -i hosts -l host1.example.org step-09/apache.yml -t deploy 
     X11 forwarding request failed on channel 0
 
     PLAY [web] ********************* 
@@ -142,5 +142,5 @@ only the part that takes care of deployment. tags allows you to do it :
 
 See ?
 
-Ok, let's deploy another web server in the next step (`./step-9`, or click
-[here](https://github.com/leucos/ansible-tuto/tree/master/step-9)).
+Ok, let's deploy another web server in the next step (`./step-09`, or click
+[here](https://github.com/leucos/ansible-tuto/tree/master/step-09)).

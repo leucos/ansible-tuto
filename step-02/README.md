@@ -187,7 +187,7 @@ select hosts](http://ansible.cc/docs/patterns.html#selecting-targets) :
 '.example.com' (just like a shell glob too)
 
 There are other ways that involve groups, we'll see that in the [next
-step](https://github.com/leucos/ansible-tuto/tree/master/step-3).
+step](https://github.com/leucos/ansible-tuto/tree/master/step-03).
 
-Now head to next step in `./step-3` (or click above).
+Now head to next step in `./step-03` (or click above).
 
