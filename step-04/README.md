@@ -24,7 +24,7 @@ Note: remember you can (an probably should here) use `ansible_ssh_host` to set
 the real IP of the host. You can also change the inventory and use a real hostname.
 In any case, use a non-critical machine to play with !
 
-Let' build a playbook that will install apache on machines in the `web` group.
+Let's build a playbook that will install apache on machines in the `web` group.
 
     - hosts: web
       tasks:
@@ -40,7 +40,7 @@ informative when the playbook is run so it's highly recommended.
 
 All in all, this was quite easy !
 
-You can run the playbook (let's it's called `apache.yml`) :
+You can run the playbook (let's call it `apache.yml`) :
 
     ansible-playbook -i step-04/hosts -l host1.example.org step-04/apache.yml
 
