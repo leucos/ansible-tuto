@@ -24,8 +24,7 @@ Jinja2 templates also support conditionals, for-loops, etc...
 
 Let's make a `templates/` directory and create a Jinja template inside. We'll
 call  it `haproxy.cfg.j2`. We use the `.j2` extension by convention, to make
-it obvious that this  is a Jinja2 template, but this is by no means
-necessary.
+it obvious that this  is a Jinja2 template, but this is not necessary.
 
     listen cluster
         bind {{ ansible_eth1['ipv4']['address'] }}:80
@@ -39,7 +38,7 @@ necessary.
 
 We have many new things going on here. 
 
-First, `{{ ansible_eth1['ipv4']['address'] }}` will be replaced by the _default_ 
+First, `{{ ansible_eth1['ipv4']['address'] }}` will be replaced by the 
 IP of the load balancer on eth1. 
 
 Then, we have an `{% if ...` block. This block will only be rendered if the test 
