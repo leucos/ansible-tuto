@@ -171,7 +171,7 @@ TODO: This is annoying. Find a way.
     PLAY RECAP ********************* 
     host0.example.org              : ok=5    changed=4    unreachable=0    failed=0    
 
-Looks good. Now heat to [http://host0.example.com/](http://host0.example.com/) and 
+Looks good. Now heat to [http://host0.example.org/](http://host0.example.org/) and 
 see the result. Your cluster is deployed !
 
 _TBC_ [step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11).
