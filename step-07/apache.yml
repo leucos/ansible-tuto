@@ -1,7 +1,7 @@
     - hosts: web
       tasks:
         - name: Installs apache web server
-          action: apt pkg=apache2 state=installed
+          action: apt pkg=apache2 state=installed update_cache=true
 
         - name: Push future default virtual host configuration
           action: copy src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640

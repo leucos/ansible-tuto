@@ -29,11 +29,11 @@ Let' build a playbook that will install apache on machines in the `web` group.
     - hosts: web
       tasks:
         - name: Installs apache web server
-          action: apt pkg=apache2 state=installed
+          action: apt pkg=apache2 state=installed update_cache=true
 
 We just need to say want we want to do using the right ansible module. Here,
 we're using the [apt](http://ansible.cc/docs/modules.html#apt) module that
-can install debian packages.
+can install debian packages. We also ask this module to update the package cache.
 
 We also added a name for this task. While this is not necessary, it's very
 informative when the playbook is run so it's highly recommended.
@@ -42,19 +42,10 @@ All in all, this was quite easy !
 
 You can run the playbook (let's it's called `apache.yml`) :
 
-    ansible-playbook -i hosts -l host1.example.org step-04/apache.yml
+    ansible-playbook -i step-04/hosts -l host1.example.org step-04/apache.yml
 
-Here, `hosts` is the inventory file, `-l` limits run to `host1.example.org`
+Here, `step-04/hosts` is the inventory file, `-l` limits run to `host1.example.org`
 and `apache.yml` is our playbook.
-
-As stated earlier, if you don't want to use `-i hosts` every time, you can
-just set ANSIBLE_HOSTS environment variable like this (assuming inventory
-resides in your current directory) :
-    
-    export ANSIBLE_HOSTS=`pwd`/hosts
-
-You could also put your inventory in the default location (`/etc/ansible/hosts`) 
-or set it's path in `~/ansible.cfg` (we'll talk about `ansible.cfg` later).
 
 When you run the above command, you should see something like :
 
@@ -103,7 +94,7 @@ change anything).
 
 Now let's try to run it again and see what happens :
 
-    $ ansible-playbook -i hosts -l host1.example.org step-04/apache.yml
+    $ ansible-playbook -i step-04/hosts -l host1.example.org step-04/apache.yml
 
     PLAY [web] ********************* 
 

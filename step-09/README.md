@@ -25,36 +25,36 @@ what you would do in a classic situation).
 
 # Building another web server
 
-We didn't do all this work for nothing. Deploying another web server is dead simple 
-:
+We didn't do all this work for nothing. Deploying another web server is dead 
+simple :
 
-    $ ansible-playbook -i hosts step-09/apache.yml
+    $ ansible-playbook -i step-09/hosts step-09/apache.yml
 
     PLAY [web] ********************* 
 
     GATHERING FACTS ********************* 
+    ok: [host2.example.org]
+    ok: [host1.example.org]
+
+    TASK: [Updates apt cache] ********************* 
     ok: [host1.example.org]
     ok: [host2.example.org]
 
-    TASK: [Installs apache web server] ********************* 
-    ok: [host1.example.org]
-    changed: [host2.example.org]
-
-    TASK: [Installs php5 module] ********************* 
-    ok: [host1.example.org]
-    changed: [host2.example.org]
+    TASK: [Installs necessary packages] ********************* 
+    ok: [host1.example.org] => (item=apache2,libapache2-mod-php5,git)
+    changed: [host2.example.org] => (item=apache2,libapache2-mod-php5,git)
 
     TASK: [Push future default virtual host configuration] ********************* 
     ok: [host1.example.org]
     changed: [host2.example.org]
 
     TASK: [Activates our virtualhost] ********************* 
-    ok: [host1.example.org]
     changed: [host2.example.org]
+    changed: [host1.example.org]
 
     TASK: [Check that our config is valid] ********************* 
-    changed: [host1.example.org]
     changed: [host2.example.org]
+    changed: [host1.example.org]
 
     TASK: [Rolling back - Restoring old default virtualhost] ********************* 
     skipping: [host1.example.org]
@@ -74,10 +74,10 @@ We didn't do all this work for nothing. Deploying another web server is dead sim
 
     TASK: [Deactivates the default virtualhost] ********************* 
     changed: [host1.example.org]
-    changed: [host1.example.org]
+    changed: [host2.example.org]
 
     TASK: [Deactivates the default ssl virtualhost] ********************* 
-    changed: [host1.example.org]
+    changed: [host2.example.org]
     changed: [host1.example.org]
 
     NOTIFIED: [restart apache] ********************* 
@@ -85,8 +85,8 @@ We didn't do all this work for nothing. Deploying another web server is dead sim
     changed: [host2.example.org]
 
     PLAY RECAP ********************* 
-    host1.example.org              : ok=11   changed=4    unreachable=0    failed=0    
-    host2.example.org              : ok=11   changed=9    unreachable=0    failed=0    
+    host1.example.org              : ok=10   changed=5    unreachable=0    failed=0    
+    host2.example.org              : ok=10   changed=8    unreachable=0    failed=0    
 
 All we had to do was to remove `-l host1.example.org` from our command line. Remember 
 `-l` is a switch that limits the playbook run on specific hosts. Now that we don't 

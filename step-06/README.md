@@ -37,7 +37,7 @@ this playbook might be used on other innocent hosts, so let's protect them.
     - hosts: web
       tasks:
         - name: Installs apache web server
-          action: apt pkg=apache2 state=installed
+          action: apt pkg=apache2 state=installed update_cache=true
 
         - name: Push future default virtual host configuration
           action: copy src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640
@@ -63,7 +63,7 @@ this playbook might be used on other innocent hosts, so let's protect them.
 
 Here we go :
 
-    $ ansible-playbook -i hosts -l host1.example.org step-06/apache.yml
+    $ ansible-playbook -i step-06/hosts -l host1.example.org step-06/apache.yml
 
     PLAY [web] ********************* 
 
@@ -74,7 +74,7 @@ Here we go :
     ok: [host1.example.org]
 
     TASK: [Push future default virtual host configuration] ********************* 
-    ok: [host1.example.org]
+    changed: [host1.example.org]
 
     TASK: [Activates our virtualhost] ********************* 
     changed: [host1.example.org]
@@ -89,9 +89,9 @@ Here we go :
     FATAL: all hosts have already failed -- aborting
 
     PLAY RECAP ********************* 
-    host1.example.org              : ok=4    changed=1    unreachable=0    failed=1    
+    host1.example.org              : ok=4    changed=2    unreachable=0    failed=1    
 
-See ? Since `apache2ctl` returns  with an exit code of 1 when it fails, ansible is 
+See ? Since `apache2ctl` returns with an exit code of 1 when it fails, ansible is 
 aware of it and stops processing. Great !
 
 Mmmh, not so great in fact... Our virtual host has been added anyway. Any subsequent 

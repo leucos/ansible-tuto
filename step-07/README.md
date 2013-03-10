@@ -23,7 +23,7 @@ processing if there is a failure but only to revert what we've done.
     - hosts: web
       tasks:
         - name: Installs apache web server
-          action: apt pkg=apache2 state=installed
+          action: apt pkg=apache2 state=installed update_cache=true
 
         - name: Push future default virtual host configuration
           action: copy src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640
@@ -67,7 +67,7 @@ contains a failed status.
 
 Here we go :
 
-    $ ansible-playbook -i hosts -l host1.example.org step-07/apache.yml
+    $ ansible-playbook -i step-07/hosts -l host1.example.org step-07/apache.yml
 
     PLAY [web] ********************* 
 
@@ -84,7 +84,7 @@ Here we go :
     changed: [host1.example.org]
 
     TASK: [Check that our config is valid] ********************* 
-    failed: [host1.example.org] => {"changed": true, "cmd": ["apache2ctl", "configtest"], "delta": "0:00:00.045160", "end": "2013-03-08 16:32:54.954864", "rc": 1, "start": "2013-03-08 16:32:54.909704"}
+    failed: [host1.example.org] => {"changed": true, "cmd": ["apache2ctl", "configtest"], "delta": "0:00:00.051874", "end": "2013-03-10 10:50:17.714105", "rc": 1, "start": "2013-03-10 10:50:17.662231"}
     stderr: Syntax error on line 2 of /etc/apache2/sites-enabled/awesome-app:
     Invalid command 'RocumentDoot', perhaps misspelled or defined by a module not included in the server configuration
     stdout: Action 'configtest' failed.
@@ -109,7 +109,7 @@ Here we go :
 Seemed to work as expected. Let's try to restart apache to see if it really worked 
 :
 
-    $ ansible -m service -a 'name=apache2 state=restarted' host1.example.org
+    $ ansible -i step-07/hosts -m service -a 'name=apache2 state=restarted' host1.example.org
     host1.example.org | success >> {
         "changed": true, 
         "name": "apache2", 

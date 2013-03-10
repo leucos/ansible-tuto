@@ -30,7 +30,7 @@ Now, a quick update to our apache playbook and we're set :
     - hosts: web
       tasks:
         - name: Installs apache web server
-          action: apt pkg=apache2 state=installed
+          action: apt pkg=apache2 state=installed update_cache=true
 
         - name: Push default virtual host configuration
           action: copy src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640 
@@ -52,7 +52,7 @@ Now, a quick update to our apache playbook and we're set :
 
 Here we go :
 
-    $ ansible-playbook -i hosts -l host1.example.org step-05/apache.yml
+    $ ansible-playbook -i step-05/hosts -l host1.example.org step-05/apache.yml
 
     PLAY [web] ********************* 
 
@@ -63,9 +63,12 @@ Here we go :
     ok: [host1.example.org]
 
     TASK: [Push default virtual host configuration] ********************* 
-    ok: [host1.example.org]
+    changed: [host1.example.org]
 
-    TASK: [Deactivates default virtualhost] ********************* 
+    TASK: [Deactivates the default virtualhost] ********************* 
+    changed: [host1.example.org]
+
+    TASK: [Deactivates the default ssl virtualhost] ********************* 
     changed: [host1.example.org]
 
     TASK: [Activates our virtualhost] ********************* 
@@ -75,8 +78,7 @@ Here we go :
     changed: [host1.example.org]
 
     PLAY RECAP ********************* 
-    host1.example.org              : ok=6    changed=4    unreachable=0    failed=0    
-
+    host1.example.org              : ok=7    changed=5    unreachable=0    failed=0    
 
 Pretty cool ! Well, thinking of it, we're getting ahead of ourselves here. Shouldn't 
 we check that the config is ok before restarting apache ? This way we won't end up 

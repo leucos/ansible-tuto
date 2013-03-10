@@ -152,8 +152,8 @@ We saw that `all` means 'all hosts', but ansible provides a
 - `host*.example.org` would run on all hosts starting with 'host' and ending with 
 '.example.org' (just like a shell glob too)
 
-There are other ways that involve groups, we'll see that in the [next
-step](https://github.org/leucos/ansible-tuto/tree/master/step-03).
+There are other ways that involve groups, we'll see that in the 
+[next step](https://github.org/leucos/ansible-tuto/tree/master/step-03).
 
 Now head to next step in `./step-03` (or click above).
 

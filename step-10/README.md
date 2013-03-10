@@ -28,22 +28,19 @@ it obvious that this  is a Jinja2 template, but this is by no means
 necessary.
 
     listen cluster
-        bind {{ ansible_default_ipv4['address'] }}
+        bind {{ ansible_eth1['ipv4']['address'] }}:80
         mode http
-    {% if admin_socket %}
-        stats socket /etc/haproxy/haproxysock level admin
-    {% endif %}
+        stats enable
         balance roundrobin
     {% for backend in groups['web'] %}
-        server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_eth0']['ipv4']['address'] }} cookie {{ hostvars[backend]['ansible_hostname'] }} check port 80
+        server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_eth1']['ipv4']['address'] }} check port 80
     {% endfor %}
         option httpchk HEAD /index.php HTTP/1.0
 
 We have many new things going on here. 
 
-First, `{{ ansible_default_ipv4['address'] }}` will be replaced by the _default_ 
-IP of the load balancer. The default IP address is in fact the first. For more control 
-on which interface we start the listener, we could have used `ansible_eth0['ipv4']['address']`.
+First, `{{ ansible_eth1['ipv4']['address'] }}` will be replaced by the _default_ 
+IP of the load balancer on eth1. 
 
 Then, we have an `{% if ...` block. This block will only be rendered if the test 
 is true. So if we define `admin_socket` somewhere for our loadbalancer (we might 
@@ -69,12 +66,17 @@ configure HAproxy is a breeze :
     - hosts: haproxy
       tasks:
         - name: Installs haproxy load balancer
-          action: apt pkg=haproxy state=installed
+          action: apt pkg=haproxy state=installed update_cache=yes
 
         - name: Pushes configuration
           action: template src=templates/haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg mode=0640 owner=root group=root
           notify:
             - restart haproxy
+
+        - name: Sets default starting flag to 1
+          action: lineinfile dest=/etc/default/haproxy regexp="^ENABLED" line="ENABLED=1"
+          notify:
+            - restart haproxy 
 
       handlers:
         - name: restart haproxy
@@ -88,8 +90,89 @@ necessary for the cluster, we don't need to limit the host list and can even
 run both playbooks. Well, tio tell the truth, we must run both of them at the same time, since the haproxy playbook requres facts _from_ the two webservers. 
 TODO: This is annoying. Find a way.
 
-    $ ansible-playbook all -i hosts step-10/apache.yml step-10/haproxy.yml
+    $ ansible-playbook -i step-10/hosts step-10/apache.yml step-10/haproxy.yml
 
-    # TBC
+    PLAY [web] ********************* 
 
-[step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11).
+    GATHERING FACTS ********************* 
+    ok: [host1.example.org]
+    ok: [host2.example.org]
+
+    TASK: [Updates apt cache] ********************* 
+    ok: [host1.example.org]
+    ok: [host2.example.org]
+
+    TASK: [Installs necessary packages] ********************* 
+    ok: [host1.example.org] => (item=apache2,libapache2-mod-php5,git)
+    ok: [host2.example.org] => (item=apache2,libapache2-mod-php5,git)
+
+    TASK: [Push future default virtual host configuration] ********************* 
+    ok: [host2.example.org]
+    ok: [host1.example.org]
+
+    TASK: [Activates our virtualhost] ********************* 
+    changed: [host1.example.org]
+    changed: [host2.example.org]
+
+    TASK: [Check that our config is valid] ********************* 
+    changed: [host1.example.org]
+    changed: [host2.example.org]
+
+    TASK: [Rolling back - Restoring old default virtualhost] ********************* 
+    skipping: [host1.example.org]
+    skipping: [host2.example.org]
+
+    TASK: [Rolling back - Removing out virtualhost] ********************* 
+    skipping: [host1.example.org]
+    skipping: [host2.example.org]
+
+    TASK: [Rolling back - Ending playbook] ********************* 
+    skipping: [host1.example.org]
+    skipping: [host2.example.org]
+
+    TASK: [Deploy our awesome application] ********************* 
+    ok: [host2.example.org]
+    ok: [host1.example.org]
+
+    TASK: [Deactivates the default virtualhost] ********************* 
+    changed: [host1.example.org]
+    changed: [host2.example.org]
+
+    TASK: [Deactivates the default ssl virtualhost] ********************* 
+    changed: [host2.example.org]
+    changed: [host1.example.org]
+
+    NOTIFIED: [restart apache] ********************* 
+    changed: [host2.example.org]
+    changed: [host1.example.org]
+
+    PLAY RECAP ********************* 
+    host1.example.org              : ok=10   changed=5    unreachable=0    failed=0    
+    host2.example.org              : ok=10   changed=5    unreachable=0    failed=0    
+
+
+
+    PLAY [haproxy] ********************* 
+
+    GATHERING FACTS ********************* 
+    ok: [host0.example.org]
+
+    TASK: [Installs haproxy load balancer] ********************* 
+    changed: [host0.example.org]
+
+    TASK: [Pushes configuration] ********************* 
+    changed: [host0.example.org]
+
+    TASK: [Sets default starting flag to 1] ********************* 
+    changed: [host0.example.org]
+
+    NOTIFIED: [restart haproxy] ********************* 
+    changed: [host0.example.org]
+
+    PLAY RECAP ********************* 
+    host0.example.org              : ok=5    changed=4    unreachable=0    failed=0    
+
+Looks good. Now heat to [http://host0.example.com/](http://host0.example.com/) and 
+see the result. Your cluster is deployed !
+
+_TBC_ [step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11).

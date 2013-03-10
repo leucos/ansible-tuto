@@ -49,7 +49,7 @@ not have it's definitive ip address. `ansible_ssh_host` comes handy here.
 Variables can also be set at command line with `--extra-vars` (or `-e`)
 switch when using `ansible-playbook` (but not  with the `ansible` command).
 
-`ansible_ssh_post`, as you can guess, has the same function regarding ssh port ansible 
+`ansible_ssh_port`, as you can guess, has the same function regarding ssh port ansible 
 will try to connect to.
 
     [ubuntu]

@@ -1,10 +1,14 @@
     - hosts: web
       tasks:
-        - name: Installs apache web server
-          action: apt pkg=apache2 state=installed
+        - name: Updates apt cache
+          action: apt update_cache=true
 
-        - name: Installs php5 module
-          action: apt pkg=libapache2-mod-php5 state=installed
+        - name: Installs necessary packages
+          action: apt pkg=$item state=latest 
+          with_items:
+            - apache2
+            - libapache2-mod-php5
+            - git
 
         - name: Push future default virtual host configuration
           action: copy src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640

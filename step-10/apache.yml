@@ -1,10 +1,14 @@
     - hosts: web
       tasks:
-        - name: Installs apache web server
-          action: apt pkg=apache2 state=installed update_cache=yes
+        - name: Updates apt cache
+          action: apt update_cache=true
 
-        - name: Installs php5 module
-          action: apt pkg=libapache2-mod-php5 state=installed
+        - name: Installs necessary packages
+          action: apt pkg=$item state=latest 
+          with_items:
+            - apache2
+            - libapache2-mod-php5
+            - git
 
         - name: Push future default virtual host configuration
           action: copy src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640
@@ -28,9 +32,6 @@
         - name: Rolling back - Ending playbook
           action: fail msg="Configuration file is not valid. Please check that before re-running the playbook."
           when_failed: $result
-
-        - name: Ensure git is installed
-          action: apt pkg=git state=installed
 
         - name: Deploy our awesome application
           action: git repo=https://github.com/leucos/ansible-tuto-demosite.git dest=/var/www/awesome-app
