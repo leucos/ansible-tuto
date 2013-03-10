@@ -6,23 +6,23 @@ it easy to bootstrap barebones virtual machines with VirtualBox.
 
 # Installing Vagrant
 
-In order to run Vagrant, you nedd :
+In order to run Vagrant, you need :
 
 - VirtualBox installed
 - Ruby installed (should be on your system already)
 - Vagrant gem installed :
 
-    gem install vagrant
+`gem install vagrant`
 
 - Vagrant host master gem installed
 
-    vagrant gem install vagrant-hostmaster
+`vagrant gem install vagrant-hostmaster`
 
 This should be all it takes to set up Vagrant.
 
 Now bootstrap your virtual machines with :
 
-    vagrant up
+`vagrant up`
 
 and go grab yourself a coffee (note that if you use vagrant-hostmaster, you'll need 
 to type your password since it needs to sudo as root).
