@@ -2,23 +2,24 @@ Ansible tutorial
 ================
 
 This tutorial presents ansible step-by-step. You'll need to have a (vitual of
-physical) machine to act as an ansible node.
+physical) machine to act as an ansible node. A vagrant environment is provided for 
+going through this tutorial.
 
 Ansible is a configuration management software that let's you control and
 configure nodes from  another machine. What makes it different from other
 management software is that ansible  uses (pottentially existing) SSH
 infrastructure, while others (chef, puppet, ...) need a specific PKI
-infrastructure  to be set-up.
+infrastructure to be set-up.
 
 Ansible also emphasises push mode, where configuration is pushed from a master
-machine  (a master machine is only a machine where you can SSH to nodes) to
+machine (a master machine is only a machine where you can SSH to nodes from) to
 nodes, while most other CM typically do it the other way around (nodes pull
 their config at times from a master machine).
 
-This mode is really intsresting since you do not need to have a publicly
-accessible  'master' to be able to configure remote nodes : it's the nodes
+This mode is really interesting since you do not need to have a publicly
+accessible 'master' to be able to configure remote nodes : it's the nodes
 that need to be accessible (we'll see later that 'hidden' nodes can pull their
-configuration too !), and most of the time they do since they're servers.
+configuration too !), and most of the time they are.
 
 # Prerequisites for Ansible
 
@@ -57,7 +58,7 @@ build it. You need a few packages to build the deb :
     make deb
     sudo dpkg -i ../ansible_1.1_all.deb (version may vary)
 
-We'll assume we're using the deb packages in the rest of this tutorial.
+We'll assume you're using the deb packages in the rest of this tutorial.
 
 # Using Vagrant with the tutorial
 
