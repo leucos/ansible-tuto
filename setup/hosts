@@ -1,0 +1,4 @@
+192.168.33.10 ansible_ssh_user=vagrant
+192.168.33.11 ansible_ssh_user=vagrant
+192.168.33.12 ansible_ssh_user=vagrant
+

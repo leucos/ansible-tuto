@@ -1,0 +1,13 @@
+- hosts: all
+  sudo: True
+  
+  tasks:
+    - name: Pushes user's rsa key to root's vagrant box (it's ok if this TASK fails)
+      action: authorized_key user=root key='$FILE(~/.ssh/id_rsa.pub)'
+      register: rsa
+      ignore_errors: True
+
+    - name: Pushes user's dsa key to root's vagrant box (it's NOT ok if both TASKs fail)
+      action: authorized_key user=root key='$FILE(~/.ssh/id_dsa.pub)'
+      when_failed: $rsa
+

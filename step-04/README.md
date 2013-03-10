@@ -103,7 +103,7 @@ change anything).
 
 Now let's try to run it again and see what happens :
 
-$ ansible-playbook -i hosts -l host1.example.org step-04/apache.yml
+    $ ansible-playbook -i hosts -l host1.example.org step-04/apache.yml
 
     PLAY [web] ********************* 
 

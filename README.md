@@ -20,7 +20,7 @@ accessible  'master' to be able to configure remote nodes : it's the nodes
 that need to be accessible (we'll see later that 'hidden' nodes can pull their
 configuration too !), and most of the time they do since they're servers.
 
-# Prerequisites
+# Prerequisites for Ansible
 
 You need the following python modules on your machine (the machine you run ansible 
 on) 
@@ -31,7 +31,7 @@ on)
 
 We're also assuming you have a keypair in your ~/.ssh directory.
 
-# Installing
+# Installing Ansible
 
 ## From source
 
@@ -59,13 +59,19 @@ build it. You need a few packages to build the deb :
 
 We'll assume we're using the deb packages in the rest of this tutorial.
 
-Now head to the first step in `./step-01` (or click
-[here](https://github.com/leucos/ansible-tuto/tree/master/step-01)).
+# Using Vagrant with the tutorial
+
+It's highly recommended to use Vagrant to follow this tutorial. If you don't have 
+it already, setting up should be quite easy and is described in [setup/README.md](https://github.com/leucos/ansible-tuto/tree/master/setup/README.md).
+
+If you wish to proceed without Vagrant (not recommended !), you go straight to 
+[step-01/README.md](https://github.com/leucos/ansible-tuto/tree/master/step-01).
 
 ## Contents
 
 Just in case you want to skip to a specific step, here is a topic table of contents.
 
+setup. [Vagrant Setup](https://github.com/leucos/ansible-tuto/tree/master/setup)
 01. [Basic inventory](https://github.com/leucos/ansible-tuto/tree/master/step-01)
 02. [First modules and facts](https://github.com/leucos/ansible-tuto/tree/master/step-02)
 03. [Groups and variables](https://github.com/leucos/ansible-tuto/tree/master/step-03)

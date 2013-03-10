@@ -1,12 +1,11 @@
 listen cluster
-    bind {{ ansible_default_ipv4['address'] }}
+    bind {{ ansible_eth1['ipv4']['address'] }}:80
     mode http
 {% if admin_socket %}
     stats socket /etc/haproxy/haproxysock level admin
 {% endif %}
     balance roundrobin
 {% for backend in groups['web'] %}
-    {{ hostvars[backend] | pprint }}    
-    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_eth0']['ipv4']['address'] }} cookie {{ hostvars[backend]['ansible_hostname'] }} check port 80
+    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_eth1']['ipv4']['address'] }} check port 80
 {% endfor %}
     option httpchk HEAD /index.php HTTP/1.0

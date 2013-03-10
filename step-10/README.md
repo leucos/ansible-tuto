@@ -84,12 +84,12 @@ Sounds familiar no ? The only new module here is `template`, which has the same 
 as `copy`. We also restrict this playbook to the group `haproxy`.
 
 And now... let's try this out. Since our inventory contains only hosts
-necessary for the cluster, we don't need to limit the host list, and can even
-run both playbooks (which is not really necessary, since we didn't make any changes 
-to the apache.yml config, but we just want to be sure everythingis fine) :
+necessary for the cluster, we don't need to limit the host list and can even
+run both playbooks. Well, tio tell the truth, we must run both of them at the same time, since the haproxy playbook requres facts _from_ the two webservers. 
+TODO: This is annoying. Find a way.
 
-    $ ansible-playbook -i hosts step-10/apache.yml step-10/haproxy.yml
+    $ ansible-playbook all -i hosts step-10/apache.yml step-10/haproxy.yml
 
     # TBC
 
-[step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11)).
+[step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11).
