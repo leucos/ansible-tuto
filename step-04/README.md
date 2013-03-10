@@ -67,7 +67,7 @@ Let's analyse the output one line at a time.
 
     PLAY [web] ********************* 
 
-Ansible tells us he's running the play on hosts `web`. A play is a suite of ansible 
+Ansible tells us it's running the play on hosts `web`. A play is a suite of ansible 
 instructions related to a host. If we'd have another `-host: blah` line in our playbook, 
 it would show up too (but after the first play has completed).
 
