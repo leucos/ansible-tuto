@@ -64,7 +64,7 @@ We'll assume we're using the deb packages in the rest of this tutorial.
 It's highly recommended to use Vagrant to follow this tutorial. If you don't have 
 it already, setting up should be quite easy and is described in [setup/README.md](https://github.com/leucos/ansible-tuto/tree/master/setup/README.md).
 
-If you wish to proceed without Vagrant (not recommended !), you go straight to 
+If you wish to proceed without Vagrant (not recommended !), go straight to 
 [step-01/README.md](https://github.com/leucos/ansible-tuto/tree/master/step-01).
 
 ## Contents
