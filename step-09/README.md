@@ -12,11 +12,11 @@ Since we have big expectations, we'll add another web server and a load
 balancer we'll configure in the next step. But let's complete the inventory now.
 
     [web]
-    host1.example.org ansible_ssh_host=192.168.0.134
-    host2.example.org ansible_ssh_host=192.168.0.135
+    host1.example.org ansible_ssh_host=192.168.33.11
+    host2.example.org ansible_ssh_host=192.168.33.12
 
     [haproxy]
-    host0.example.org ansible_ssh_host=192.168.0.136
+    host0.example.org ansible_ssh_host=192.168.33.10
 
 Remember we're specifying `ansible_ssh_host` here because the host has a
 different IP than expected (or can't be resolved). You could add these hosts
