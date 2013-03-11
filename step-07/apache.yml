@@ -6,6 +6,9 @@
         - name: Push future default virtual host configuration
           action: copy src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640
 
+        - name: Deactivates the default virtualhost
+          action: command a2dissite default
+
         - name: Activates our virtualhost
           action: command a2ensite awesome-app
 
@@ -26,9 +29,6 @@
           action: fail msg="Configuration file is not valid. Please check that before re-running the playbook."
           when_failed: $result
         
-        - name: Deactivates the default virtualhost
-          action: command a2dissite default
-
         - name: Deactivates the default ssl virtualhost
           action: command a2dissite default-ssl
 
