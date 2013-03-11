@@ -17,8 +17,7 @@
 
         - name: Deactivates the default ssl virtualhost
           action: command a2dissite default-ssl
-
-          notify:
+          notify: 
             - restart apache
 
       handlers:
