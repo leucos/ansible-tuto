@@ -19,7 +19,7 @@ it doesn't take any argument. Most modules take arguments, passed via the
 
 This module let's you execute a shell command on the remote host :
 
-    ansible -m shell -a 'uname -a' host0.example.org
+    ansible -i step-02/hosts m shell -a 'uname -a' host0.example.org
 
 might reply :
 
@@ -33,7 +33,7 @@ Easy !
 No surprise, with this module you can copy a file from the controlling machine to 
 the node. Let's say we want to copy our `/etc/motd` in `/tmp` of our target node :
 
-    ansible -m copy -a 'src=/etc/motd dest=/tmp/' host0.example.org
+    ansible -i step-02/hosts -m copy -a 'src=/etc/motd dest=/tmp/' host0.example.org
 
 might reply :
 
@@ -65,7 +65,7 @@ other hosts too.
 Let's say we want to know which Ubuntu version we have deployed on the nodes,
 it's pretty easy :
 
-    ansible -m shell -a 'grep DISTRIB_RELEASE /etc/lsb-release' all
+    ansible -i step-02/hosts -m shell -a 'grep DISTRIB_RELEASE /etc/lsb-release' all
 
 `all` is a shortcut meaning 'all hosts found in inventory file'. It would
 return :

@@ -48,7 +48,7 @@ Now, a quick update to our apache playbook and we're set :
 
       handlers:
         - name: restart apache
-          action: service name=httpd state=restarted
+          action: service name=apache2 state=restarted
 
 Here we go :
 

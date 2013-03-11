@@ -53,7 +53,7 @@ switch when using `ansible-playbook` (but not  with the `ansible` command).
 will try to connect to.
 
     [ubuntu]
-    host0.exxample.org ansible_ssh_host=192.168.0.12 ansible_ssh_port=2222
+    host0.example.org ansible_ssh_host=192.168.0.12 ansible_ssh_port=2222
 
 Ansible will look for additional variables definitions in group and host variable 
 files. These files will be searched in directories `group_vars` and `host_vars`, 
