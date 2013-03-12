@@ -1,8 +1,8 @@
 Ansible tutorial
 ================
 
-Variables
----------
+Variables again
+---------------
 
 So we've set-up our loadbalancer, and it works quite fine. We grabbed variables from 
 facts and used them to buid the configuration. But Ansible also supports other kinds 
