@@ -11,8 +11,6 @@ defined in `host_vars` and `group_vars` files.
 
 # Fine tuning our HAProxy configuration
 
-// check interval
-//weight
 HAProxy usually checks if the backends are alive. When a backend seems dead, it is 
 removed from the backend pool and HAproxy doesn't sends requests anymore to it.
 
