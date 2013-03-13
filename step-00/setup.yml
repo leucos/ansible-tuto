@@ -2,6 +2,13 @@
   sudo: True
   
   tasks:
+    # This should work too / #2372
+    # - name: Pushes user key to root's on vagrant boxes
+    #   action: authorized_key key=$FILE($item) user=root
+    #   first_available_file:
+    #     - ~/.ssh/id_dsa.pub
+    #     - ~/.ssh/id_rsa.pub
+
     - name: Creates destination directory
       # Workaround for #2372
       file: state=directory mode=0700 dest=/root/.ssh/
