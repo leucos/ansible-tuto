@@ -174,4 +174,4 @@ TODO: This is annoying. Find a way.
 Looks good. Now heat to [http://host0.example.org/](http://host0.example.org/) and 
 see the result. Your cluster is deployed !
 
-_TBC_ [step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11).
+Now on to the last chapter about [variables again](https://github.com/leucos/ansible-tuto/tree/master/step-11).

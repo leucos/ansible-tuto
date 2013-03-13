@@ -83,4 +83,4 @@ Just in case you want to skip to a specific step, here is a topic table of conte
 - [08. Git module](https://github.com/leucos/ansible-tuto/tree/master/step-08)
 - [09. Extending to several hosts](https://github.com/leucos/ansible-tuto/tree/master/step-09)
 - [10. Templates](https://github.com/leucos/ansible-tuto/tree/master/step-10)
-- [11. Variable again](https://github.com/leucos/ansible-tuto/tree/master/step-11)
+- [11. Variables again](https://github.com/leucos/ansible-tuto/tree/master/step-11)
