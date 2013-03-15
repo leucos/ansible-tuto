@@ -4,11 +4,11 @@ Ansible tutorial
 Refining apache setup
 ---------------------
 
-We've instaled apache, let's add setting up our virtualhost.
+We've instaled apache, now lets set up our virtualhost.
 
 # Refining the playbook
 
-In fact, we just need one virtualhost on our server, but want to replace the
+We need just one virtualhost on our server, but we want to replace the
 default one with something more specific.
 So we'll have to remove the current (presumably `default`) virtualhost, send our 
 virtualhost, activate it and restart apache.
@@ -80,8 +80,8 @@ Here we go :
     PLAY RECAP ********************* 
     host1.example.org              : ok=7    changed=5    unreachable=0    failed=0    
 
-Pretty cool ! Well, thinking of it, we're getting ahead of ourselves here. Shouldn't 
-we check that the config is ok before restarting apache ? This way we won't end up 
+Pretty cool! Well, thinking about it, we're getting ahead of ourselves here. Shouldn't 
+we check that the config is ok before restarting apache? This way we won't end up 
 interrupting the service if our configuration file is incorrect.
 
 Lets do that in the next step (`./step-06`, or click
