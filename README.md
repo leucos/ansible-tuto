@@ -1,7 +1,7 @@
 Ansible tutorial
 ================
 
-This tutorial presents ansible step-by-step. You'll need to have a (vitual of
+This tutorial presents ansible step-by-step. You'll need to have a (virtual or
 physical) machine to act as an ansible node. A vagrant environment is provided for 
 going through this tutorial.
 
@@ -19,7 +19,7 @@ their config at times from a master machine).
 This mode is really interesting since you do not need to have a publicly
 accessible 'master' to be able to configure remote nodes : it's the nodes
 that need to be accessible (we'll see later that 'hidden' nodes can pull their
-configuration too !), and most of the time they are.
+configuration too!), and most of the time they are.
 
 # Prerequisites for Ansible
 
@@ -28,6 +28,7 @@ on)
 - python-yaml
 - python-jinja2
 
+On Debian/Ubuntu run:
 ``sudo apt-get install python-yaml python-jinja2 python-paramiko python-crypt``
 
 We're also assuming you have a keypair in your ~/.ssh directory.
