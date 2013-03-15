@@ -4,38 +4,37 @@ Ansible tutorial
 Talking with nodes
 ------------------
 
-Now we're good to go, les play with the command we saw in the previous chapter : 
-`ansible`. This command is the first of the three ansible provides that interacts 
+Now we're good to go. Let's play with the command we saw in the previous chapter: 
+`ansible`. This command is the first one of three that ansible provides which interact 
 with nodes.
 
 # Doing something useful
 
-In the previous command, the `-m ping` means "use module _ping_". This module is
-one of many modules available with ansible. `ping` module is really simple :
-it doesn't take any argument. Most modules take arguments, passed via the
-`-a` switch. Let's see a few other modules.
+In the previous command, `-m ping` means "use module _ping_". This module is
+one of many available with ansible. `ping` module is really simple, it doesn't need any arguments.
+Modules that take arguments pass them via `-a` switch. Let's see a few other modules.
 
 ## Shell module
 
-This module let's you execute a shell command on the remote host :
+This module lets you execute a shell command on the remote host:
 
-    ansible -i step-02/hosts m shell -a 'uname -a' host0.example.org
+    ansible -i step-02/hosts -m shell -a 'uname -a' host0.example.org
 
-might reply :
+Output should look like:
 
     host0.example.org | success | rc=0 >>
     Linux host0.example.org 3.2.0-23-generic-pae #36-Ubuntu SMP Tue Apr 10 22:19:09 UTC 2012 i686 i686 i386 GNU/Linux
 
-Easy !
+Easy!
 
 ## Copy module
 
 No surprise, with this module you can copy a file from the controlling machine to 
-the node. Let's say we want to copy our `/etc/motd` in `/tmp` of our target node :
+the node. Lets say we want to copy our `/etc/motd` to `/tmp` of our target node:
 
     ansible -i step-02/hosts -m copy -a 'src=/etc/motd dest=/tmp/' host0.example.org
 
-might reply :
+Output should look similar to:
 
     host0.example.org | success >> {
         "changed": true, 
@@ -49,8 +48,8 @@ might reply :
         "state": "file"
     }
 
-Ansibles (in fact, the _copy_ module executed on the node) replies back a bunch of 
-useful information (in JSON actually). We'll see how that can be used later.
+Ansible (more accurately _copy_ module executed on the node) replied back a bunch of 
+useful information in JSON format. We'll see how that can be used later.
 
 We'll see other useful modules below. Ansible has a huge 
 [module list](http://ansible.cc/docs/modules.html) that covers almost anything you
@@ -59,11 +58,11 @@ easy (it doesn't even have to be Python, it just needs to speak JSON).
 
 # Many hosts, same command
 
-Ok, the above stuff is fun, but we have node__s__ to manage. Let's try that on
+Ok, the above stuff is fun, but we have many nodes to manage. Let's try that on
 other hosts too.
 
-Let's say we want to know which Ubuntu version we have deployed on the nodes,
-it's pretty easy :
+Lets say we want to know which Ubuntu version we have deployed on nodes,
+it's pretty easy:
 
     ansible -i step-02/hosts -m shell -a 'grep DISTRIB_RELEASE /etc/lsb-release' all
 
@@ -79,12 +78,12 @@ return :
     host0.example.org | success | rc=0 >>
     DISTRIB_RELEASE=12.04
 
-# Moar facts
+# More facts
 
 Speaking about node facts, there is another really handy module (weirdly)
-called `setup` : it specializes in nodes _facts_ gathering.
+called `setup`: it specializes in node's _facts_ gathering.
 
-Try it up :
+Try it out:
 
     ansible -m setup host0.example.org
 
@@ -98,8 +97,8 @@ replies with lots of information :
         "ansible_architecture": "x86_64", 
         "ansible_bios_date": "01/01/2007", 
         "ansible_bios_version": "Bochs"
-        }, 
-        ... lotsa stuff
+        },
+        ---snip---
         "ansible_virtualization_role": "guest", 
         "ansible_virtualization_type": "kvm"
     }, 
@@ -136,8 +135,8 @@ easy with `ansible -m setup -a 'filter=ansible_memtotal_mb' all` :
         "verbose_override": true
     }
 
-See here ? Hosts replies order is different compared to last previous output. This 
-is because ansible parallelizes communications with hosts !
+Notice that hosts replied in different order compared to the previous output. This 
+is because ansible parallelizes communications with hosts!
 
 BTW, when using the setup module, you can use `*` in the `filter=` expression.
 It will act like a shell glob.
