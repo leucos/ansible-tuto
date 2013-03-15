@@ -4,7 +4,7 @@ Ansible tutorial
 Ansible playbooks
 -----------------
 
-Playbook concept is very simple : it's just a series of ansible commands
+Playbook concept is very simple: it's just a series of ansible commands
 (tasks), like the ones we used with the `ansible` CLI tool. These tasks are
 targeted at a specific set of hosts/groups.
 
@@ -13,41 +13,41 @@ have to type them.
 
 # Apache example (a.k.a. Ansible's "Hello World!")
 
-We assume we have the following inventory file (let's name it `hosts`) :
+We assume we have the following inventory file (let's name it `hosts`):
 
     [web]
     host1.example.org
 
 and all hosts are debian-like.
 
-Note: remember you can (an probably should here) use `ansible_ssh_host` to set
+Note: remember you can (and in our exercise probably should) use `ansible_ssh_host` to set
 the real IP of the host. You can also change the inventory and use a real hostname.
-In any case, use a non-critical machine to play with !
+In any case, use a non-critical machine to play with!
 
-Let's build a playbook that will install apache on machines in the `web` group.
+Lets build a playbook that will install apache on machines in the `web` group.
 
     - hosts: web
       tasks:
         - name: Installs apache web server
           action: apt pkg=apache2 state=installed update_cache=true
 
-We just need to say want we want to do using the right ansible module. Here,
+We just need to say what we want to do using the right ansible modules. Here,
 we're using the [apt](http://ansible.cc/docs/modules.html#apt) module that
 can install debian packages. We also ask this module to update the package cache.
 
 We also added a name for this task. While this is not necessary, it's very
-informative when the playbook is run so it's highly recommended.
+informative when the playbook runs, so it's highly recommended.
 
-All in all, this was quite easy !
+All in all, this was quite easy!
 
-You can run the playbook (let's call it `apache.yml`) :
+You can run the playbook (lets call it `apache.yml`) :
 
     ansible-playbook -i step-04/hosts -l host1.example.org step-04/apache.yml
 
-Here, `step-04/hosts` is the inventory file, `-l` limits run to `host1.example.org`
+Here, `step-04/hosts` is the inventory file, `-l` limits the run only to `host1.example.org`
 and `apache.yml` is our playbook.
 
-When you run the above command, you should see something like :
+When you run the above command, you should see something like:
 
     PLAY [web] ********************* 
 
@@ -82,17 +82,17 @@ the host, you can just add `gather_facts: no` below the host entry (same level a
     TASK: [Installs apache web server] ********************* 
     changed: [host1.example.org]
 
-Ok, now the real stuff : our (first and only) task is ran, and because it says
+Next, the real stuff: our (first and only) task is run, and because it says
 `changed`, we know that it changed something on `host1.example.org`.
 
     PLAY RECAP ********************* 
     host1.example.org              : ok=2    changed=1    unreachable=0    failed=0 
 
-Finally, ansible outputs a recap of what happened : here two tasks have been run, 
+Finally, ansible outputs a recap of what happened: two tasks have been run 
 and one of them changed something on the host (our apache task, setup module doesn't 
 change anything).
 
-Now let's try to run it again and see what happens :
+Now let's try to run it again and see what happens:
 
     $ ansible-playbook -i step-04/hosts -l host1.example.org step-04/apache.yml
 
@@ -107,9 +107,9 @@ Now let's try to run it again and see what happens :
     PLAY RECAP ********************* 
     host1.example.org              : ok=2    changed=0    unreachable=0    failed=0    
 
-Now changed is '0'. This is absolutely normal and is one of the core feature of ansible 
-: the playbook will act only if there is something to do. It's called _idempotency_, 
-and means that you can run your playbook as long as you want, you will always end 
+Now changed is '0'. This is absolutely normal and is one of the core feature of ansible: 
+the playbook will act only if there is something to do. It's called _idempotency_, 
+and means that you can run your playbook as many times as you want, you will always end 
 up in the same state (well, unless you do crazy things with the `shell` module of course, 
 but this is beyond ansible's control).
 
@@ -117,7 +117,7 @@ but this is beyond ansible's control).
 
 Sure our playbook can install apache server, but it could be a bit more
 complete. It could add a virtualhost, ensure apache is restarted. It could
-event deploy our web site  from a git repository. Let's "[make it so][]"
+event deploy our web site  from a git repository. Lets "[make it so][]"
 
 Head to next step in `./step-05` (or click
 [here](https://github.com/leucos/ansible-tuto/tree/master/step-05)).
