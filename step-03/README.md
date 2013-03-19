@@ -12,7 +12,7 @@ group, a `web-servers` group, a `production` group, etc...
     host1.example.org
     host2.example.org
 
-This can even be expressed shorter :
+This can even be expressed shorter:
 
     [debian]
     host[0-2].example.org
@@ -20,7 +20,7 @@ This can even be expressed shorter :
 If you wish to use child groups, just define a `[groupname:children]` and add child 
 groups in it.
 For instance, let's say we have various flavors of linux running, we could organize 
-our inventory like this :
+our inventory like this:
 
     [ubuntu]
     host0.example.org
@@ -37,20 +37,21 @@ Grouping of course, leverages configuration mutualization.
 Setting variables
 -----------------
 
-You can set variables to hosts in several places : inventory file, host vars
+You can assign variables to hosts in several places: inventory file, host vars
 files, group vars files, etc...
 
 I usually set most of my variables in group/host vars files (more on that later). 
-However, I often use some variables directly in the inventory file, like `ansible_ssh_host` 
-which sets the IP address for the host. Ansible, by defaults, resolves the host name 
+However, I often use some variables directly in the inventory file, such as `ansible_ssh_host` 
+which sets the IP address for the host. Ansible by default resolves hosts' name 
 when it attempts to connect via SSH. But when you're bootstrapping a host, it might 
-not have it's definitive ip address. `ansible_ssh_host` comes handy here.
+not have its definitive ip address yet. `ansible_ssh_host` comes handy here.
 
-Variables can also be set at command line with `--extra-vars` (or `-e`)
-switch when using `ansible-playbook` (but not  with the `ansible` command).
+When using `ansible-playbook` command (not the regular `ansible` command), variables
+can also be set with `--extra-vars` (or `-e`) command line switch.
+`ansible-playbook` command will be covered in the next step.
 
 `ansible_ssh_port`, as you can guess, has the same function regarding ssh port ansible 
-will try to connect to.
+will try to connect at.
 
     [ubuntu]
     host0.example.org ansible_ssh_host=192.168.0.12 ansible_ssh_port=2222
@@ -59,8 +60,8 @@ Ansible will look for additional variables definitions in group and host variabl
 files. These files will be searched in directories `group_vars` and `host_vars`, 
 below the directory where the main inventory file is located.
 
-The files will be searched by name. For instance, using the last inventory file we've 
-made above, `host0.example.org` variables will be searched in those files :
+The files will be searched by name. For instance, using the previously mentioned inventory file,
+`host0.example.org` variables will be searched in those files:
 
 - `group_vars/linux`
 - `group_vars/ubuntu`
@@ -73,4 +74,3 @@ explore the real power of Ansible with playbooks.
 
 Head to next step in `./step-04` (or click
 [here](https://github.com/leucos/ansible-tuto/tree/master/step-04)).
-
