@@ -14,7 +14,7 @@ just another module. But we'll try it out just for fun. And we'll be familiar wi
 it when it comes to `ansible-pull` later on.
 
 Our virtualhost is set, but we need a few changes to finish our deployment.
-First,  we're deploying a PHP application. So we need to install the
+First, we're deploying a PHP application. So we need to install the
 `libapache2-mod-php5` package. Second, we have to install the `git` since the
 git module (used to clone our application's git repository) uses it.
 
@@ -31,8 +31,8 @@ We could do it like this :
           action: apt pkg=git state=installed
         ...
 
-but Ansible provides a more readable way to write this. Ansible can loop over a serie 
-of items, and use each item in an action like this :
+but Ansible provides a more readable way to write this. Ansible can loop over a series 
+of items, and use each item in an action like this:
 
 
     - hosts: web
@@ -138,9 +138,9 @@ Here we go :
 You can now browse to your server, and it should display a kitten, and the server 
 hostname.
 
-Note the `tags: deploy` line ? It allow you to execute just a part of the playbook. 
+Note the `tags: deploy` line allows you to execute just a part of the playbook. 
 Let's say you push a new version for your site. You want to speed up and execute 
-only the part that takes care of deployment. tags allows you to do it :
+only the part that takes care of deployment. tags allows you to do it:
 
     $ ansible-playbook -i step-08/hosts -l host1.example.org step-08/apache.yml -t deploy 
     X11 forwarding request failed on channel 0
@@ -155,8 +155,6 @@ only the part that takes care of deployment. tags allows you to do it :
 
     PLAY RECAP ********************* 
     host1.example.org              : ok=2    changed=1    unreachable=0    failed=0    
-
-See ?
 
 Ok, let's deploy another web server in the next step (`./step-09`, or click
 [here](https://github.com/leucos/ansible-tuto/tree/master/step-09)).
