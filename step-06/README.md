@@ -1,16 +1,16 @@
 Ansible tutorial
 ================
 
-Restarting when config is fine
+Restarting when config is correct
 ------------------------------
 
 We've instaled apache, pushed our virtualhost and restarted the server.
-but what if we wanted the playbook to restart the server only if the config is fine ?
+But what if we wanted the playbook to restart the server only if the config is correct?
 Let's do that.
 
 # Bailing out when things go wrong
 
-Ansible has a nifty feature : it will stop all processing if something goes wrong. 
+Ansible has a nifty feature: it will stop all processing if something goes wrong. 
 We'll take advantage of this feature to stop our playbook if the config file is not 
 valid.
 
@@ -91,8 +91,8 @@ Here we go :
     PLAY RECAP ********************* 
     host1.example.org              : ok=4    changed=2    unreachable=0    failed=1    
 
-See ? Since `apache2ctl` returns with an exit code of 1 when it fails, ansible is 
-aware of it and stops processing. Great !
+As you can see since `apache2ctl` returns with an exit code of 1 when it fails, ansible is 
+aware of it and stops processing. Great!
 
 Mmmh, not so great in fact... Our virtual host has been added anyway. Any subsequent 
 apache restart will complain about our config and bail out. So we need a way to catch 

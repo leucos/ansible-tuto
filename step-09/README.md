@@ -20,13 +20,13 @@ balancer we'll configure in the next step. But let's complete the inventory now.
 
 Remember we're specifying `ansible_ssh_host` here because the host has a
 different IP than expected (or can't be resolved). You could add these hosts
-in your `/etc/hosts` and not have to  worry, or use real host names (which is
+in your `/etc/hosts` and not have to worry, or use real host names (which is
 what you would do in a classic situation).
 
 # Building another web server
 
 We didn't do all this work for nothing. Deploying another web server is dead 
-simple :
+simple:
 
     $ ansible-playbook -i step-09/hosts step-09/apache.yml
 
@@ -88,7 +88,7 @@ simple :
     host1.example.org              : ok=10   changed=5    unreachable=0    failed=0    
     host2.example.org              : ok=10   changed=8    unreachable=0    failed=0    
 
-All we had to do was to remove `-l host1.example.org` from our command line. Remember 
+All we had to do was remove `-l host1.example.org` from our command line. Remember 
 `-l` is a switch that limits the playbook run on specific hosts. Now that we don't 
 limit anymore, it will run on all hosts where the playbook is intended to run on 
 (i.e. `web`).
@@ -96,5 +96,5 @@ limit anymore, it will run on all hosts where the playbook is intended to run on
 If we had other servers in group `web` but wanted to limit the playbook to a subset, 
 we could have used, for instance : `-l firsthost:secondhost:...`.
 
-Now that we have this nice farm of web servers, let's turn it into a cluster,
-putting a load balancer in front of them in [step-10](https://github.com/leucos/ansible-tuto/tree/master/step-10)).
+Now that we have this nice farm of web servers, let's turn it into a cluster by 
+putting a load balancer in front of them in [step-10](https://github.com/leucos/ansible-tuto/tree/master/step-10).
