@@ -48,19 +48,19 @@ line will appear in the generated configuration file.
 
 Finally, we have a loop. This loop is used to build the backend servers list.
 It will loop over every host listed in the `[web]` group (and put this host in the 
-`backend` variable). For each of the hosts it will render a line, using host's facts. 
-All hosts facts are exposed in the `hostvars` variable, so it's easy to access another 
-host variables (like it's hostname or IP in this case)..
+`backend` variable). For each of the hosts it will render a line using host's facts. 
+All hosts' facts are exposed in the `hostvars` variable, so it's easy to access another 
+host variables (like its hostname or in this case IP).
 
 We could have written the host list by hand, since we have only 2 of them. But
 we're hoping that the server will be very successful, and that we'll need a
 hundred of them. Thus, adding servers to the configuration or swapping some
-out boils donw to adding or removing hosts from the `[web]` group. 
+out boils down to adding or removing hosts from the `[web]` group. 
 
 # HAProxy playbook
 
 We've done the most difficult part of the job. Writing a playbook to install and 
-configure HAproxy is a breeze :
+configure HAproxy is a breeze:
 
     - hosts: haproxy
       tasks:
@@ -81,12 +81,13 @@ configure HAproxy is a breeze :
         - name: restart haproxy
           action: service name=haproxy state=restarted
 
-Sounds familiar no ? The only new module here is `template`, which has the same arguments 
+Looks familiar, isn't it? The only new module here is `template`, which has the same arguments 
 as `copy`. We also restrict this playbook to the group `haproxy`.
 
 And now... let's try this out. Since our inventory contains only hosts
 necessary for the cluster, we don't need to limit the host list and can even
-run both playbooks. Well, tio tell the truth, we must run both of them at the same time, since the haproxy playbook requres facts _from_ the two webservers. 
+run both playbooks. Well, to tell the truth, we must run both of them at the same time, since the 
+haproxy playbook requres facts _from_ the two webservers. 
 TODO: This is annoying. Find a way.
 
     $ ansible-playbook -i step-10/hosts step-10/apache.yml step-10/haproxy.yml
