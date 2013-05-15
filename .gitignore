@@ -1,2 +1,4 @@
 .vagrant
+test/step-*.log
+
 
