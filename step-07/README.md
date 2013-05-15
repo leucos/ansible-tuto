@@ -5,18 +5,18 @@ Using conditionals
 ------------------
 
 We've instaled apache, pushed our virtualhost and restarted the server. But we want 
-to revert things in a stable state if something goes wrong.
+to revert things to a stable state if something goes wrong.
 
 # Reverting when things go wrong
 
-A word of warning : there's no magic here. Not ansible's fault. It's not a backup 
-system, and can't rollback things. It's your job to make your playbooks safe. Ansible 
+A word of warning: there's no magic here. Previous error was not ansible's fault. It's not a backup 
+system, and it can't rollback all things. It's your job to make your playbooks are safe. Ansible 
 just doesn't know how to revert the effects of `a2ensite awesome-app`.
 
 But if we care to do it, it's well within our reach.
 
 As said, when a task fails, processing stops... unless we accept failure (and
-we [should](http://www.aaronsw.com/weblog/geremiah)). This is what we'll do : continue 
+we [should](http://www.aaronsw.com/weblog/geremiah)). This is what we'll do: continue 
 processing if there is a failure but only to revert what we've done.
 
 
@@ -106,8 +106,7 @@ Here we go :
     PLAY RECAP ********************* 
     host1.example.org              : ok=7    changed=4    unreachable=0    failed=1    
 
-Seemed to work as expected. Let's try to restart apache to see if it really worked 
-:
+Seemed to work as expected. Let's try to restart apache to see if it really worked:
 
     $ ansible -i step-07/hosts -m service -a 'name=apache2 state=restarted' host1.example.org
     host1.example.org | success >> {
@@ -120,7 +119,7 @@ Ok, now our apache is safe from misconfiguration here.
 
 While this sounds like a lot of work, it isn't. Remember you can use variables
 almost  everywhere, so it's easy to make this a general playbook for apache,
-and use it everywhere  to deploy your virtualhosts. You do it once, use it
-everywhere. we'll do that in step 9 but for now, let's deploy our web site
+and use it everywhere to deploy your virtualhosts. Write it once, use it
+everywhere. We'll do that in step 9 but for now, let's deploy our web site
 using git in the next step (`./step-08`, or click
 [here](https://github.com/leucos/ansible-tuto/tree/master/step-08)).
