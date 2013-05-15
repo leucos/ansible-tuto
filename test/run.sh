@@ -33,7 +33,7 @@ for pbook in `find . -maxdepth 2 -name *.yml | grep -v "step-00" | sort`; do
   log="test/"$step"_"$book".log"
 
   # Execute playbook at step
-  echo -n "Checking playbook $book for $step..."
+  printf "%-45s%s" "Checking playbook $book for $step "
   ansible-playbook -i ./$step/hosts $pbook 2>&1 > $log
 
   # Get output
