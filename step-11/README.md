@@ -31,12 +31,14 @@ variables for. If we wanted to define variables for the web group, the file
 would be names `group_vars/web`.
 
     haproxy_check_interval: 3000
+    haproxy_stats_socket: /tmp/sock
 
 The name is arbitrary. Meaningful names are recommended of course, but there is no 
 required syntax. You could even use complex variables (a.k.a. Python dict) like this:
 
     haproxy:
         check_interval: 3000
+        stats_socket: /tmp/sock
 
 This is just a matter of taste. Complex vars can help group stuff logically. They 
 can also, under some circumstances, merge subsequently defined keys (note however 
@@ -67,10 +69,21 @@ The template must be updated to use these variables.
         mode http
         stats enable
         balance roundrobin
+    {% if haproxy_stats_socket %}
+        stats socket {{ haproxy_stats_socket }}
+    {% endif %}
     {% for backend in groups['web'] %}
         server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_eth1']['ipv4']['address'] }} check inter {{ haproxy_check_interval }} weight {{ hostvars[backend]['haproxy_backend_weight'] }} port 80
     {% endfor %}
         option httpchk HEAD /index.php HTTP/1.0
+
+Note that we also introduced an `{% if ...` block. This block enclosed
+will only be rendered if the test is true. So if we define
+`haproxy_stats_socket` somewhere for our loadbalancer (we might even use the
+`--extra-vars="haproxy_stats_sockts=/tmp/sock"` at the command line), the enclosed
+line will appear in the generated configuration file (note that the
+suggested setup is highly insecure !).
+
 
 Let's go :
 

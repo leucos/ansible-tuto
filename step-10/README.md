@@ -41,12 +41,7 @@ We have many new things going on here.
 First, `{{ ansible_eth1['ipv4']['address'] }}` will be replaced by the 
 IP of the load balancer on eth1. 
 
-Then, we have an `{% if ...` block. This block will only be rendered if the test 
-is true. So if we define `admin_socket` somewhere for our loadbalancer (we might 
-even use the `--extra-vars="admin_socket=True"` at the command line), the enclosed 
-line will appear in the generated configuration file.
-
-Finally, we have a loop. This loop is used to build the backend servers list.
+Then, we have a loop. This loop is used to build the backend servers list.
 It will loop over every host listed in the `[web]` group (and put this host in the 
 `backend` variable). For each of the hosts it will render a line using host's facts. 
 All hosts' facts are exposed in the `hostvars` variable, so it's easy to access another 
