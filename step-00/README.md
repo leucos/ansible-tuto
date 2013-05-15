@@ -10,13 +10,8 @@ In order to run Vagrant, you need :
 
 - VirtualBox installed
 - Ruby installed (should be on your system already)
-- Vagrant gem installed :
-
-`gem install vagrant`
-
-- Vagrant host master gem installed
-
-`vagrant gem install vagrant-hostmaster`
+- Vagrant 1.1+ installed (see
+  http://docs.vagrantup.com/v2/installation/index.html).
 
 This should be all it takes to set up Vagrant.
 
@@ -27,7 +22,8 @@ Now bootstrap your virtual machines with :
 and go grab yourself a coffee (note that if you use vagrant-hostmaster, you'll need 
 to type your password since it needs to sudo as root).
 
-If something goes wrong, refer to Vagrant's [Getting Started Guide](http://docs-v1.vagrantup.com/v1/docs/getting-started/index.html).
+If something goes wrong, refer to Vagrant's [Getting Started
+Guide](http://docs.vagrantup.com/v2/getting-started/index.html).
 
 # Adding your SSH keys on the virtual machines
 
@@ -47,3 +43,4 @@ to it (`ssh-add`).
 
 Now head to the first step in `./step-01` (or click
 [here](https://github.com/leucos/ansible-tuto/tree/master/step-01)).
+
