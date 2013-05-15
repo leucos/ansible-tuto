@@ -85,3 +85,9 @@ Just in case you want to skip to a specific step, here is a topic table of conte
 - [09. Extending to several hosts](https://github.com/leucos/ansible-tuto/tree/master/step-09)
 - [10. Templates](https://github.com/leucos/ansible-tuto/tree/master/step-10)
 - [11. Variables again](https://github.com/leucos/ansible-tuto/tree/master/step-11)
+
+## Note to contributors
+
+If you make changes, please fill the `test/expectations` file and run
+the tests (`test\run.sh`).
+See the `test\run.sh` file for (a bit) more information.
