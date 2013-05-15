@@ -1,0 +1,20 @@
+# Format:
+# 
+# stageX:<stageY:>...
+#   <regexp to find in ansible summary line>
+#
+# You can define stages together if they expect the same output (see above) or
+# on a specific section.
+#
+# If default is used as stage, it is used a a default value
+#
+
+default:
+  ok=.*failed=0
+
+step-06,step-07
+  ok=.*failed=1
+
+step-42:
+  this_step_does_not_exist
+
