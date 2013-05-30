@@ -89,5 +89,5 @@ Just in case you want to skip to a specific step, here is a topic table of conte
 ## Note to contributors
 
 If you make changes, please fill the `test/expectations` file and run
-the tests (`test\run.sh`).
-See the `test\run.sh` file for (a bit) more information.
+the tests (`test/run.sh`).
+See the `test/run.sh` file for (a bit) more information.
