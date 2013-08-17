@@ -4,7 +4,7 @@ Ansible tutorial
 Deploying our website from git
 ------------------------------
 
-We've instaled apache, pushed our virtualhost and restarted the server safely.
+We've installed apache, pushed our virtualhost and restarted the server safely.
 Now we'll use the git module to deploy our application.
 
 # The git module
