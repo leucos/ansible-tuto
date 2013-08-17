@@ -38,15 +38,15 @@ processing if there is a failure but only to revert what we've done.
 
         - name: Rolling back - Restoring old default virtualhost
           action: command a2ensite default
-          when_failed: $result
+          when: result|failed
 
         - name: Rolling back - Removing out virtualhost
           action: command a2dissite awesome-app
-          when_failed: $result
+          when: result|failed
 
         - name: Rolling back - Ending playbook
           action: fail msg="Configuration file is not valid. Please check that before re-running the playbook."
-          when_failed: $result
+          when: result|failed
 
         - name: Deactivates the default virtualhost
           action: command a2dissite default
