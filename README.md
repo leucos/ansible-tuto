@@ -29,7 +29,7 @@ on)
 - python-jinja2
 
 On Debian/Ubuntu run:
-``sudo apt-get install python-yaml python-jinja2 python-paramiko python-crypt``
+``sudo apt-get install python-yaml python-jinja2 python-paramiko python-crypto``
 
 We're also assuming you have a keypair in your ~/.ssh directory.
 
