@@ -36,6 +36,7 @@ of items, and use each item in an action like this:
 
 
     - hosts: web
+      sudo: True
       tasks:
         - name: Updates apt cache
           action: apt update_cache=true

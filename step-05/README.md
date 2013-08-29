@@ -28,6 +28,7 @@ for host1.example.org, which we'll call `awesome-app` :
 Now, a quick update to our apache playbook and we're set :
 
     - hosts: web
+      sudo: True
       tasks:
         - name: Installs apache web server
           action: apt pkg=apache2 state=installed update_cache=true

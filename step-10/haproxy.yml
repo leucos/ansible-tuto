@@ -1,4 +1,5 @@
 - hosts: haproxy
+  sudo: True
   tasks:
     - name: Installs haproxy load balancer
       action: apt pkg=haproxy state=installed update_cache=yes

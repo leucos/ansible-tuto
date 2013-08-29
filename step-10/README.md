@@ -58,6 +58,7 @@ We've done the most difficult part of the job. Writing a playbook to install and
 configure HAproxy is a breeze:
 
     - hosts: haproxy
+      sudo: True
       tasks:
         - name: Installs haproxy load balancer
           action: apt pkg=haproxy state=installed update_cache=yes

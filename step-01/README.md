@@ -10,9 +10,9 @@ flag in ansible commands an provide the inventory path.
 
 We've created an inventory file for you in the directory that looks like this :
 
-    host0.example.org ansible_ssh_host=192.168.33.10 ansible_ssh_user=root
-    host1.example.org ansible_ssh_host=192.168.33.11 ansible_ssh_user=root
-    host2.example.org ansible_ssh_host=192.168.33.12 ansible_ssh_user=root
+    host0.example.org ansible_ssh_host=192.168.33.10 ansible_ssh_user=vagrant
+    host1.example.org ansible_ssh_host=192.168.33.11 ansible_ssh_user=vagrant
+    host2.example.org ansible_ssh_host=192.168.33.12 ansible_ssh_user=vagrant
 
 `ansible_ssh_host` is a special _variable_ that sets the IP ansible will use 
 when trying to connect to this host. It's not necessary here if you use the 
