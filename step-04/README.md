@@ -27,6 +27,7 @@ In any case, use a non-critical machine to play with!
 Lets build a playbook that will install apache on machines in the `web` group.
 
     - hosts: web
+      sudo: True
       tasks:
         - name: Installs apache web server
           action: apt pkg=apache2 state=installed update_cache=true

@@ -25,21 +25,12 @@ to type your password since it needs to sudo as root).
 If something goes wrong, refer to Vagrant's [Getting Started
 Guide](http://docs.vagrantup.com/v2/getting-started/index.html).
 
-# Adding your SSH keys on the virtual machines
+# SSH keys on the virtual machines
 
-To follow this tutorial, you'll need to have your keys in VMs root's `authorized_keys`. 
-While this is not absolutely necessary (Ansible can use sudo, password authentication, 
-etc...), it will make things way easier.
+Vagrant installs an key for SSH automatically. To use this key during the tutorial add it to your ssh-agent:
 
-Ansible is perfect for this and we will use it for the job. However I won't
-explain what's happening for now. Just trust me.
-
-    ansible-playbook -i step-00/hosts step-00/setup.yml --ask-pass --sudo
-
-When asked for password, enter _vagrant_.
-
-To polish things up, it's better to have an ssh-agent running, and add your keys 
-to it (`ssh-add`).
+    ssh-add ~/.vagrant.d/insecure_private_key
+Identity added: .../.vagrant.d/insecure_private_key (.../.vagrant.d/insecure_private_key)
 
 Now head to the first step in `./step-01` (or click
 [here](https://github.com/leucos/ansible-tuto/tree/master/step-01)).

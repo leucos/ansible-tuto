@@ -94,11 +94,13 @@ changed, but we had to cheat a bit for that. Here is the updated haproxy playboo
 :
 
     - hosts: web
+      sudo: True
       tasks: 
         - name : Fake task to gather facts
           action: debug msg="done"
           
     - hosts: haproxy
+      sudo: True
       tasks:
         - name: Installs haproxy load balancer
           action: apt pkg=haproxy state=installed update_cache=yes

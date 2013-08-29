@@ -21,6 +21,7 @@ processing if there is a failure but only to revert what we've done.
 
 
     - hosts: web
+      sudo: True
       tasks:
         - name: Installs apache web server
           action: apt pkg=apache2 state=installed update_cache=true
@@ -62,7 +63,7 @@ processing if there is a failure but only to revert what we've done.
           action: service name=apache2 state=restarted
 
 The `register` keyword records output from the `apache2ctl configtest` command (exit 
-status, stdout, stderr, ...), and `when_failed` checks if the registered variable 
+status, stdout, stderr, ...), and `when` checks if the registered variable 
 contains a failed status.
 
 Here we go :
@@ -108,7 +109,7 @@ Here we go :
 
 Seemed to work as expected. Let's try to restart apache to see if it really worked:
 
-    $ ansible -i step-07/hosts -m service -a 'name=apache2 state=restarted' host1.example.org
+    $ ansible -i step-07/hosts -m service -a 'name=apache2 state=restarted' host1.example.org -sudo
     host1.example.org | success >> {
         "changed": true, 
         "name": "apache2", 

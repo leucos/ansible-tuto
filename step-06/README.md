@@ -35,6 +35,7 @@ playbook already, the default virtualhost is already deactivated. Nevermind :
 this playbook might be used on other innocent hosts, so let's protect them.
 
     - hosts: web
+      sudo: True
       tasks:
         - name: Installs apache web server
           action: apt pkg=apache2 state=installed update_cache=true
