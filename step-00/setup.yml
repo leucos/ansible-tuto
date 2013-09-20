@@ -24,7 +24,7 @@
       # action: authorized_key user=root key='$FILE(~/.ssh/id_dsa.pub)'
       # Workaround for #2372
       action: copy src=~/.ssh/id_dsa.pub dest=/root/.ssh/authorized_keys owner=root mode=0600
-      when_failed: $rsa
+      when: rsa|failed
 
     - name: Checks if resolver is working properly (issues with some VBox/Host OS combinations)
       action: command host -t A ansible.cc
@@ -33,7 +33,7 @@
 
     - name: Pushes new resolver configuration is resolver fails
       action: lineinfile regexp="^nameserver " line="nameserver 8.8.8.8" dest=/etc/resolv.conf
-      when_failed: $ns
+      when: ns|failed
 
     - name: Checks if resolver is working properly with new nameserver
       action: command host -t A ansible.cc
