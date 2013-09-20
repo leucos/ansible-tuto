@@ -85,7 +85,7 @@ called `setup`: it specializes in node's _facts_ gathering.
 
 Try it out:
 
-    ansible -m setup host0.example.org
+    ansible -i step-02/hosts -m setup host0.example.org
 
 replies with lots of information :
 
@@ -109,7 +109,7 @@ It's been truncated for brevity, but you can find many interesting bits in the r
 data. You may also filter returned keys, in case you're looking for something specific.
 
 For instance, let's say you want to know how much memory you have on all your hosts, 
-easy with `ansible -m setup -a 'filter=ansible_memtotal_mb' all` :
+easy with `ansible -i step-02/hosts -m setup -a 'filter=ansible_memtotal_mb' all` :
 
     host2.example.org | success >> {
         "ansible_facts": {
