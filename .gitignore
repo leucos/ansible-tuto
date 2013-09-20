@@ -1,3 +1,4 @@
+.tags
 .vagrant
 test/step-*.log
 
