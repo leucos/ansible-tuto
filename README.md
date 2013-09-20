@@ -61,6 +61,11 @@ build it. You need a few packages to build the deb :
 
 We'll assume you're using the deb packages in the rest of this tutorial.
 
+# Cloning the tutorial
+
+    git clone https://github.com/leucos/ansible-tuto.git
+    cd ansible-tuto
+
 # Using Vagrant with the tutorial
 
 It's highly recommended to use Vagrant to follow this tutorial. If you don't have 
