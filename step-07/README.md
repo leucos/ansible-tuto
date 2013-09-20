@@ -62,8 +62,8 @@ processing if there is a failure but only to revert what we've done.
           action: service name=apache2 state=restarted
 
 The `register` keyword records output from the `apache2ctl configtest` command (exit 
-status, stdout, stderr, ...), and `when_failed` checks if the registered variable 
-contains a failed status.
+status, stdout, stderr, ...), and `when: result|failed` checks if the registered variable 
+(`result`) contains a failed status.
 
 Here we go :
 
