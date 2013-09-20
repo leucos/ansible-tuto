@@ -130,13 +130,14 @@ changed, but we had to cheat a bit for that. Here is the updated haproxy playboo
         - name: restart haproxy
           action: service name=haproxy state=restarted
 
-See? We added a play for web hosts at the top. It does nothing. But it's here because 
-it will trigger facts gathering on hosts in group `web`. This is required because 
-the haproxy playbook needs to pick facts from hosts in this group. If we don't do 
-this, ansible will complain saying that `ansible_eth1` key doesn't exist.
+See? We added a play for web hosts at the top. It does nothing. But it's
+here because it will trigger facts gathering on hosts in group `web`.
+This is required because the haproxy playbook needs to pick facts from
+hosts in this group. If we don't do this, ansible will complain saying
+that `ansible_eth1` key doesn't exist.
 
-At this point, you can try building up everything from scratch, to see if you can 
-properly provision your cluster with your playbook.
+At this point, you can try building up everything from scratch, to see
+if you can properly provision your cluster with your playbook.
 
 Fire in the hole!
 
@@ -144,8 +145,11 @@ Fire in the hole!
     vagrant up
     ansible-playbook -i step-00/hosts step-00/setup.yml --ask-pass --sudo
 
-All the preceeding commands are just here to set-up our test environment. Deploying 
-on the blank machines just requires one line :
+(you might need to wait a little for the network to come up before
+running the last command).
+
+All the preceeding commands are just here to set-up our test
+environment. Deploying on the blank machines just requires one line :
 
     ansible-playbook -i step-11/hosts step-11/apache.yml step-11/haproxy.yml
 
