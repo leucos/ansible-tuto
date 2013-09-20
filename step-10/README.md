@@ -167,7 +167,7 @@ TODO: This is annoying. Find a way.
     PLAY RECAP ********************* 
     host0.example.org              : ok=5    changed=4    unreachable=0    failed=0    
 
-Looks good. Now head to [http://host0.example.org/](http://host0.example.org/) and 
+Looks good. Now head to [http://192.168.33.10/](http://192.168.33.10/) and 
 see the result. Your cluster is deployed !
 
-Now on to the last chapter about [variables again](https://github.com/leucos/ansible-tuto/tree/master/step-11).
+Now on to the last chapter about "Variables again", in [step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11).

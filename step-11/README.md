@@ -80,7 +80,7 @@ The template must be updated to use these variables.
 Note that we also introduced an `{% if ...` block. This block enclosed
 will only be rendered if the test is true. So if we define
 `haproxy_stats_socket` somewhere for our loadbalancer (we might even use the
-`--extra-vars="haproxy_stats_sockts=/tmp/sock"` at the command line), the enclosed
+`--extra-vars="haproxy_stats_sockets=/tmp/sock"` at the command line), the enclosed
 line will appear in the generated configuration file (note that the
 suggested setup is highly insecure !).
 

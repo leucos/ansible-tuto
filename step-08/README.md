@@ -140,7 +140,9 @@ hostname.
 
 Note the `tags: deploy` line allows you to execute just a part of the playbook. 
 Let's say you push a new version for your site. You want to speed up and execute 
-only the part that takes care of deployment. tags allows you to do it:
+only the part that takes care of deployment. Tags allows you to do it.
+Of course, "deploy" is just a string, it doesn't have any specific
+meaning and can be anything. Let's see how to use it:
 
     $ ansible-playbook -i step-08/hosts -l host1.example.org step-08/apache.yml -t deploy 
     X11 forwarding request failed on channel 0
@@ -156,5 +158,4 @@ only the part that takes care of deployment. tags allows you to do it:
     PLAY RECAP ********************* 
     host1.example.org              : ok=2    changed=1    unreachable=0    failed=0    
 
-Ok, let's deploy another web server in the next step (`./step-09`, or click
-[here](https://github.com/leucos/ansible-tuto/tree/master/step-09)).
+Ok, let's deploy another web server in [step-09](https://github.com/leucos/ansible-tuto/tree/master/step-09).

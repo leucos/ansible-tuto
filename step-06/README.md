@@ -98,5 +98,4 @@ Mmmh, not so great in fact... Our virtual host has been added anyway. Any subseq
 apache restart will complain about our config and bail out. So we need a way to catch 
 failures and revert back.
 
-Lets do that in the next step (`./step-07`, or click
-[here](https://github.com/leucos/ansible-tuto/tree/master/step-07)).
+Lets do that in [step-07](https://github.com/leucos/ansible-tuto/tree/master/step-07).

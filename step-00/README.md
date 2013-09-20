@@ -41,6 +41,5 @@ When asked for password, enter _vagrant_.
 To polish things up, it's better to have an ssh-agent running, and add your keys 
 to it (`ssh-add`).
 
-Now head to the first step in `./step-01` (or click
-[here](https://github.com/leucos/ansible-tuto/tree/master/step-01)).
+Now head to the first step in [step-01](https://github.com/leucos/ansible-tuto/tree/master/step-01).
 
