@@ -64,6 +64,19 @@ variables defined in `host_vars` files overrides varibles defined in `group_vars
 
 The template must be updated to use these variables.
 
+    global
+        daemon
+        maxconn 256
+    {% if haproxy_stats_socket %}
+        stats socket {{ haproxy_stats_socket }}
+    {% endif %}
+    
+    defaults
+        mode http
+        timeout connect 5000ms
+        timeout client 50000ms
+        timeout server 50000ms
+    
     listen cluster
         bind {{ ansible_eth1['ipv4']['address'] }}:80
         mode http

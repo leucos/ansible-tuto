@@ -26,6 +26,16 @@ Let's make a `templates/` directory and create a Jinja template inside. We'll
 call  it `haproxy.cfg.j2`. We use the `.j2` extension by convention, to make
 it obvious that this  is a Jinja2 template, but this is not necessary.
 
+    global
+        daemon
+        maxconn 256
+    
+    defaults
+        mode http
+        timeout connect 5000ms
+        timeout client 50000ms
+        timeout server 50000ms
+    
     listen cluster
         bind {{ ansible_eth1['ipv4']['address'] }}:80
         mode http
