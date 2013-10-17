@@ -34,7 +34,7 @@ etc...), it will make things way easier.
 Ansible is perfect for this and we will use it for the job. However I won't
 explain what's happening for now. Just trust me.
 
-    ansible-playbook -i step-00/hosts step-00/setup.yml --ask-pass --sudo
+    ansible-playbook -c paramiko -i step-00/hosts step-00/setup.yml --ask-pass --sudo
 
 When asked for password, enter _vagrant_.
 
