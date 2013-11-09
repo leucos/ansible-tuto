@@ -4,7 +4,7 @@ Ansible tutorial
 Restarting when config is correct
 ------------------------------
 
-We've instaled apache, pushed our virtualhost and restarted the server.
+We've installed apache, pushed our virtualhost and restarted the server.
 But what if we wanted the playbook to restart the server only if the config is correct?
 Let's do that.
 
