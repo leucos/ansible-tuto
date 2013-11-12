@@ -86,7 +86,7 @@ a neat feature. We'll see that later.
 Note that roles lay in the `roles` directory, which is also cool since
 it will reduce top level ansible playbook clutter.
 
-# Creating the apache role
+# Creating the Apache role
 
 Ok, now that we know the required layout, we can create our apache role
 from our apache playbook.
@@ -96,13 +96,13 @@ The steps required are really simple :
 - extract the apache handler into `roles/apache/handlers/main.yml`
 - move the apache configuration file `awesome-app` into
   `roles/apache/files/`
+- create a role playbook
 
 ## Creating the role layout
 
 This is what has been done to convert step-11 apache files into a role :
 
     mkdir -p step-12/roles/apache/{tasks,handlers,files}
-    cp step-11/files/awesome-app step-12/roles/apache/files/
 
 Now we need to copy the tasks from `apache.yml` to `main.yml`, so this
 file looks like this :
@@ -131,19 +131,29 @@ Note that we also have to remove references to `files/` and `templates/`
 directories in tasks. Since we're using the roles structure, Ansible
 will look for them in the right directories.
 
+## Extracting the handler
+
 We can extract the handlers part and create
 `step-12/roles/apache/handlers/main.yml` :
 
     - name: restart apache
       action: service name=apache2 state=restarted
 
+## Moving the configuration file
+
+As simple as :
+
+    cp step-11/files/awesome-app step-12/roles/apache/files/
+
 At this point, the apache role is fully working, but we need a way to
 invoke it.
+
+## Create a role playbook
 
 Let's create a top level playbook that we'll use to map hosts and hosts
 groups to roles. We'll call it `site.yml`, since our goal is to have our
 site-wide configuration in it. While we're at it, we'll include
-`haproxy` int it too :
+`haproxy` in it too :
 
     - hosts: web
       roles:
@@ -153,21 +163,31 @@ site-wide configuration in it. While we're at it, we'll include
       roles:
         - { role: haproxy }
 
-That wasn't too hard. We'll do the same for haproxy :
+That wasn't too hard. 
+
+Now let's create the haproxy role :
 
     mkdir -p step-12/roles/haproxy/{tasks,handlers,templates}
     cp step-11/templates/haproxy.cfg.j2 step-12/roles/haproxy/templates/
 
 then extract the handler, and remove reference to `templates/`.
 
-We can try out the new playbook with :
+We can try out our new playbook with :
 
     ansible-playbook -i step-12/hosts step-12/site.yml
 
-should be fine.
+If eveything goes well, we should end up with a happy "PLAY RECAP" like
+this one :
 
-We'll see how we can deploy firewall rules for our cluster in
-[step-13](https://github.com/leucos/ansible-tuto/tree/master/step-13)
+    host0.example.org          : ok=5    changed=2    unreachable=0 failed=0
+    host1.example.org          : ok=10   changed=5    unreachable=0 failed=0
+    host2.example.org          : ok=10   changed=5    unreachable=0 failed=0
+
+This conclude our migration to roles. It was quite easy, and adds a
+bunch of features to our playbook that we'll use in a future step.
+
+But for now, qe'll see how we can deploy firewall rules for our cluster
+in [step-13](https://github.com/leucos/ansible-tuto/tree/master/step-13)
 chapter about "Deploying firewall rules". In this chapter, we'll use
 role dependencies to build our systems.
 
