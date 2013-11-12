@@ -3,18 +3,24 @@
 # stageX:<stageY:>...
 #   <regexp to find in ansible summary line>
 #
+# If summary line span several lines, lines will be concatenated with
+# ' ' (see step-12).
+#
 # You can define stages together if they expect the same output (see above) or
 # on a specific section.
 #
-# If default is used as stage, it is used a a default value
+# If default is used as stage name, it is used a a default value
 #
 
 default:
   ok=.*failed=0
 
-step-06,step-07
+step-06,step-07:
   ok=.*failed=1
 
+step-12,step-99:
+  host0.* ok=4 .* failed=0 .* host1.* ok=10 .* failed=0 .* host2.* ok=10 .* failed=0
+
 step-42:
-  this_step_does_not_exist
+  this_step_does_not_exist_and_that-s_ok
 

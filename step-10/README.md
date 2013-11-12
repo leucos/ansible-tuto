@@ -183,4 +183,4 @@ see the result. Your cluster is deployed !
 you can even peek at HAProxy's statistics at
 [http://192.168.33.10/haproxy?stats](http://192.168.33.10/haproxy?stats).
 
-Now on to the last chapter about "Variables again", in [step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11).
+Now on to the next chapter about "Variables again", in [step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11).
