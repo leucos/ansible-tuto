@@ -7,7 +7,7 @@ going through this tutorial.
 
 Ansible is a configuration management software that let's you control and
 configure nodes from  another machine. What makes it different from other
-management software is that ansible  uses (pottentially existing) SSH
+management software is that ansible  uses (potentially existing) SSH
 infrastructure, while others (chef, puppet, ...) need a specific PKI
 infrastructure to be set-up.
 
@@ -16,7 +16,7 @@ machine (a master machine is only a machine where you can SSH to nodes from) to
 nodes, while most other CM typically do it the other way around (nodes pull
 their config at times from a master machine).
 
-This mode is really interesting since you do not need to have a publicly
+This mode is really interesting since you do not need to have a 'publicly'
 accessible 'master' to be able to configure remote nodes : it's the nodes
 that need to be accessible (we'll see later that 'hidden' nodes can pull their
 configuration too!), and most of the time they are.
