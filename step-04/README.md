@@ -117,7 +117,7 @@ but this is beyond ansible's control).
 
 Sure our playbook can install apache server, but it could be a bit more
 complete. It could add a virtualhost, ensure apache is restarted. It could
-event deploy our web site  from a git repository. Lets "[make it so][]"
+even deploy our web site from a git repository. Lets "[make it so][]"
 
 Head to next step in [step-05](https://github.com/leucos/ansible-tuto/tree/master/step-05).
 
