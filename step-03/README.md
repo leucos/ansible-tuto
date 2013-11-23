@@ -44,13 +44,13 @@ I usually set most of my variables in group/host vars files (more on that later)
 However, I often use some variables directly in the inventory file, such as `ansible_ssh_host` 
 which sets the IP address for the host. Ansible by default resolves hosts' name 
 when it attempts to connect via SSH. But when you're bootstrapping a host, it might 
-not have its definitive ip address yet. `ansible_ssh_host` comes handy here.
+not have its definitive ip address yet. `ansible_ssh_host` comes in handy here.
 
 When using `ansible-playbook` command (not the regular `ansible` command), variables
 can also be set with `--extra-vars` (or `-e`) command line switch.
 `ansible-playbook` command will be covered in the next step.
 
-`ansible_ssh_port`, as you can guess, has the same function regarding ssh port ansible 
+`ansible_ssh_port`, as you can guess, has the same function regarding the ssh port ansible 
 will try to connect at.
 
     [ubuntu]
