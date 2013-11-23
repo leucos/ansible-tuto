@@ -1,5 +1,6 @@
 - hosts: all
-  sudo: True
+  sudo: yes
+  remote_user: vagrant
   
   tasks:
     # This should work too / #2372
