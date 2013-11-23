@@ -4,21 +4,21 @@ Ansible tutorial
 Variables again
 ---------------
 
-So we've set-up our loadbalancer, and it works quite well. We grabbed variables from 
-facts and used them to buid the configuration. But Ansible also supports other kinds 
+So we've setup our loadbalancer, and it works quite well. We grabbed variables from 
+facts and used them to build the configuration. But Ansible also supports other kinds 
 of variables. We already saw `ansible_ssh_host` in inventory, but now we'll use variables 
 defined in `host_vars` and `group_vars` files. 
 
 # Fine tuning our HAProxy configuration
 
 HAProxy usually checks if the backends are alive. When a backend seems dead, it is 
-removed from the backend pool and HAproxy doesn't sends requests anymore to it.
+removed from the backend pool and HAproxy doesn't send requests to it anymore.
 
 Backends can also have different weights (between 0 and 256). The higher the weight, 
 the higher number of connections the backend will receive compared to other backends.
-It's usefull to spread traffic more appropriately if nodes are not equally powerful.
+It's useful to spread traffic more appropriately if nodes are not equally powerful.
 
-We'll use variables to configure all theese parameters.
+We'll use variables to configure all these parameters.
 
 # Group vars
 
@@ -28,7 +28,7 @@ all haproxies will inherit from it.
 We just need to create the file `group_vars/haproxy` below the inventory
 directory. The file has to be named after the group you want to define the
 variables for. If we wanted to define variables for the web group, the file
-would be names `group_vars/web`.
+would be named `group_vars/web`.
 
     haproxy_check_interval: 3000
     haproxy_stats_socket: /tmp/sock
@@ -57,7 +57,7 @@ and `host_vars/host2.example.com`:
 
     haproxy_backend_weight: 150
 
-If we'd define `haproxy_backend_weight` in `group_vars/web`, if would be used as a 'default': 
+If we'd define `haproxy_backend_weight` in `group_vars/web`, it would be used as a 'default': 
 variables defined in `host_vars` files overrides varibles defined in `group_vars`. 
 
 # Updating the template
