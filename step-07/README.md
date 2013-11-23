@@ -4,13 +4,13 @@ Ansible tutorial
 Using conditionals
 ------------------
 
-We've instaled apache, pushed our virtualhost and restarted the server. But we want 
+We've installed apache, pushed our virtualhost and restarted the server. But we want 
 to revert things to a stable state if something goes wrong.
 
 # Reverting when things go wrong
 
-A word of warning: there's no magic here. Previous error was not ansible's fault. It's not a backup 
-system, and it can't rollback all things. It's your job to make your playbooks are safe. Ansible 
+A word of warning: there's no magic here. The previous error was not ansible's fault. It's not a backup 
+system, and it can't rollback all things. It's your job to make sure your playbooks are safe. Ansible 
 just doesn't know how to revert the effects of `a2ensite awesome-app`.
 
 But if we care to do it, it's well within our reach.
