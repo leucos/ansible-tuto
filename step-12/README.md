@@ -65,7 +65,7 @@ The file layout for roles looks like this :
                 |_ ...
 
 Quite simple.
-The files names `main.yml` are not mandatory. However, when they exist,
+The files named `main.yml` are not mandatory. However, when they exist,
 roles will add them to the play automatically.
 You can use this file to include other tasks, handlers, ... in the play.
 We'll see that in a minute.
@@ -73,10 +73,10 @@ We'll see that in a minute.
 Note that there is also a `vars` and a `meta` directory. `vars` is used
 when you want to put a bunch of variables regarding the roles. However,
 I don't like setting vars in roles (or plays) directly. I think variables
-belong to configuration, while plays are the structure. In other works,
+belong to configuration, while plays are the structure. In other words,
 I see plays and roles as a factory, and data as inputs to this factory.
 So I really prefer to have "data" (e.g. variables) outside roles and
-play. This way, I can share my roles more easily, without worring
+play. This way, I can share my roles more easily, without worrying about
 exposing too much about my servers. But that's just a personal
 preference. Ansible just lets you do it the way you want.
 
@@ -183,10 +183,10 @@ this one :
     host1.example.org          : ok=10   changed=5    unreachable=0 failed=0
     host2.example.org          : ok=10   changed=5    unreachable=0 failed=0
 
-This conclude our migration to roles. It was quite easy, and adds a
+This concludes our migration to roles. It was quite easy, and adds a
 bunch of features to our playbook that we'll use in a future step.
 
-But for now, qe'll see how we can deploy firewall rules for our cluster
+But for now, we'll see how we can deploy firewall rules for our cluster
 in [step-13](https://github.com/leucos/ansible-tuto/tree/master/step-13)
 chapter about "Deploying firewall rules". In this chapter, we'll use
 role dependencies to build our systems.
