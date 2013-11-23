@@ -30,7 +30,7 @@ configuration is valid before restarting the server. We also start by adding
 our  virtualhost _before_ removing the default virtualhost, so a subsequent
 restart (possibly done directly on the server) won't break apache.
 
-Note that we should have done the in the first place. Since we ran our
+Note that we should have done this in the first place. Since we ran our
 playbook already, the default virtualhost is already deactivated. Nevermind :
 this playbook might be used on other innocent hosts, so let's protect them.
 
@@ -98,4 +98,4 @@ Mmmh, not so great in fact... Our virtual host has been added anyway. Any subseq
 apache restart will complain about our config and bail out. So we need a way to catch 
 failures and revert back.
 
-Lets do that in [step-07](https://github.com/leucos/ansible-tuto/tree/master/step-07).
+Let's do that in [step-07](https://github.com/leucos/ansible-tuto/tree/master/step-07).
