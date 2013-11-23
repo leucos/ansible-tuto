@@ -19,8 +19,10 @@ when trying to connect to this host. It's not necessary here if you use the
 vagrant-hostmaster gem. Also, you'll have to change the IPs if you have set 
 up your own virtual machines with different addresses.
 
-`ansible_ssh_user` is another special _variable_ that tells ansible to connect as 
-this user when using ssh (by default ansible would use your current username).
+`ansible_ssh_user` is another special _variable_ that tells ansible to
+connect as this user when using ssh. By default ansible would use your
+current username, or use another default provided in ~/.ansible.cfg
+(`remote_user`).
 
 # Testing
 
