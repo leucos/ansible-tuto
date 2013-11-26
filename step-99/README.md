@@ -7,7 +7,7 @@ Fire in the hole!
 
     vagrant destroy -f
     vagrant up
-    ansible-playbook -i step-00/hosts step-00/setup.yml --ask-pass --sudo
+    ansible-playbook -c paramiko -i step-00/hosts step-00/setup.yml --ask-pass --sudo
 
 (you might need to wait a little for the network to come up before
 running the last command).
