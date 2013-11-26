@@ -95,10 +95,26 @@ Just in case you want to skip to a specific step, here is a topic table of conte
 - [14. Taking advantages of role dependencies (TBD)]()
 - [99. The end](https://github.com/leucos/ansible-tuto/tree/master/step-99)
 
-## Note to contributors
+## Contributing
 
-If you make changes, please fill the `test/expectations` file and run
-the tests (`test/run.sh`).
+Thanks to all people who have contributed to this tutorial !
+
+I've been using Ansible almost since it's birth, but I learned a lot in
+the process of writing it. If you want to jump in, it's a great way to
+learn, feel free to add your contributions.
+
+The chapters being written live in the
+[writing](https://github.com/leucos/ansible-tuto/tree/writing) branch.
+
+If you have ideas on topics that would require a chapter, you can write
+them in this branch, of write your suggestions in
+[IDEAS.md](https://github.com/leucos/ansible-tuto/blob/master/IDEAS.md).
+
+I'm also open on pairing for writing chapters. Drop me a note if you're
+interested.
+
+If you make changes or add chapters, please fill the `test/expectations`
+file and run the tests (`test/run.sh`).
 See the `test/run.sh` file for (a bit) more information.
 
 When adding a new chapter (e.g. `step-NN`), please issue :
