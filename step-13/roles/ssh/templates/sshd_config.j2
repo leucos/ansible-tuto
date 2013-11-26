@@ -1,0 +1,64 @@
+#
+# {{ ansible_managed }}
+#
+# What port we listen on
+Port {{ ssh_port }}
+
+# Necessary so X11 still works without IPv6
+AddressFamily inet
+
+Protocol 2
+# HostKeys for protocol version 2
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+
+# Privilege Separation is turned on for security
+UsePrivilegeSeparation yes
+
+# Lifetime and size of ephemeral version 1 server key
+KeyRegenerationInterval 3600
+ServerKeyBits 768
+
+# Logging
+SyslogFacility AUTH
+LogLevel INFO
+
+# Authentication:
+LoginGraceTime 120
+PermitRootLogin yes
+StrictModes yes
+
+RSAAuthentication yes
+PubkeyAuthentication yes
+
+# Password & methods restrictions
+IgnoreRhosts yes
+RhostsRSAAuthentication no
+HostbasedAuthentication no
+PermitEmptyPasswords no
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+
+# Kerberos and GSSAPI options
+KerberosAuthentication no
+GSSAPIAuthentication no
+
+# X11
+X11Forwarding {{ ssh_x11 }}
+X11DisplayOffset 10
+
+# Misc stuff
+PrintMotd no
+PrintLastLog yes
+TCPKeepAlive yes
+
+# Allow client to pass locale environment variables
+AcceptEnv LANG LC_*
+
+# SFTP ?
+Subsystem sftp /usr/lib/openssh/sftp-server
+
+# PAM Processing
+UsePAM yes
+AllowUsers {% if 'vagrant' in group_names -%} vagrant {% endif -%} {% for adm in ssh_allow_users -%} {{ adm }} {% endfor -%}
+

@@ -1,0 +1,8 @@
+- hosts: web
+  roles:
+    - { role: apache }
+
+- hosts: haproxy
+  roles:
+    - { role: haproxy }
+
