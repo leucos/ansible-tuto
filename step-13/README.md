@@ -1,8 +1,7 @@
 Ansible tutorial
 ================
 
-Building firewall rules
------------------------
+# Building firewall rules
 
 We'll have a bunch of work now, and a few roles to write in this
 chapter. We want to secure our ssh config, and add firewall rules.
@@ -14,7 +13,7 @@ For this, we will write two new roles : a ssh role and and iptables
 role. So this part will be a bit longer that the previous ones, and will
 span several steps. Grab some coffee, here we go.
 
-# Writing the ssh server role
+## Writing the ssh server role
 
 In the last chapter, I said I didn't like to set vars in role's
 `vars/main.yml`. However, that's not exactly true.
@@ -50,7 +49,7 @@ For the ssh server role, our structure will look like this :
                |
                |_main.yml         _some defaults_
 
-## The template
+### The template
 
 For brevity, I won't include the whole `sshd_config.j2` template, but
 just review the lines that contains variables :
@@ -104,7 +103,7 @@ The resulting line will look like :
 
     AllowUsers vagrant alice bob
 
-## The tasks and handler
+### The tasks and handler
 
 On the tasks side, there not a lot :
 
@@ -144,7 +143,7 @@ Both tasks will trigger a sshd restart if they are return with a
     - name: Restarts sshd
       service: name=ssh state=restarted
 
-## Variables
+### Variables
 
 Remerber that the role's variables have the lowest precedence. So if we
 set the same variables somewhere else (host_vars files,
@@ -165,7 +164,7 @@ in
 but this is left as an exercise for the reader since we already have a
 lot of things to stuff in this chapter.
 
-# The iptables role
+## The iptables role
 
 _Disclaimer : while what we're about to write is a good start, you
 should note use it on production server without carefully reviewing the
@@ -193,19 +192,20 @@ much more reasonable.
 This part is a bit technical regarding iptables, but you can just skip
 the details and only look at what Ansible can do in this context.
 
-## General iptables structure
+### General iptables structure
 
 To make things simpler, we'll create a skeleton iptables file with 6 new
-chains : TCP_IN, TCP_OUT, UDP_IN, UDP_OUT, ICMP_IN, ICMP_OUT.
+chains : `TCP_IN`, `TCP_OUT`, `UDP_IN`, `UDP_OUT`, `ICMP_IN`, `ICMP_OUT`.
 
 As the name suggest, each chain will contain rules that relate to
-inbound TCP trafic (TCP_IN), etc...
+inbound trafic (`TCP_IN`, `UDP_IN`, ...) ou outbound traffic (`ICMP_OUT`,
+`TCP_OUT`, etc...).
 
 The default policy for INPUT and OUTPUT chains is DROP, so we just have
-to open the firewall for traffic we want to receive (*_IN) or emit
-(*_OUT) for the right protocol (UDP, TCP, ICMP).
+to open the firewall for traffic we want to receive (`*_IN`) or emit
+(`*_OUT`) for the right protocol (`UDP`, `TCP`, `ICMP`).
 
-Note that we don't care about the FORWARD chain : we just don't route
+Note that we don't care about the `FORWARD` chain : we just don't route
 packets. To keep things simple and understandable, we assume that all
 hosts have the same requirements regarding ICMP handling and no
 customization can be made. This could be changed easily though. Finally,
@@ -355,6 +355,8 @@ somemodulename args...`. But there is a nice shorthand to write the same
 action : `somemodulename: args...`. It's less verbose and easier to
 read. We'll use this syntax from now on (other roles have been changed
 to this syntax too).
+
+### Deploying
 
 Let's try that on host1.example.org (assuming you come from step-12).
 We'll use the `iptables` tag so we don't span the entire playbook and
