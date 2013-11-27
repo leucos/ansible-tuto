@@ -179,9 +179,12 @@ We can try out our new playbook with :
 If eveything goes well, we should end up with a happy "PLAY RECAP" like
 this one :
 
-    host0.example.org          : ok=5    changed=2    unreachable=0 failed=0
-    host1.example.org          : ok=10   changed=5    unreachable=0 failed=0
-    host2.example.org          : ok=10   changed=5    unreachable=0 failed=0
+    host0.example.org          : ok=4    changed=1    unreachable=0 failed=0
+    host1.example.org          : ok=10   changed=8    unreachable=0 failed=0
+    host2.example.org          : ok=10   changed=8    unreachable=0 failed=0
+
+Note that we changed the haproxy role a bit: we also install socat for
+future fun.
 
 This concludes our migration to roles. It was quite easy, and adds a
 bunch of features to our playbook that we'll use in a future step.

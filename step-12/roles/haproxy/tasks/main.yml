@@ -1,5 +1,8 @@
 - name: Installs haproxy load balancer
-  action: apt pkg=haproxy state=installed update_cache=yes
+  action: apt pkg={{ item }} state=installed update_cache=yes
+  with_items:
+    - haproxy
+    - socat
 
 - name: Pushes configuration
   action: template src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg mode=0640 owner=root group=root

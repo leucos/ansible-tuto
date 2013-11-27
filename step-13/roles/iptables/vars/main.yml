@@ -1,0 +1,3 @@
+firewall_unfilter_udp_out: yes
+firewall_unfilter_tcp_out: yes
+firewall_log_drops: yes
