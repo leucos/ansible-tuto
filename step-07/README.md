@@ -23,43 +23,43 @@ processing if there is a failure but only to revert what we've done.
     - hosts: web
       tasks:
         - name: Installs apache web server
-          action: apt pkg=apache2 state=installed update_cache=true
+          apt: pkg=apache2 state=installed update_cache=true
 
         - name: Push future default virtual host configuration
-          action: copy src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640
+          copy: src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640
 
         - name: Activates our virtualhost
-          action: command a2ensite awesome-app
+          command: a2ensite awesome-app
 
         - name: Check that our config is valid
-          action: command apache2ctl configtest
+          command: apache2ctl configtest
           register: result
           ignore_errors: True
 
         - name: Rolling back - Restoring old default virtualhost
-          action: command a2ensite default
+          command: a2ensite default
           when: result|failed
 
         - name: Rolling back - Removing out virtualhost
-          action: command a2dissite awesome-app
+          command: a2dissite awesome-app
           when: result|failed
 
         - name: Rolling back - Ending playbook
-          action: fail msg="Configuration file is not valid. Please check that before re-running the playbook."
+          fail: msg="Configuration file is not valid. Please check that before re-running the playbook."
           when: result|failed
 
         - name: Deactivates the default virtualhost
-          action: command a2dissite default
+          command: a2dissite default
 
         - name: Deactivates the default ssl virtualhost
-          action: command a2dissite default-ssl
+          command: a2dissite default-ssl
 
         notify:
             - restart apache
 
       handlers:
         - name: restart apache
-          action: service name=apache2 state=restarted
+          service: name=apache2 state=restarted
 
 The `register` keyword records output from the `apache2ctl configtest` command (exit 
 status, stdout, stderr, ...), and `when: result|failed` checks if the registered variable 
