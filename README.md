@@ -107,7 +107,7 @@ The chapters being written live in the
 [writing](https://github.com/leucos/ansible-tuto/tree/writing) branch.
 
 If you have ideas on topics that would require a chapter, you can write
-them in this branch, of write your suggestions in
+them in this branch, or write your suggestions in
 [IDEAS.md](https://github.com/leucos/ansible-tuto/blob/master/IDEAS.md).
 
 I'm also open on pairing for writing chapters. Drop me a note if you're
