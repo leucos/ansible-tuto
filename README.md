@@ -123,3 +123,7 @@ When adding a new chapter (e.g. `step-NN`), please issue :
     ln -sf ../step-NN/{hosts,roles,site.yml,group_vars,host_vars} .
 
 Thank you !
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/leucos/ansible-tuto/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
