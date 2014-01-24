@@ -15,7 +15,7 @@ In order to run Vagrant, you need :
 
 This should be all it takes to set up Vagrant.
 
-Now bootstrap your virtual machines with :
+Now bootstrap your virtual machines with the following command. Note that you do not need to download any "box" manually. This tutorial already includes a `Vagrantfile` to get you up and running, and will get one for you if needed.
 
 `vagrant up`
 
