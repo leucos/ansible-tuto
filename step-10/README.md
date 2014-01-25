@@ -93,7 +93,7 @@ And now... let's try this out. Since our inventory contains only hosts
 necessary for the cluster, we don't need to limit the host list and can even
 run both playbooks. Well, to tell the truth, we must run both of them at the same time, since the 
 haproxy playbook requires facts _from_ the two webservers.
-TODO: This is annoying. Find a way.
+In step-11 we'll show how to avoid this.
 
     $ ansible-playbook -i step-10/hosts step-10/apache.yml step-10/haproxy.yml
 
