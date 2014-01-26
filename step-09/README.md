@@ -1,7 +1,7 @@
 Ansible tutorial
 ================
 
-Addding another Webserver
+Adding another Webserver
 -------------------------
 
 We have one web server. Now we want two.

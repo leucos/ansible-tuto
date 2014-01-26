@@ -108,7 +108,7 @@ The chapters being written live in the
 [writing](https://github.com/leucos/ansible-tuto/tree/writing) branch.
 
 If you have ideas on topics that would require a chapter, you can write
-them in this branch, of write your suggestions in
+them in this branch, or write your suggestions in
 [IDEAS.md](https://github.com/leucos/ansible-tuto/blob/master/IDEAS.md).
 
 I'm also open on pairing for writing chapters. Drop me a note if you're
@@ -124,3 +124,7 @@ When adding a new chapter (e.g. `step-NN`), please issue :
     ln -sf ../step-NN/{hosts,roles,site.yml,group_vars,host_vars} .
 
 Thank you !
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/leucos/ansible-tuto/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+

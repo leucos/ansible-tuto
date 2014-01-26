@@ -72,4 +72,4 @@ It doesn't matter if those files do not exist, but if they do, ansible will use 
 Now that we know the basics of modules, inventories and variables, let's
 explore the real power of Ansible with playbooks.
 
-Head to [step-04](https://github.com/leucos/ansible-tuto/tree/master/step-04)).
+Head to [step-04](https://github.com/leucos/ansible-tuto/tree/master/step-04).

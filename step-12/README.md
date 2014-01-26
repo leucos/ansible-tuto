@@ -108,10 +108,10 @@ Now we need to copy the tasks from `apache.yml` to `main.yml`, so this
 file looks like this :
 
     - name: Updates apt cache
-      action: apt update_cache=true
+      apt: update_cache=true
 
     - name: Installs necessary packages
-      action: apt pkg={{ item }} state=latest
+      apt: pkg={{ item }} state=latest
       with_items:
         - apache2
         - libapache2-mod-php5
@@ -120,7 +120,7 @@ file looks like this :
     ...
 
     - name: Deactivates the default ssl virtualhost
-      action: command a2dissite default-ssl
+      command: a2dissite default-ssl
       notify:
         - restart apache
 
@@ -137,7 +137,7 @@ We can extract the handlers part and create
 `step-12/roles/apache/handlers/main.yml` :
 
     - name: restart apache
-      action: service name=apache2 state=restarted
+      service: name=apache2 state=restarted
 
 ## Moving the configuration file
 

@@ -70,21 +70,21 @@ configure HAproxy is a breeze:
     - hosts: haproxy
       tasks:
         - name: Installs haproxy load balancer
-          action: apt pkg=haproxy state=installed update_cache=yes
+          apt: pkg=haproxy state=installed update_cache=yes
 
         - name: Pushes configuration
-          action: template src=templates/haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg mode=0640 owner=root group=root
+          template: src=templates/haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg mode=0640 owner=root group=root
           notify:
             - restart haproxy
 
         - name: Sets default starting flag to 1
-          action: lineinfile dest=/etc/default/haproxy regexp="^ENABLED" line="ENABLED=1"
+          lineinfile: dest=/etc/default/haproxy regexp="^ENABLED" line="ENABLED=1"
           notify:
             - restart haproxy 
 
       handlers:
         - name: restart haproxy
-          action: service name=haproxy state=restarted
+          service: name=haproxy state=restarted
 
 Looks familiar, isn't it? The only new module here is `template`, which has the same arguments 
 as `copy`. We also restrict this playbook to the group `haproxy`.
@@ -92,8 +92,8 @@ as `copy`. We also restrict this playbook to the group `haproxy`.
 And now... let's try this out. Since our inventory contains only hosts
 necessary for the cluster, we don't need to limit the host list and can even
 run both playbooks. Well, to tell the truth, we must run both of them at the same time, since the 
-haproxy playbook requres facts _from_ the two webservers. 
-TODO: This is annoying. Find a way.
+haproxy playbook requires facts _from_ the two webservers.
+In step-11 we'll show how to avoid this.
 
     $ ansible-playbook -i step-10/hosts step-10/apache.yml step-10/haproxy.yml
 
@@ -177,10 +177,10 @@ TODO: This is annoying. Find a way.
     PLAY RECAP ********************* 
     host0.example.org              : ok=5    changed=4    unreachable=0    failed=0    
 
-Looks good. Now head to [http://192.168.33.10/](http://192.168.33.10/) and 
+Looks good. Now head to http://192.168.33.10/ and
 see the result. Your cluster is deployed !
 
 you can even peek at HAProxy's statistics at
-[http://192.168.33.10/haproxy?stats](http://192.168.33.10/haproxy?stats).
+http://192.168.33.10/haproxy?stats.
 
 Now on to the next chapter about "Variables again", in [step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11).
