@@ -107,9 +107,6 @@ changed, but we had to cheat a bit for that. Here is the updated haproxy playboo
 :
 
     - hosts: web
-      tasks: 
-        - name : Fake task to gather facts
-          debug: msg="done"
           
     - hosts: haproxy
       tasks:
@@ -130,7 +127,7 @@ changed, but we had to cheat a bit for that. Here is the updated haproxy playboo
         - name: restart haproxy
           service: name=haproxy state=restarted
 
-See? We added a play for web hosts at the top. It does nothing. But it's
+See? We added an empty play for web hosts at the top. It does nothing. But it's
 here because it will trigger facts gathering on hosts in group `web`.
 This is required because the haproxy playbook needs to pick facts from
 hosts in this group. If we don't do this, ansible will complain saying
