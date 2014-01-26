@@ -135,8 +135,8 @@ Here we go :
     PLAY RECAP ********************* 
     host1.example.org              : ok=10   changed=8    unreachable=0    failed=0    
 
-You can now browse to your server, and it should display a kitten, and the server 
-hostname.
+You can now browse to http://192.168.33.11, and it should display a
+kitten, and the server hostname.
 
 Note the `tags: deploy` line allows you to execute just a part of the playbook. 
 Let's say you push a new version for your site. You want to speed up and execute 

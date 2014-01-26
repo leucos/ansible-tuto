@@ -15,7 +15,7 @@ In order to run Vagrant, you need :
 
 This should be all it takes to set up Vagrant.
 
-Now bootstrap your virtual machines with :
+Now bootstrap your virtual machines with the following command. Note that you do not need to download any "box" manually. This tutorial already includes a `Vagrantfile` to get you up and running, and will get one for you if needed.
 
 `vagrant up`
 
@@ -36,7 +36,7 @@ explain what's happening for now. Just trust me.
 
     ansible-playbook -c paramiko -i step-00/hosts step-00/setup.yml --ask-pass --sudo
 
-When asked for password, enter _vagrant_.
+When asked for password, enter _vagrant_. If you get "Connections refused" errors, please check the firewall settings of your machine.
 
 To polish things up, it's better to have an ssh-agent running, and add your keys 
 to it (`ssh-add`).

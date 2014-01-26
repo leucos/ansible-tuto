@@ -92,8 +92,8 @@ as `copy`. We also restrict this playbook to the group `haproxy`.
 And now... let's try this out. Since our inventory contains only hosts
 necessary for the cluster, we don't need to limit the host list and can even
 run both playbooks. Well, to tell the truth, we must run both of them at the same time, since the 
-haproxy playbook requres facts _from_ the two webservers. 
-TODO: This is annoying. Find a way.
+haproxy playbook requires facts _from_ the two webservers.
+In step-11 we'll show how to avoid this.
 
     $ ansible-playbook -i step-10/hosts step-10/apache.yml step-10/haproxy.yml
 
@@ -177,10 +177,10 @@ TODO: This is annoying. Find a way.
     PLAY RECAP ********************* 
     host0.example.org              : ok=5    changed=4    unreachable=0    failed=0    
 
-Looks good. Now head to [http://192.168.33.10/](http://192.168.33.10/) and 
+Looks good. Now head to http://192.168.33.10/ and
 see the result. Your cluster is deployed !
 
 you can even peek at HAProxy's statistics at
-[http://192.168.33.10/haproxy?stats](http://192.168.33.10/haproxy?stats).
+http://192.168.33.10/haproxy?stats.
 
 Now on to the next chapter about "Variables again", in [step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11).
