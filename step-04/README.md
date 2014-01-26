@@ -42,7 +42,7 @@ informative when the playbook runs, so it's highly recommended.
 
 All in all, this was quite easy!
 
-You can run the playbook (lets call it `apache.yml`) :
+You can run the playbook (lets call it `apache.yml`):
 
     ansible-playbook -i step-04/hosts -l host1.example.org step-04/apache.yml
 
@@ -76,7 +76,7 @@ it would show up too (but after the first play has completed).
     GATHERING FACTS ********************* 
     ok: [host1.example.org]
 
-Remember when we used the `setup` module ? Before each play, ansible runs it on necessary 
+Remember when we used the `setup` module? Before each play, ansible runs it on necessary
 hosts to gather facts. If this is not required because you don't need any info from 
 the host, you can just add `gather_facts: no` below the host entry (same level as 
 `tasks:`).

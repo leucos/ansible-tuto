@@ -95,10 +95,10 @@ will only be rendered if the test is true. So if we define
 `haproxy_stats_socket` somewhere for our loadbalancer (we might even use the
 `--extra-vars="haproxy_stats_sockets=/tmp/sock"` at the command line), the enclosed
 line will appear in the generated configuration file (note that the
-suggested setup is highly insecure !).
+suggested setup is highly insecure!).
 
 
-Let's go :
+Let's go:
 
     ansible-playbook -i step-11/hosts step-11/haproxy.yml
 
@@ -133,6 +133,6 @@ This is required because the haproxy playbook needs to pick facts from
 hosts in this group. If we don't do this, ansible will complain saying
 that `ansible_eth1` key doesn't exist.
 
-Now on to the next chapter about "Migrating to Roles !", in [step-12](https://github.com/leucos/ansible-tuto/tree/master/step-12).
+Now on to the next chapter about "Migrating to Roles!", in [step-12](https://github.com/leucos/ansible-tuto/tree/master/step-12).
 
 
