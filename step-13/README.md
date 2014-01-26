@@ -9,7 +9,7 @@ For instance, we want to avoid people trying to ssh to our servers and
 change few things in our ssh servers config. We also want to avoid
 browsers to hit our backend servers directly.
 
-For this, we will write two new roles : a ssh role and and iptables
+For this, we will write two new roles: a ssh role and and iptables
 role. So this part will be a bit longer that the previous ones, and will
 span several steps. Grab some coffee, here we go.
 
@@ -27,7 +27,7 @@ So it's much easier to write defaults in role's var files, especially if
 you want to share your roles: this way, your role will come with default
 settings.
 
-For the ssh server role, our structure will look like this :
+For the ssh server role, our structure will look like this:
 
     roles
       |
@@ -52,11 +52,11 @@ For the ssh server role, our structure will look like this :
 ### The template
 
 For brevity, I won't include the whole `sshd_config.j2` template, but
-just review the lines that contains variables :
+just review the lines that contains variables:
 
     # {{ ansible_managed }}
 
-This cool variable will be replaced by a tag containing something like :
+This cool variable will be replaced by a tag containing something like:
 
     Ansible managed: /home/user/.../roles/sshd/templates/shd_config.j2 modified on 2013-07-03 14:16:23 by user on userhost
 
@@ -78,10 +78,10 @@ to "yes".
     AllowUsers {% if 'vagrant' in group_names -%} vagrant {% endif -%} {% for adm in ssh_allow_users -%} {{ adm }} {% endfor -%}
 
 
-This one is a bit more complex : we restrict the user accounts that are allowed to be
+This one is a bit more complex: we restrict the user accounts that are allowed to be
 accessed via ssh. This is tricky since we have to stuff everything one
 one line (sshd is very strict about this).
- But if we split up the parts, we have :
+ But if we split up the parts, we have:
 
 `{% if 'vagrant' in group_names -%} vagrant {% endif -%}` will just echo
 "vagrant" if the machine being processed is in the `vagrant` group.
@@ -93,19 +93,19 @@ over usernames listed in the `ssh_allow_users` variable, and echo them
 here.
 
 For instance, if the machine is in a `vagrant` group, and if it has a
-`ssh_allow_users` variable defined like ;
+`ssh_allow_users` variable defined like;
 
     ssh_allow_users;
       - alice
       - bob
 
-The resulting line will look like :
+The resulting line will look like:
 
     AllowUsers vagrant alice bob
 
 ### The tasks and handler
 
-On the tasks side, there not a lot :
+On the tasks side, there not a lot:
 
     - name: Install openssh-server
       apt: name=openssh-server state=latest update_cache=yes
@@ -134,7 +134,7 @@ version if available.
 The second task will use our previously mentioned template and push it in
 sshd config directory. If you have some experience with Ansible, you
 might be wondering why I used `src="../templates/sshd_config.j2"`.
-Indeed, Ansible is much more clever than that : when using the
+Indeed, Ansible is much more clever than that: when using the
 `template` module, it will look automatically in the `template/`
 directory. Similarly, the `copy` module will hunt files from `files\`.
 However, `vim` being my editor of choise, using the path relative to the
@@ -161,7 +161,7 @@ at our advantage to write some sane defaults values for the role.
 
 Yes, one might argue that `root` isn't a very sane default. However,
 _sane_ doesn't mean _secure_: we just want our template to be filled
-properly and don't want sshd to choke !
+properly and don't want sshd to choke!
 We could have done this better, using the rollback paradigm we wrote for 
 in
 [step-07](https://github.com/leucos/ansible-tuto/tree/master/step-07),
@@ -170,15 +170,15 @@ lot of things to stuff in this chapter.
 
 ## The iptables role
 
-_Disclaimer : while what we're about to write is a good start, you
+_Disclaimer: while what we're about to write is a good start, you
 should note use it on production server without carefully reviewing the
 generated iptables rules and assert they match your firewalling
 guidelines_.
 
 Now, let's write the iptables role. It's easy to see how to do that:
 just write a rules files that will open the right ports. But... what
-ports ? How the iptable role can be aware of what roles need which ports
-to be openend ?
+ports? How the iptable role can be aware of what roles need which ports
+to be openend?
 Of course we could write an iptables role that will be aware of every
 possible role (e.g. ssh) and open the right ports for them (e.g.
 ssh_port). However, this is a really bad solution. Doing it this way
@@ -188,7 +188,7 @@ our developpers won't access development machines anymore, backend will
 refuse to talk to frontends. For short, it will soon be a mess and
 everybody will hate us.
 
-So we'll try another approach : let's say that each role is responsible
+So we'll try another approach: let's say that each role is responsible
 of generating it's own iptables rules, and the iptable role will take
 care of merging them and applying them to the host. This approach sounds
 much more reasonable.
@@ -199,7 +199,7 @@ the details and only look at what Ansible can do in this context.
 ### General iptables structure
 
 To make things simpler, we'll create a skeleton iptables file with 6 new
-chains : `TCP_IN`, `TCP_OUT`, `UDP_IN`, `UDP_OUT`, `ICMP_IN`, `ICMP_OUT`.
+chains: `TCP_IN`, `TCP_OUT`, `UDP_IN`, `UDP_OUT`, `ICMP_IN`, `ICMP_OUT`.
 
 As the name suggest, each chain will contain rules that relate to
 inbound trafic (`TCP_IN`, `UDP_IN`, ...) ou outbound traffic (`ICMP_OUT`,
@@ -209,14 +209,14 @@ The default policy for INPUT and OUTPUT chains is DROP, so we just have
 to open the firewall for traffic we want to receive (`*_IN`) or emit
 (`*_OUT`) for the right protocol (`UDP`, `TCP`, `ICMP`).
 
-Note that we don't care about the `FORWARD` chain : we just don't route
+Note that we don't care about the `FORWARD` chain: we just don't route
 packets. To keep things simple and understandable, we assume that all
 hosts have the same requirements regarding ICMP handling and no
 customization can be made. This could be changed easily though. Finally,
 we just handle the filter table, but the method could extend to any
 table with some additional work.
 
-Here is the template we come up with after a pencil/paper session :
+Here is the template we come up with after a pencil/paper session:
 
     #
     # {{ ansible_managed }}
@@ -281,7 +281,7 @@ Here is the template we come up with after a pencil/paper session :
     # TCP INPUT RULES
     # ######################################
     -A TCP_IN -p tcp ! --tcp-flags SYN,RST,ACK SYN -m state --state NEW -j DROP_IT
-    ### Temporary safeguard !
+    ### Temporary safeguard!
     -A TCP_IN -p tcp --dport 22 -j ACCEPT
     #
     ### Placeholder for rules
@@ -312,7 +312,7 @@ Here is the template we come up with after a pencil/paper session :
     COMMIT
 
 I won't delve into the details of the rules, but it can be noticed that
-we already have some Jinja directives in the template : we can choose
+we already have some Jinja directives in the template: we can choose
 whether we are going to log dropped packets or not by setting
 `firewall_log_drops` to yes or no. This variable is a good candidate to be
 in our `vars/main.yml`.
@@ -325,7 +325,7 @@ using `firewall_unfilter_tcp_out` for TCP and
     firewall_unfilter_tcp_out: yes
     firewall_log_drops: yes
 
-We're need a task file to render this template :
+We're need a task file to render this template:
 
     - name: Generate iptable rules
       template: src="../templates/iptables.j2" 
@@ -333,13 +333,13 @@ We're need a task file to render this template :
       tags: iptables
       notify: restart iptables
 
-a handler to reload rules :
+a handler to reload rules:
 
     - name: Restart iptables
       shell: iptables-restore < /etc/network/iptables
 
 and finally we need to include this role in our main playbook
-(step-13/site.yml), like so :
+(step-13/site.yml), like so:
 
     - hosts: all
       roles:
@@ -357,7 +357,7 @@ and finally we need to include this role in our main playbook
 Note that we introduced a new way to write an action in the iptables and
 sshd task and handler files: until now, our tasks looked like `action:
 somemodulename args...`. But there is a nice shorthand to write the same
-action : `somemodulename: args...`. It's less verbose and easier to
+action: `somemodulename: args...`. It's less verbose and easier to
 read. We'll use this syntax from now on (other roles have been changed
 to this syntax too).
 
@@ -369,12 +369,12 @@ get to the point quicker.
 
     ansible-playbook -i step-13/hosts step-13/site.yml -l host1.example.org -t iptables
 
-The output should look like :
+The output should look like:
 
-# TBD : check loaded lodules difference for connexion tracking that
+# TBD: check loaded lodules difference for connexion tracking that
 breaks first iptabmes push
 
-So we already have a working iptables rules files !
+So we already have a working iptables rules files!
 
 However, this is just the baseline config. We'll see in
 [step-14](https://github.com/leucos/ansible-tuto/tree/master/step-14)
