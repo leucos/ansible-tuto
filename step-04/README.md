@@ -63,7 +63,7 @@ When you run the above command, you should see something like:
     host1.example.org              : ok=2    changed=1    unreachable=0    failed=0    
 
 Note: You might see a cow passing by if you have `cowsay` installed. You can get rid of 
-it with `export ANSIBLE_NOCOWS="0"` if you don't like it.
+it with `export ANSIBLE_NOCOWS="1"` if you don't like it.
 
 Let's analyse the output one line at a time.
 
