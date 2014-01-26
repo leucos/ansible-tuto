@@ -14,7 +14,7 @@ So we'll have to remove the current (presumably `default`) virtualhost, send our
 virtualhost, activate it and restart apache.
 
 Let's create a directory called `files`, and add our virtualhost configuration
-for host1.example.org, which we'll call `awesome-app` :
+for host1.example.org, which we'll call `awesome-app`:
 
     <VirtualHost *:80>
       DocumentRoot /var/www/awesome-app
@@ -25,7 +25,7 @@ for host1.example.org, which we'll call `awesome-app` :
       TransferLog /var/log/apache2/access.log
     </VirtualHost>
 
-Now, a quick update to our apache playbook and we're set :
+Now, a quick update to our apache playbook and we're set:
 
     - hosts: web
       tasks:
@@ -50,7 +50,7 @@ Now, a quick update to our apache playbook and we're set :
         - name: restart apache
           service: name=apache2 state=restarted
 
-Here we go :
+Here we go:
 
     $ ansible-playbook -i step-05/hosts -l host1.example.org step-05/apache.yml
 

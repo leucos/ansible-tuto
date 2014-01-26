@@ -1,10 +1,10 @@
 Ansible tutorial
 ================
 
-Migrating to roles !
+Migrating to roles!
 --------------------
 
-Now that our playbook is done, let's refactor everything ! We'll replace
+Now that our playbook is done, let's refactor everything! We'll replace
 our plays with roles. Roles are just a new way of organizing files but
 bring interesting features. I won't go into great lengths here, since
 they're listed in
@@ -17,14 +17,14 @@ but for now, let's refactor out playbook to use roles.
 
 # Roles structures
 
-Roles add a bit of "magic" to Ansible : they assume a specific file
+Roles add a bit of "magic" to Ansible: they assume a specific file
 organization. While there is a suggested layout regarding roles, you can
 organize things the way you want using includes. However, role's
 conventions help building modular playbooks, and housekeeping will be
 much simpler.
 Rubyists would call this "convention over configuration".
 
-The file layout for roles looks like this :
+The file layout for roles looks like this:
 
     roles
       |
@@ -91,7 +91,7 @@ it will reduce top level ansible playbook clutter.
 Ok, now that we know the required layout, we can create our apache role
 from our apache playbook.
 
-The steps required are really simple : 
+The steps required are really simple:
 - create the roles directory and apache role layout
 - extract the apache handler into `roles/apache/handlers/main.yml`
 - move the apache configuration file `awesome-app` into
@@ -100,12 +100,12 @@ The steps required are really simple :
 
 ## Creating the role layout
 
-This is what has been done to convert step-11 apache files into a role :
+This is what has been done to convert step-11 apache files into a role:
 
     mkdir -p step-12/roles/apache/{tasks,handlers,files}
 
 Now we need to copy the tasks from `apache.yml` to `main.yml`, so this
-file looks like this :
+file looks like this:
 
     - name: Updates apt cache
       apt: update_cache=true
@@ -134,14 +134,14 @@ will look for them in the right directories.
 ## Extracting the handler
 
 We can extract the handlers part and create
-`step-12/roles/apache/handlers/main.yml` :
+`step-12/roles/apache/handlers/main.yml`:
 
     - name: restart apache
       service: name=apache2 state=restarted
 
 ## Moving the configuration file
 
-As simple as :
+As simple as:
 
     cp step-11/files/awesome-app step-12/roles/apache/files/
 
@@ -153,7 +153,7 @@ invoke it.
 Let's create a top level playbook that we'll use to map hosts and hosts
 groups to roles. We'll call it `site.yml`, since our goal is to have our
 site-wide configuration in it. While we're at it, we'll include
-`haproxy` in it too :
+`haproxy` in it too:
 
     - hosts: web
       roles:
@@ -165,19 +165,19 @@ site-wide configuration in it. While we're at it, we'll include
 
 That wasn't too hard. 
 
-Now let's create the haproxy role :
+Now let's create the haproxy role:
 
     mkdir -p step-12/roles/haproxy/{tasks,handlers,templates}
     cp step-11/templates/haproxy.cfg.j2 step-12/roles/haproxy/templates/
 
 then extract the handler, and remove reference to `templates/`.
 
-We can try out our new playbook with :
+We can try out our new playbook with:
 
     ansible-playbook -i step-12/hosts step-12/site.yml
 
 If eveything goes well, we should end up with a happy "PLAY RECAP" like
-this one :
+this one:
 
     host0.example.org          : ok=5    changed=2    unreachable=0 failed=0
     host1.example.org          : ok=10   changed=5    unreachable=0 failed=0
