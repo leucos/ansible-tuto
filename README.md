@@ -91,8 +91,9 @@ Just in case you want to skip to a specific step, here is a topic table of conte
 - [10. Templates](https://github.com/leucos/ansible-tuto/tree/master/step-10)
 - [11. Variables again](https://github.com/leucos/ansible-tuto/tree/master/step-11)
 - [12. Migrating to roles](https://github.com/leucos/ansible-tuto/tree/master/step-12)
-- [13. Deploying firewall rules (TBD)]()
-- [14. Taking advantages of role dependencies (TBD)]()
+- [13. Deploying firewall rules, part 1 (TBD)]()
+- [14. Deploying firewall rules, part 2 (TBD)]()
+- [15. Taking advantages of role dependencies (TBD)]()
 - [99. The end](https://github.com/leucos/ansible-tuto/tree/master/step-99)
 
 ## Contributing

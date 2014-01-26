@@ -115,14 +115,18 @@ On the tasks side, there not a lot :
         - ssh
 
     - name: Deploys sshd config
-      template: src="../templates/sshd_config.j2" dest=/etc/ssh/sshd_config owner=root group=root mode=0644 backup=yes
+      template: src="../templates/sshd_config.j2" dest=/etc/ssh/sshd_config 
+                owner=root group=root mode=0644 backup=yes
       notify:
         - Restarts sshd
       tags:
         - ssh
 
-A few notes though. You might wonder why We have a play that installs
-sshd... over ssh ! Yes, that's right, it looks like it's useless.
+A few notes though. First, notice we splitted the template line in two.
+This is perfectly legal and makes playbook easier to read.
+
+You might also wonder why we have a play that installs sshd... over ssh
+! Yes, that's right, it looks like it's useless.
 However, since we use the `state=latest` and `update_cache=yes`, running
 this task will update the cache and install a never `openssh-server`
 version if available.
@@ -324,7 +328,8 @@ using `firewall_unfilter_tcp_out` for TCP and
 We're need a task file to render this template :
 
     - name: Generate iptable rules
-      template: src="../templates/iptables.j2" dest=/etc/network/iptables mode=0640 owner=root group=root
+      template: src="../templates/iptables.j2" 
+                dest=/etc/network/iptables mode=0640 owner=root group=root
       tags: iptables
       notify: restart iptables
 
