@@ -18,7 +18,7 @@ First, we're deploying a PHP application. So we need to install the
 `libapache2-mod-php5` package. Second, we have to install the `git` since the
 git module (used to clone our application's git repository) uses it.
 
-We could do it like this :
+We could do it like this:
 
         ...
         - name: Installs apache web server
@@ -87,7 +87,7 @@ of items, and use each item in an action like this:
           service: name=apache2 state=restarted
 
 
-Here we go :
+Here we go:
 
     $ ansible-playbook -i step-08/hosts -l host1.example.org step-08/apache.yml
 

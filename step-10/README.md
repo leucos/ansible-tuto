@@ -6,7 +6,7 @@ Templates
 
 We'll use the `haproxy` as loadbalancer. Of course, install is just like we
 did for apache. But now configuration is a bit more tricky since we need to list 
-all web servers in haproxy's configuration. How can we do that ?
+all web servers in haproxy's configuration. How can we do that?
 
 # HAProxy configuration template
 
@@ -17,7 +17,7 @@ For instance, if you want to output the inventory_name of the host the template 
 currently built for, you just can write `{{ inventory_hostname }}` in the Jinja template.
 
 Or if you need the IP of the first ethernet interface (which ansible knows thanks 
-to the `setup` module), you just write : `{{ ansible_eth1['ipv4']['address'] }}` 
+to the `setup` module), you just write: `{{ ansible_eth1['ipv4']['address'] }}`
 in your template.
 
 Jinja2 templates also support conditionals, for-loops, etc...
@@ -178,7 +178,7 @@ In step-11 we'll show how to avoid this.
     host0.example.org              : ok=5    changed=4    unreachable=0    failed=0    
 
 Looks good. Now head to http://192.168.33.10/ and
-see the result. Your cluster is deployed !
+see the result. Your cluster is deployed!
 
 you can even peek at HAProxy's statistics at
 http://192.168.33.10/haproxy?stats.

@@ -1,7 +1,4 @@
 - hosts: web
-  tasks: 
-    - name : Fake task to gather facts
-      debug: msg="done"
       
 - hosts: haproxy
   tasks:
