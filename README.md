@@ -97,7 +97,19 @@ Just in case you want to skip to a specific step, here is a topic table of conte
 
 ## Contributing
 
-Thanks to all people who have contributed to this tutorial !
+Thanks to all people who have contributed to this tutorial :
+
+* mxxcon 
+* Hartmut Goebel
+* Chris Schmitz
+* Alexis Gallagher
+* Justin Garrison
+* Pierre-Gilles Levallois
+* Benny Wong
+* David Golden
+* Patrick Pelletier
+* Ruud Kamphuis
+* Victor Boivie
 
 I've been using Ansible almost since it's birth, but I learned a lot in
 the process of writing it. If you want to jump in, it's a great way to
