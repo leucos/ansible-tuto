@@ -94,7 +94,7 @@ limit anymore, it will run on all hosts where the playbook is intended to run on
 (i.e. `web`).
 
 If we had other servers in group `web` but wanted to limit the playbook to a subset, 
-we could have used, for instance : `-l firsthost:secondhost:...`.
+we could have used, for instance: `-l firsthost:secondhost:...`.
 
 Now that we have this nice farm of web servers, let's turn it into a cluster by 
 putting a load balancer in front of them in [step-10](https://github.com/leucos/ansible-tuto/tree/master/step-10).

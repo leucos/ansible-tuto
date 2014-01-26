@@ -13,7 +13,7 @@ Fire in the hole!
 running the last command).
 
 All the preceeding commands are just here to set-up our test
-environment. Deploying on the blank machines just requires one line :
+environment. Deploying on the blank machines just requires one line:
 
     ansible-playbook -i step-99/hosts step-99/site.yml
 

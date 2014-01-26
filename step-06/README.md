@@ -14,7 +14,7 @@ Ansible has a nifty feature: it will stop all processing if something goes wrong
 We'll take advantage of this feature to stop our playbook if the config file is not 
 valid.
 
-Let's change our `awesome-app` virtual host configuration file and break it :
+Let's change our `awesome-app` virtual host configuration file and break it:
 
     <VirtualHost *:80>
       RocumentDoot /var/www/awesome-app
@@ -31,7 +31,7 @@ our  virtualhost _before_ removing the default virtualhost, so a subsequent
 restart (possibly done directly on the server) won't break apache.
 
 Note that we should have done this in the first place. Since we ran our
-playbook already, the default virtualhost is already deactivated. Nevermind :
+playbook already, the default virtualhost is already deactivated. Nevermind:
 this playbook might be used on other innocent hosts, so let's protect them.
 
     - hosts: web
@@ -61,7 +61,7 @@ this playbook might be used on other innocent hosts, so let's protect them.
         - name: restart apache
           service: name=apache2 state=restarted
 
-Here we go :
+Here we go:
 
     $ ansible-playbook -i step-06/hosts -l host1.example.org step-06/apache.yml
 

@@ -65,7 +65,7 @@ The `register` keyword records output from the `apache2ctl configtest` command (
 status, stdout, stderr, ...), and `when: result|failed` checks if the registered variable 
 (`result`) contains a failed status.
 
-Here we go :
+Here we go:
 
     $ ansible-playbook -i step-07/hosts -l host1.example.org step-07/apache.yml
 
