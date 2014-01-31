@@ -17,7 +17,7 @@ nodes, while most other CM typically do it the other way around (nodes pull
 their config at times from a master machine).
 
 This mode is really interesting since you do not need to have a 'publicly'
-accessible 'master' to be able to configure remote nodes : it's the nodes
+accessible 'master' to be able to configure remote nodes: it's the nodes
 that need to be accessible (we'll see later that 'hidden' nodes can pull their
 configuration too!), and most of the time they are.
 
@@ -43,7 +43,7 @@ You might need to install git for this (`sudo apt-get install git` on Debian/Ubu
     git clone git://github.com/ansible/ansible.git
     cd ./ansible
 
-At this point, we can load the ansible environment :
+At this point, we can load the ansible environment:
 
     source ./hacking/env-setup
 
@@ -51,7 +51,7 @@ At this point, we can load the ansible environment :
 
 When running from an installed package, this is absolutely not necessary. If
 you prefer running from a debian package ansible, provides a `make target` to
-build it. You need a few packages to build the deb :
+build it. You need a few packages to build the deb:
 
     sudo apt-get install make fakeroot cdbs python-support
     git clone git://github.com/ansible/ansible.git
@@ -71,7 +71,7 @@ We'll assume you're using the deb packages in the rest of this tutorial.
 It's highly recommended to use Vagrant to follow this tutorial. If you don't have 
 it already, setting up should be quite easy and is described in [step-00/README.md](https://github.com/leucos/ansible-tuto/tree/master/step-00/README.md).
 
-If you wish to proceed without Vagrant (not recommended !), go straight to 
+If you wish to proceed without Vagrant (not recommended!), go straight to
 [step-01/README.md](https://github.com/leucos/ansible-tuto/tree/master/step-01).
 
 ## Contents
@@ -98,7 +98,7 @@ Just in case you want to skip to a specific step, here is a topic table of conte
 
 ## Contributing
 
-Thanks to all people who have contributed to this tutorial :
+Thanks to all people who have contributed to this tutorial:
 
 * mxxcon 
 * Hartmut Goebel
@@ -130,12 +130,12 @@ If you make changes or add chapters, please fill the `test/expectations`
 file and run the tests (`test/run.sh`).
 See the `test/run.sh` file for (a bit) more information.
 
-When adding a new chapter (e.g. `step-NN`), please issue :
+When adding a new chapter (e.g. `step-NN`), please issue:
 
     cd step-99
     ln -sf ../step-NN/{hosts,roles,site.yml,group_vars,host_vars} .
 
-Thank you !
+Thank you!
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/leucos/ansible-tuto/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

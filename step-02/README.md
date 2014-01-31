@@ -67,7 +67,7 @@ it's pretty easy:
     ansible -i step-02/hosts -m shell -a 'grep DISTRIB_RELEASE /etc/lsb-release' all
 
 `all` is a shortcut meaning 'all hosts found in inventory file'. It would
-return :
+return:
 
     host1.example.org | success | rc=0 >>
     DISTRIB_RELEASE=12.04
@@ -87,7 +87,7 @@ Try it out:
 
     ansible -i step-02/hosts -m setup host0.example.org
 
-replies with lots of information :
+replies with lots of information:
 
     "ansible_facts": {
         "ansible_all_ipv4_addresses": [
@@ -109,7 +109,7 @@ It's been truncated for brevity, but you can find many interesting bits in the r
 data. You may also filter returned keys, in case you're looking for something specific.
 
 For instance, let's say you want to know how much memory you have on all your hosts, 
-easy with `ansible -i step-02/hosts -m setup -a 'filter=ansible_memtotal_mb' all` :
+easy with `ansible -i step-02/hosts -m setup -a 'filter=ansible_memtotal_mb' all`:
 
     host2.example.org | success >> {
         "ansible_facts": {
@@ -144,7 +144,7 @@ It will act like a shell glob.
 # Selecting hosts
 
 We saw that `all` means 'all hosts', but ansible provides a 
-[lot of other ways to select hosts](http://ansible.cc/docs/patterns.html#selecting-targets) :
+[lot of other ways to select hosts](http://ansible.cc/docs/patterns.html#selecting-targets):
 
 - `host0.example.org:host1.example.org` would run on host0.example.org and
   host1.example.org

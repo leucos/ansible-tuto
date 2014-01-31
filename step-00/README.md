@@ -6,7 +6,7 @@ it easy to bootstrap barebones virtual machines with VirtualBox.
 
 # Installing Vagrant
 
-In order to run Vagrant, you need :
+In order to run Vagrant, you need:
 
 - VirtualBox installed
 - Ruby installed (should be on your system already)
