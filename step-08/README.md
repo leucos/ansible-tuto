@@ -41,7 +41,7 @@ of items, and use each item in an action like this:
           apt: update_cache=true
 
         - name: Installs necessary packages
-          apt: pkg=$item state=latest 
+          apt: pkg={{ item }} state=latest 
           with_items:
             - apache2
             - libapache2-mod-php5
