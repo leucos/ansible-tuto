@@ -4,7 +4,7 @@ Ansible tutorial
 Refining apache setup
 ---------------------
 
-We've instaled apache, now lets set up our virtualhost.
+We've installed apache, now lets set up our virtualhost.
 
 # Refining the playbook
 
