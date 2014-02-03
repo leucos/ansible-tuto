@@ -13,7 +13,7 @@ but my favorite is probably roles dependencies: role B can depend on
 another role A. Thus, when applying role B, role A will automatically be
 applied too. We'll see this in the [next
 chapter](https://github.com/leucos/ansible-tuto/tree/master/step-13),
-but for now, let's refactor out playbook to use roles.
+but for now, let's refactor our playbook to use roles.
 
 # Roles structures
 
