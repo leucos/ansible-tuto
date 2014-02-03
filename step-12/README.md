@@ -35,7 +35,7 @@ The file layout for roles looks like this:
            |   |_file1
            |   |_...
            |
-           |_template
+           |_templates
            |   |
            |   |_template1.j2
            |   |_...
