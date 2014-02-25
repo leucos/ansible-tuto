@@ -61,8 +61,8 @@ easy (it doesn't even have to be Python, it just needs to speak JSON).
 Ok, the above stuff is fun, but we have many nodes to manage. Let's try that on
 other hosts too.
 
-Lets say we want to know which Ubuntu version we have deployed on nodes,
-it's pretty easy:
+Lets say we want to get some facts about the node, and, for instance,
+know which Ubuntu version we have deployed on nodes, it's pretty easy:
 
     ansible -i step-02/hosts -m shell -a 'grep DISTRIB_RELEASE /etc/lsb-release' all
 
@@ -78,10 +78,12 @@ return:
     host0.example.org | success | rc=0 >>
     DISTRIB_RELEASE=12.04
 
-# More facts
+# Many more facts
 
-Speaking about node facts, there is another really handy module (weirdly)
-called `setup`: it specializes in node's _facts_ gathering.
+That was easy. However, I would be quickly become cumbersome if we
+wanted more information (ip addresses, RAM size, etc...). The solution
+comes from another really handy module (weirdly) called `setup`: it
+specializes in node's _facts_ gathering.
 
 Try it out:
 
