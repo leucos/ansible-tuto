@@ -15,7 +15,7 @@ it when it comes to `ansible-pull` later on.
 
 Our virtualhost is set, but we need a few changes to finish our deployment.
 First, we're deploying a PHP application. So we need to install the
-`libapache2-mod-php5` package. Second, we have to install the `git` since the
+`libapache2-mod-php5` package. Second, we have to install `git` since the
 git module (used to clone our application's git repository) uses it.
 
 We could do it like this:
