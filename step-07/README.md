@@ -40,7 +40,7 @@ processing if there is a failure but only to revert what we've done.
           command: a2ensite default
           when: result|failed
 
-        - name: Rolling back - Removing out virtualhost
+        - name: Rolling back - Removing our virtualhost
           command: a2dissite awesome-app
           when: result|failed
 
@@ -94,7 +94,7 @@ Here we go:
     TASK: [Rolling back - Restoring old default virtualhost] ********************* 
     changed: [host1.example.org]
 
-    TASK: [Rolling back - Removing out virtualhost] ********************* 
+    TASK: [Rolling back - Removing our virtualhost] ********************* 
     changed: [host1.example.org]
 
     TASK: [Rolling back - Ending playbook] ********************* 
