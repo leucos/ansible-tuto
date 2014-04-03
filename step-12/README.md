@@ -183,6 +183,12 @@ this one:
     host1.example.org          : ok=10   changed=5    unreachable=0 failed=0
     host2.example.org          : ok=10   changed=5    unreachable=0 failed=0
 
+You may have noticed that running all roles in site.yml can take a long
+time.  What if you only wanted to push changes to web?  This is also
+easy, with the limit flag:
+
+    ansible-playbook -i step-12/hosts -l web step-12/site.yml
+
 This concludes our migration to roles. It was quite easy, and adds a
 bunch of features to our playbook that we'll use in a future step.
 
