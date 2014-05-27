@@ -52,7 +52,7 @@ Ansible (more accurately _copy_ module executed on the node) replied back a bunc
 useful information in JSON format. We'll see how that can be used later.
 
 We'll see other useful modules below. Ansible has a huge 
-[module list](http://ansible.cc/docs/modules.html) that covers almost anything you
+[module list](http://docs.ansible.com/list_of_all_modules.html) that covers almost anything you
 can do on a system. If you can't find the right module, writing one is pretty
 easy (it doesn't even have to be Python, it just needs to speak JSON).
 
