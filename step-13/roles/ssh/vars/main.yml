@@ -1,0 +1,6 @@
+ssh_port: 22
+ssh_x11: "no"
+ssh_allow_users:
+  - root
+
+

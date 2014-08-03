@@ -1,0 +1,92 @@
+#
+# {{ ansible_managed }}
+#
+# Filter rules
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT DROP [0:0]
+:DROP_IT - [0:0]
+:ICMP_IN - [0:0]
+:ICMP_OUT - [0:0]
+:STATEFUL - [0:0]
+:TCP_IN - [0:0]
+:TCP_OUT - [0:0]
+:UDP_IN - [0:0]
+:UDP_OUT - [0:0]
+#
+# ######################################
+# INPUT Dispatch
+# ######################################
+-A INPUT -i lo -j ACCEPT
+-A INPUT -m state --state INVALID -j DROP_IT
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -s 127.0.0.0/255.0.0.0 ! -i lo -j DROP_IT
+-A INPUT -p tcp -j TCP_IN
+-A INPUT -p udp -j UDP_IN
+-A INPUT -p icmp -j ICMP_IN
+#
+# ######################################
+# OUTPUT Dispatch
+# ######################################
+-A OUTPUT -o lo -j ACCEPT
+-A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A OUTPUT -p udp -j UDP_OUT
+-A OUTPUT -p tcp -j TCP_OUT
+-A OUTPUT -p icmp -j ICMP_OUT
+#
+# ######################################
+# DROP & log rules
+# ######################################
+{% if firewall_log_drops %}
+-A DROP_IT -p tcp -m limit --limit 10/min -j LOG --log-prefix "Drop:" --log-level 6
+-A DROP_IT -p udp -m limit --limit 10/min -j LOG --log-prefix "Drop:" --log-level 6
+{% endif %}
+-A DROP_IT -j DROP
+#
+# ######################################
+# ICMP IN
+# ######################################
+-A ICMP_IN -p icmp --icmp-type 3 -j ACCEPT
+-A ICMP_IN -p icmp --icmp-type 11 -j ACCEPT
+-A ICMP_IN -p icmp --icmp-type 0 -j ACCEPT
+-A ICMP_IN -p icmp --icmp-type 8 -m limit --limit 5/sec -j ACCEPT
+#
+# ######################################
+# ICMP OUT
+# ######################################
+-A ICMP_OUT -p icmp --icmp-type 8 -j ACCEPT
+#
+# ######################################
+# TCP INPUT RULES
+# ######################################
+-A TCP_IN -p tcp ! --tcp-flags SYN,RST,ACK SYN -m state --state NEW -j DROP_IT
+### Temporary safeguard !
+-A TCP_IN -p tcp --dport 22 -j ACCEPT
+#
+### Placeholder for rules
+#
+# ######################################
+# TCP OUTPUT RULES
+# ######################################
+{% if firewall_unfilter_tcp_out == True %}
+-A TCP_OUT -p tcp -j ACCEPT
+{% else %}
+### Placeholder for rules
+{% endif %}{# unfilter_tcp_out #}
+#
+# ######################################
+# UDP INPUT RULES
+# ######################################
+#
+### Placeholder for rules
+#
+# ######################################
+# UDP OUTPUT RULES
+# #######################################
+{% if firewall_unfilter_udp_out == True -%}
+-A UDP_OUT -p udp -j ACCEPT
+{% else %}
+### Placeholder for rules
+{% endif %}
+COMMIT

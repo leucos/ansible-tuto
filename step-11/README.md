@@ -70,7 +70,7 @@ The template must be updated to use these variables.
     {% if haproxy_stats_socket %}
         stats socket {{ haproxy_stats_socket }}
     {% endif %}
-    
+
     defaults
         mode http
         timeout connect 5000ms
@@ -82,9 +82,6 @@ The template must be updated to use these variables.
         mode http
         stats enable
         balance roundrobin
-    {% if haproxy_stats_socket %}
-        stats socket {{ haproxy_stats_socket }}
-    {% endif %}
     {% for backend in groups['web'] %}
         server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_eth1']['ipv4']['address'] }} check inter {{ haproxy_check_interval }} weight {{ hostvars[backend]['haproxy_backend_weight'] }} port 80
     {% endfor %}
@@ -107,7 +104,6 @@ changed, but we had to cheat a bit for that. Here is the updated haproxy playboo
 :
 
     - hosts: web
-          
     - hosts: haproxy
       tasks:
         - name: Installs haproxy load balancer

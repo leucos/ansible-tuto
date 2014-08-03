@@ -1,0 +1,5 @@
+- name: Generate iptable rules
+  template: src="../templates/iptables.j2" 
+            dest=/etc/network/iptables mode=0640 owner=root group=root
+  tags: iptables
+  notify: Restart iptables

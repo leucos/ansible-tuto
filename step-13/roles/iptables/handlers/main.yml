@@ -1,0 +1,2 @@
+- name: Restart iptables
+  shell: iptables-restore < /etc/network/iptables
