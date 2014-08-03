@@ -118,7 +118,7 @@ Thanks to all people who have contributed to this tutorial:
 * Pierre-Gilles Levallois
 * Ruud Kamphuis
 * Victor Boivie
-* 
+
 I've been using Ansible almost since it's birth, but I learned a lot in
 the process of writing it. If you want to jump in, it's a great way to
 learn, feel free to add your contributions.
