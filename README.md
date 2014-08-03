@@ -91,24 +91,34 @@ Just in case you want to skip to a specific step, here is a topic table of conte
 - [10. Templates](https://github.com/leucos/ansible-tuto/tree/master/step-10)
 - [11. Variables again](https://github.com/leucos/ansible-tuto/tree/master/step-11)
 - [12. Migrating to roles](https://github.com/leucos/ansible-tuto/tree/master/step-12)
+- [13. Using tags (TBD)](https://github.com/leucos/ansible-tuto/tree/master/step-13)
+- [14. Roles dependencies (TBD)](https://github.com/leucos/ansible-tuto/tree/master/step-14)
+- [15. Debugging (TBD)](https://github.com/leucos/ansible-tuto/tree/master/step-15)
 - [99. The end](https://github.com/leucos/ansible-tuto/tree/master/step-99)
 
 ## Contributing
 
 Thanks to all people who have contributed to this tutorial:
 
-* mxxcon 
-* Hartmut Goebel
-* Chris Schmitz
+* Aladin Jaermann
 * Alexis Gallagher
-* Justin Garrison
-* Pierre-Gilles Levallois
+* Atilla Mas
 * Benny Wong
+* Chris Schmitz
+* dalton
+* Daniel Howard
 * David Golden
+* Eugene Kalinin
+* Hartmut Goebel
+* Justin Garrison
+* Karlo
+* Marchenko Alexandr
+* mxxcon
 * Patrick Pelletier
+* Pierre-Gilles Levallois
 * Ruud Kamphuis
 * Victor Boivie
-
+* 
 I've been using Ansible almost since it's birth, but I learned a lot in
 the process of writing it. If you want to jump in, it's a great way to
 learn, feel free to add your contributions.
@@ -116,9 +126,8 @@ learn, feel free to add your contributions.
 The chapters being written live in the
 [writing](https://github.com/leucos/ansible-tuto/tree/writing) branch.
 
-If you have ideas on topics that would require a chapter, you can write
-them in this branch, or write your suggestions in
-[IDEAS.md](https://github.com/leucos/ansible-tuto/blob/master/IDEAS.md).
+If you have ideas on topics that would require a chapter, please open a
+PR.
 
 I'm also open on pairing for writing chapters. Drop me a note if you're
 interested.
@@ -132,8 +141,8 @@ When adding a new chapter (e.g. `step-NN`), please issue:
     cd step-99
     ln -sf ../step-NN/{hosts,roles,site.yml,group_vars,host_vars} .
 
+For typos, grammar, etc... please send a PR for the master branch
+directly.
+
 Thank you!
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/leucos/ansible-tuto/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
