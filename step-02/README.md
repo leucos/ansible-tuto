@@ -78,10 +78,12 @@ return:
     host0.example.org | success | rc=0 >>
     DISTRIB_RELEASE=12.04
 
-# More facts
+# Many more facts
 
-Speaking about node facts, there is another really handy module (weirdly)
-called `setup`: it specializes in node's _facts_ gathering.
+That was easy. However, I would be quickly become cumbersome if we
+wanted more information (ip addresses, RAM size, etc...). The solution
+comes from another really handy module (weirdly) called `setup`: it
+specializes in node's _facts_ gathering.
 
 Try it out:
 
