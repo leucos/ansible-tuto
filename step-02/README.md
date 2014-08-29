@@ -80,7 +80,7 @@ return:
 
 # Many more facts
 
-That was easy. However, I would be quickly become cumbersome if we
+That was easy. However, It would quickly become cumbersome if we
 wanted more information (ip addresses, RAM size, etc...). The solution
 comes from another really handy module (weirdly) called `setup`: it
 specializes in node's _facts_ gathering.
