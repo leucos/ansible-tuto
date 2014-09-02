@@ -150,7 +150,7 @@ invoke it.
 
 ## Create a role playbook
 
-Let's create a top level playbook that we'll use to map hosts and hosts
+Let's create a top level playbook that we'll use to map hosts and host
 groups to roles. We'll call it `site.yml`, since our goal is to have our
 site-wide configuration in it. While we're at it, we'll include
 `haproxy` in it too:
