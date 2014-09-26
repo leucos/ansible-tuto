@@ -15,7 +15,7 @@ group, a `web-servers` group, a `production` group, etc...
 This can even be expressed shorter:
 
     [debian]
-    host[0-2].example.org
+    host[0:2].example.org
 
 If you wish to use child groups, just define a `[groupname:children]` and add child 
 groups in it.
@@ -26,7 +26,7 @@ our inventory like this:
     host0.example.org
 
     [debian]
-    host[1-2].example.org
+    host[1:2].example.org
 
     [linux:children]
     ubuntu
