@@ -34,7 +34,7 @@ Lets build a playbook that will install apache on machines in the `web` group.
           apt: pkg=apache2 state=installed update_cache=true
 
 We just need to say what we want to do using the right ansible modules. Here,
-we're using the [apt](http://ansible.cc/docs/modules.html#apt) module that
+we're using the [apt](http://docs.ansible.com/apt_module.html) module that
 can install debian packages. We also ask this module to update the package cache.
 
 We also added a name for this task. While this is not necessary, it's very

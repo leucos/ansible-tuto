@@ -146,7 +146,7 @@ It will act like a shell glob.
 # Selecting hosts
 
 We saw that `all` means 'all hosts', but ansible provides a 
-[lot of other ways to select hosts](http://ansible.cc/docs/patterns.html#selecting-targets):
+[lot of other ways to select hosts](http://docs.ansible.com/intro_patterns.html):
 
 - `host0.example.org:host1.example.org` would run on host0.example.org and
   host1.example.org
