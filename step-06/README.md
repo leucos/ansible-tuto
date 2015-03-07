@@ -53,8 +53,7 @@ this playbook might be used on other innocent hosts, so let's protect them.
 
         - name: Deactivates the default ssl virtualhost
           command: a2dissite default-ssl
-
-        notify:
+          notify:
             - restart apache
 
       handlers:

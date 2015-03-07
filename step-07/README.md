@@ -4,20 +4,22 @@ Ansible tutorial
 Using conditionals
 ------------------
 
-We've installed apache, pushed our virtualhost and restarted the server. But we want 
-to revert things to a stable state if something goes wrong.
+We've installed apache, pushed our virtualhost and restarted the server.
+But we want to revert things to a stable state if something goes wrong.
 
 # Reverting when things go wrong
 
-A word of warning: there's no magic here. The previous error was not ansible's fault. It's not a backup 
-system, and it can't rollback all things. It's your job to make sure your playbooks are safe. Ansible 
+A word of warning: there's no magic here. The previous error was not
+ansible's fault. It's not a backup system, and it can't rollback all
+things. It's your job to make sure your playbooks are safe. Ansible 
 just doesn't know how to revert the effects of `a2ensite awesome-app`.
 
 But if we care to do it, it's well within our reach.
 
-As said, when a task fails, processing stops... unless we accept failure (and
-we [should](http://www.aaronsw.com/weblog/geremiah)). This is what we'll do: continue 
-processing if there is a failure but only to revert what we've done.
+As said, when a task fails, processing stops... unless we accept failure
+(and we [should](http://www.aaronsw.com/weblog/geremiah)). This is what
+we'll do: continue processing if there is a failure but only to revert
+what we've done.
 
 
     - hosts: web
@@ -53,17 +55,16 @@ processing if there is a failure but only to revert what we've done.
 
         - name: Deactivates the default ssl virtualhost
           command: a2dissite default-ssl
-
-        notify:
+          notify:
             - restart apache
 
       handlers:
         - name: restart apache
           service: name=apache2 state=restarted
 
-The `register` keyword records output from the `apache2ctl configtest` command (exit 
-status, stdout, stderr, ...), and `when: result|failed` checks if the registered variable 
-(`result`) contains a failed status.
+The `register` keyword records output from the `apache2ctl configtest`
+command (exit status, stdout, stderr, ...), and `when: result|failed`
+checks if the registered variable (`result`) contains a failed status.
 
 Here we go:
 
