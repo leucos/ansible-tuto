@@ -100,24 +100,28 @@ Just in case you want to skip to a specific step, here is a topic table of conte
 
 Thanks to all people who have contributed to this tutorial:
 
-* Aladin Jaermann
-* Alexis Gallagher
-* Atilla Mas
-* Benny Wong
-* Chris Schmitz
-* dalton
-* Daniel Howard
-* David Golden
-* Eugene Kalinin
-* Hartmut Goebel
-* Justin Garrison
-* Karlo
-* Marchenko Alexandr
-* mxxcon
-* Patrick Pelletier
-* Pierre-Gilles Levallois
-* Ruud Kamphuis
-* Victor Boivie
+* [Aladin Jaermann](http://github.com/oxyrox)
+* [Alexis Gallagher](https://github.com/algal)
+* [Amit Jakubowicz](https://github.com/amitit)
+* [Arbab Nazar](https://github.com/arbabnazar)
+* [Atilla Mas](https://github.com/atillamas)
+* [Ben Visser](https://github.com/Tanq)
+* [Benny Wong](https://github.com/bdotdub)
+* [Chris Schmitz](https://github.com/ccschmitz)
+* [dalton](https://github.com/dalton)
+* [Daniel Howard](https://github.com/dannyman)
+* [David Golden](https://github.com/dagolden)
+* [Eric Corson](https://github.com/frodopwns)
+* [Eugene Kalinin](https://github.com/ekalinin)
+* [Hartmut Goebel](https://github.com/htgoebel)
+* [Justin Garrison](https://github.com/rothgar)
+* [Karlo](https://github.com/karlo57)
+* [Marchenko Alexandr](https://github.com/mac2000)
+* [mxxcon](https://github.com/mxxcon)
+* [Patrick Pelletier](https://github.com/skinp)
+* [Pierre-Gilles Levallois](https://github.com/Pilooz)
+* [Ruud Kamphuis](https://github.com/ruudk)
+* [Victor Boivie](https://github.com/boivie)
 
 I've been using Ansible almost since it's birth, but I learned a lot in
 the process of writing it. If you want to jump in, it's a great way to
