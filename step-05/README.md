@@ -33,16 +33,20 @@ Now, a quick update to our apache playbook and we're set:
           apt: pkg=apache2 state=installed update_cache=true
 
         - name: Push default virtual host configuration
-          copy: src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640 
+          copy: src=files/awesome-app dest=/etc/apache2/sites-available/awesome-app mode=0640 
 
-        - name: Deactivates the default virtualhost
-          command: a2dissite default
-
-        - name: Deactivates the default ssl virtualhost
-          command: a2dissite default-ssl
+        - name: Disable the default virtualhost
+          file: dest=/etc/apache2/sites-enabled/default state=absent
+          notify:
+            - restart apache
+ 
+        - name: Disable the default ssl virtualhost
+          file: dest=/etc/apache2/sites-enabled/default-ssl state=absent
+          notify:
+            - restart apache
 
         - name: Activates our virtualhost
-          command: a2ensite awesome-app
+          file: src=/etc/apache2/sites-available/awesome-app dest=/etc/apache2/sites-enabled/awesome-app state=link
           notify:
             - restart apache
 
@@ -65,10 +69,10 @@ Here we go:
     TASK: [Push default virtual host configuration] ********************* 
     changed: [host1.example.org]
 
-    TASK: [Deactivates the default virtualhost] ********************* 
+    TASK: [Disable the default virtualhost] ********************* 
     changed: [host1.example.org]
 
-    TASK: [Deactivates the default ssl virtualhost] ********************* 
+    TASK: [Disable the default ssl virtualhost] ********************* 
     changed: [host1.example.org]
 
     TASK: [Activates our virtualhost] ********************* 
