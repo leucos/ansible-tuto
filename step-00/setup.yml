@@ -32,7 +32,7 @@
       register: ns
       ignore_errors: yes
 
-    - name: Pushes new resolver configuration is resolver fails
+    - name: Pushes new resolver configuration if resolver fails
       lineinfile: regexp="^nameserver " line="nameserver 8.8.8.8" dest=/etc/resolv.conf
       when: ns|failed
 
