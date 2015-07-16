@@ -9,7 +9,7 @@
     - git
 
 - name: Push future default virtual host configuration
-  copy: src=awesome-app dest=/etc/apache2/sites-available/ mode=0640
+  copy: src=awesome-app dest=/etc/apache2/sites-available/awesome-app.conf mode=0640
 
 - name: Activates our virtualhost
   command: a2ensite awesome-app
@@ -20,7 +20,7 @@
   ignore_errors: True
 
 - name: Rolling back - Restoring old default virtualhost
-  command: a2ensite default
+  command: a2ensite 000-default
   when: result|failed
 
 - name: Rolling back - Removing out virtualhost
@@ -36,7 +36,7 @@
   tags: deploy
 
 - name: Deactivates the default virtualhost
-  command: a2dissite default
+  command: a2dissite 000-default
 
 - name: Deactivates the default ssl virtualhost
   command: a2dissite default-ssl
