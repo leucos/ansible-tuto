@@ -7,30 +7,36 @@ Grouping hosts
 Hosts in inventory can be grouped arbitrarily. For instance, you could have a `debian` 
 group, a `web-servers` group, a `production` group, etc...
 
-    [debian]
-    host0.example.org
-    host1.example.org
-    host2.example.org
+```
+[debian]
+host0.example.org
+host1.example.org
+host2.example.org
+```
 
 This can even be expressed shorter:
 
-    [debian]
-    host[0:2].example.org
+```
+[debian]
+host[0:2].example.org
+```
 
 If you wish to use child groups, just define a `[groupname:children]` and add child 
 groups in it.
 For instance, let's say we have various flavors of linux running, we could organize 
 our inventory like this:
 
-    [ubuntu]
-    host0.example.org
+```
+[ubuntu]
+host0.example.org
 
-    [debian]
-    host[1:2].example.org
+[debian]
+host[1:2].example.org
 
-    [linux:children]
-    ubuntu
-    debian
+[linux:children]
+ubuntu
+debian
+```
 
 Grouping of course, leverages configuration mutualization.
 
@@ -53,8 +59,10 @@ can also be set with `--extra-vars` (or `-e`) command line switch.
 `ansible_ssh_port`, as you can guess, has the same function regarding the ssh port ansible 
 will try to connect at.
 
-    [ubuntu]
-    host0.example.org ansible_ssh_host=192.168.0.12 ansible_ssh_port=2222
+```
+[ubuntu]
+host0.example.org ansible_ssh_host=192.168.0.12 ansible_ssh_port=2222
+```
 
 Ansible will look for additional variables definitions in group and host variable 
 files. These files will be searched in directories `group_vars` and `host_vars`, 
