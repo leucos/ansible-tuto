@@ -10,9 +10,11 @@ flag in ansible commands an provide the inventory path.
 
 We've created an inventory file for you in the directory that looks like this:
 
-    host0.example.org ansible_ssh_host=192.168.33.10 ansible_ssh_user=root
-    host1.example.org ansible_ssh_host=192.168.33.11 ansible_ssh_user=root
-    host2.example.org ansible_ssh_host=192.168.33.12 ansible_ssh_user=root
+```bash
+host0.example.org ansible_ssh_host=192.168.33.10 ansible_ssh_user=root
+host1.example.org ansible_ssh_host=192.168.33.11 ansible_ssh_user=root
+host2.example.org ansible_ssh_host=192.168.33.12 ansible_ssh_user=root
+```
 
 `ansible_ssh_host` is a special _variable_ that sets the IP ansible will use 
 when trying to connect to this host. It's not necessary here if you use the 
@@ -28,27 +30,31 @@ current username, or use another default provided in ~/.ansible.cfg
 
 Now that ansible is installed, let's check everything works properly.
 
-    ansible -m ping all -i step-01/hosts
+```bash
+ansible -m ping all -i step-01/hosts
+```
 
 What ansible will try to do here is just executing the `ping` module (more on
 modules later) on each host.
 
 The output should look like this:
 
-    host0.example.org | success >> {
-        "changed": false, 
-        "ping": "pong"
-    }
+```json
+host0.example.org | success >> {
+    "changed": false, 
+    "ping": "pong"
+}
 
-    host1.example.org | success >> {
-        "changed": false, 
-        "ping": "pong"
-    }
+host1.example.org | success >> {
+    "changed": false, 
+    "ping": "pong"
+}
 
-    host2.example.org | success >> {
-        "changed": false, 
-        "ping": "pong"
-    }
+host2.example.org | success >> {
+    "changed": false, 
+    "ping": "pong"
+}
+```
 
 Good! All 3 hosts are alive and kicking, and ansible can talk to them.
 

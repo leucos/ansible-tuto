@@ -40,12 +40,16 @@ We're also assuming you have a keypair in your ~/.ssh directory.
 Ansible devel branch is always usable, so we'll run straight from a git checkout.
 You might need to install git for this (`sudo apt-get install git` on Debian/Ubuntu).
 
-    git clone git://github.com/ansible/ansible.git
-    cd ./ansible
+```bash
+git clone git://github.com/ansible/ansible.git
+cd ./ansible
+```
 
 At this point, we can load the ansible environment:
 
-    source ./hacking/env-setup
+```bash
+source ./hacking/env-setup
+```
 
 ## From a deb package
 
@@ -53,18 +57,22 @@ When running from an installed package, this is absolutely not necessary. If
 you prefer running from a debian package ansible, provides a `make target` to
 build it. You need a few packages to build the deb:
 
-    sudo apt-get install make fakeroot cdbs python-support
-    git clone git://github.com/ansible/ansible.git
-    cd ./ansible
-    make deb
-    sudo dpkg -i ../ansible_1.1_all.deb (version may vary)
+```bash
+sudo apt-get install make fakeroot cdbs python-support
+git clone git://github.com/ansible/ansible.git
+cd ./ansible
+make deb
+sudo dpkg -i ../ansible_1.1_all.deb (version may vary)
+```
 
 We'll assume you're using the deb packages in the rest of this tutorial.
 
 # Cloning the tutorial
 
-    git clone https://github.com/leucos/ansible-tuto.git
-    cd ansible-tuto
+```bash
+git clone https://github.com/leucos/ansible-tuto.git
+cd ansible-tuto
+```
 
 # Using Vagrant with the tutorial
 
@@ -142,8 +150,10 @@ See the `test/run.sh` file for (a bit) more information.
 
 When adding a new chapter (e.g. `step-NN`), please issue:
 
-    cd step-99
-    ln -sf ../step-NN/{hosts,roles,site.yml,group_vars,host_vars} .
+```bash
+cd step-99
+ln -sf ../step-NN/{hosts,roles,site.yml,group_vars,host_vars} .
+```
 
 For typos, grammar, etc... please send a PR for the master branch
 directly.

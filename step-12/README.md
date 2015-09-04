@@ -26,48 +26,50 @@ Rubyists would call this "convention over configuration".
 
 The file layout for roles looks like this:
 
-    roles
-      |
-      |_some_role
+```
+roles
+  |
+  |_some_role
+       |
+       |_defaults
+       |   |
+       |   |_main.yml
+       |   |_...
+       |
+       |_files
+       |   |
+       |   |_file1
+       |   |_...
+       |
+       |_handlers
+       |   |
+       |   |_main.yml
+       |   |_some_other_file.yml
+       |   |_ ...
+       |
+       |_meta
+       |   |
+       |   |_main.yml
+       |   |_some_other_file.yml
+       |   |_ ...
+       |
+       |_tasks
+       |   |
+       |   |_main.yml
+       |   |_some_other_file.yml
+       |   |_ ...
+       |
+       |_templates
+       |   |
+       |   |_template1.j2
+       |   |_...
+       |
+       |_vars
            |
-           |_defaults
-           |   |
-           |   |_main.yml
-           |   |_...
-           |
-           |_files
-           |   |
-           |   |_file1
-           |   |_...
-           |
-           |_handlers
-           |   |
-           |   |_main.yml
-           |   |_some_other_file.yml
-           |   |_ ...
-           |
-           |_meta
-           |   |
-           |   |_main.yml
-           |   |_some_other_file.yml
-           |   |_ ...
-           |
-           |_tasks
-           |   |
-           |   |_main.yml
-           |   |_some_other_file.yml
-           |   |_ ...
-           |
-           |_templates
-           |   |
-           |   |_template1.j2
-           |   |_...
-           |
-           |_vars
-               |
-               |_main.yml
-               |_some_other_file.yml
-               |_ ...
+           |_main.yml
+           |_some_other_file.yml
+           |_ ...
+```
 
 
 Quite simple.
@@ -127,27 +129,31 @@ The steps required are really simple:
 
 This is what has been done to convert step-11 apache files into a role:
 
-    mkdir -p step-12/roles/apache/{tasks,handlers,files}
+```bash
+mkdir -p step-12/roles/apache/{tasks,handlers,files}
+```
 
 Now we need to copy the tasks from `apache.yml` to `main.yml`, so this
 file looks like this:
 
-    - name: Updates apt cache
-      apt: update_cache=true
+```yaml
+- name: Updates apt cache
+  apt: update_cache=true
 
-    - name: Installs necessary packages
-      apt: pkg={{ item }} state=latest
-      with_items:
-        - apache2
-        - libapache2-mod-php5
-        - git
+- name: Installs necessary packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - apache2
+    - libapache2-mod-php5
+    - git
 
-    ...
+...
 
-    - name: Deactivates the default ssl virtualhost
-      command: a2dissite default-ssl
-      notify:
-        - restart apache
+- name: Deactivates the default ssl virtualhost
+  command: a2dissite default-ssl
+  notify:
+    - restart apache
+```
 
 The file is not fully reproduced, but it is exactly the content of
 `apache.yml` between `tasks:` and `handlers:`.
@@ -161,14 +167,18 @@ will look for them in the right directories.
 We can extract the handlers part and create
 `step-12/roles/apache/handlers/main.yml`:
 
-    - name: restart apache
-      service: name=apache2 state=restarted
+```yaml
+- name: restart apache
+  service: name=apache2 state=restarted
+```
 
 ## Moving the configuration file
 
 As simple as:
 
-    cp step-11/files/awesome-app step-12/roles/apache/files/
+```bash
+cp step-11/files/awesome-app step-12/roles/apache/files/
+```
 
 At this point, the apache role is fully working, but we need a way to
 invoke it.
@@ -180,33 +190,41 @@ groups to roles. We'll call it `site.yml`, since our goal is to have our
 site-wide configuration in it. While we're at it, we'll include
 `haproxy` in it too:
 
-    - hosts: web
-      roles:
-        - { role: apache }
+```yaml
+- hosts: web
+  roles:
+    - { role: apache }
 
-    - hosts: haproxy
-      roles:
-        - { role: haproxy }
+- hosts: haproxy
+  roles:
+    - { role: haproxy }
+```
 
 That wasn't too hard. 
 
 Now let's create the haproxy role:
 
-    mkdir -p step-12/roles/haproxy/{tasks,handlers,templates}
-    cp step-11/templates/haproxy.cfg.j2 step-12/roles/haproxy/templates/
+```bash
+mkdir -p step-12/roles/haproxy/{tasks,handlers,templates}
+cp step-11/templates/haproxy.cfg.j2 step-12/roles/haproxy/templates/
+```
 
 then extract the handler, and remove reference to `templates/`.
 
 We can try out our new playbook with:
 
-    ansible-playbook -i step-12/hosts step-12/site.yml
+```bash
+ansible-playbook -i step-12/hosts step-12/site.yml
+```
 
 If eveything goes well, we should end up with a happy "PLAY RECAP" like
 this one:
 
-    host0.example.org          : ok=5    changed=2    unreachable=0 failed=0
-    host1.example.org          : ok=10   changed=5    unreachable=0 failed=0
-    host2.example.org          : ok=10   changed=5    unreachable=0 failed=0
+```
+host0.example.org          : ok=5    changed=2    unreachable=0 failed=0
+host1.example.org          : ok=10   changed=5    unreachable=0 failed=0
+host2.example.org          : ok=10   changed=5    unreachable=0 failed=0
+```
 
 You may have noticed that running all roles in site.yml can take a long
 time.  What if you only wanted to push changes to web?  This is also
