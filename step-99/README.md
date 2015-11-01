@@ -30,5 +30,5 @@ other plays, etc...
 Ok, seems we're done with our tutorial. Hope you enjoyed playing with Ansible, and 
 felt the power of this new tool.
 
-Now go straight to [Ansible website](http://ansible.cc), dive in the docs, check references, 
+Now go straight to [Ansible website](http://ansible.com), dive in the docs, check references, 
 skim through playbooks, chat on freenode in #ansible, and foremost, have fun!
