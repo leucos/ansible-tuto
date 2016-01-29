@@ -1,6 +1,7 @@
 - hosts: all
   become: yes
-  become_user: vagrant
+  become_user: root
+  remote_user: vagrant
   
   tasks:
     # This should work too / #2372
