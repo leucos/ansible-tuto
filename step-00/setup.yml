@@ -1,6 +1,6 @@
 - hosts: all
-  sudo: yes
-  remote_user: vagrant
+  become: yes
+  become_user: vagrant
   
   tasks:
     # This should work too / #2372
