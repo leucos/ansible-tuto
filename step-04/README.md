@@ -22,10 +22,10 @@ host1.example.org
 
 and all hosts are debian-like.
 
-Note: remember you can (and in our exercise we do) use `ansible_ssh_host` to set
+Note: remember you can (and in our exercise we do) use `ansible_host` to set
 the real IP of the host. You can also change the inventory and use a real hostname.
 In any case, use a non-critical machine to play with! In the real hosts
-file, we also have `ansible_ssh_user=root` to cope with potential
+file, we also have `ansible_user=root` to cope with potential
 different ansible default configurations.
 
 Lets build a playbook that will install apache on machines in the `web` group.

@@ -13,14 +13,14 @@ balancer we'll configure in the next step. But let's complete the inventory now.
 
 ```
 [web]
-host1.example.org ansible_ssh_host=192.168.33.11 ansible_ssh_user=root
-host2.example.org ansible_ssh_host=192.168.33.12 ansible_ssh_user=root
+host1.example.org ansible_host=192.168.33.11 ansible_user=root
+host2.example.org ansible_host=192.168.33.12 ansible_user=root
 
 [haproxy]
-host0.example.org ansible_ssh_host=192.168.33.10 ansible_ssh_user=root
+host0.example.org ansible_host=192.168.33.10 ansible_user=root
 ```
 
-Remember we're specifying `ansible_ssh_host` here because the host has a
+Remember we're specifying `ansible_host` here because the host has a
 different IP than expected (or can't be resolved). You could add these hosts
 in your `/etc/hosts` and not have to worry, or use real host names (which is
 what you would do in a classic situation).
