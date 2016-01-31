@@ -105,7 +105,7 @@ Just in case you want to skip to a specific step, here is a topic table of conte
 - [10. Templates](https://github.com/leucos/ansible-tuto/tree/master/step-10)
 - [11. Variables again](https://github.com/leucos/ansible-tuto/tree/master/step-11)
 - [12. Migrating to roles](https://github.com/leucos/ansible-tuto/tree/master/step-12)
-- [13. Using tags (TBD)](https://github.com/leucos/ansible-tuto/tree/master/step-13)
+- [13. Using tags](https://github.com/leucos/ansible-tuto/tree/master/step-13)
 - [14. Roles dependencies (TBD)](https://github.com/leucos/ansible-tuto/tree/master/step-14)
 - [15. Debugging (TBD)](https://github.com/leucos/ansible-tuto/tree/master/step-15)
 - [99. The end](https://github.com/leucos/ansible-tuto/tree/master/step-99)
@@ -119,7 +119,7 @@ Thanks to all people who have contributed to this tutorial:
 * [Amit Jakubowicz](https://github.com/amitit)
 * [Arbab Nazar](https://github.com/arbabnazar)
 * [Atilla Mas](https://github.com/atillamas)
-* [Ben Visser](https://github.com/Tanq)
+* [Ben Visser](https://github.com/noqcks)
 * [Benny Wong](https://github.com/bdotdub)
 * [Chris Schmitz](https://github.com/ccschmitz)
 * [dalton](https://github.com/dalton)
@@ -128,6 +128,7 @@ Thanks to all people who have contributed to this tutorial:
 * [Eric Corson](https://github.com/frodopwns)
 * [Eugene Kalinin](https://github.com/ekalinin)
 * [Hartmut Goebel](https://github.com/htgoebel)
+* [Jelly Robot](https://github.com/jellyjellyrobot)
 * [Justin Garrison](https://github.com/rothgar)
 * [Karlo](https://github.com/karlo57)
 * [Marchenko Alexandr](https://github.com/mac2000)
@@ -135,7 +136,10 @@ Thanks to all people who have contributed to this tutorial:
 * [Patrick Pelletier](https://github.com/skinp)
 * [Pierre-Gilles Levallois](https://github.com/Pilooz)
 * [Ruud Kamphuis](https://github.com/ruudk)
+* [torenware] (https://github.com/torenware)
 * [Victor Boivie](https://github.com/boivie)
+
+(and sorry if I forgot anyone)
 
 I've been using Ansible almost since it's birth, but I learned a lot in
 the process of writing it. If you want to jump in, it's a great way to

@@ -235,10 +235,10 @@ easy, with the limit flag:
 This concludes our migration to roles. It was quite easy, and adds a
 bunch of features to our playbook that we'll use in a future step.
 
-But for now, we'll see how we can deploy firewall rules for our cluster
-in [step-13](https://github.com/leucos/ansible-tuto/tree/master/step-13)
-chapter about "Deploying firewall rules". In this chapter, we'll use
-role dependencies to build our systems.
+In
+[step-13](https://github.com/leucos/ansible-tuto/tree/master/step-13),
+we will see how we can use tags to select which parts of our playbook we
+want to run.
 
 
 
