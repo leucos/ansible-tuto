@@ -6,7 +6,7 @@ Variables again
 
 So we've setup our loadbalancer, and it works quite well. We grabbed variables from 
 facts and used them to build the configuration. But Ansible also supports other kinds 
-of variables. We already saw `ansible_ssh_host` in inventory, but now we'll use variables 
+of variables. We already saw `ansible_host` in inventory, but now we'll use variables 
 defined in `host_vars` and `group_vars` files. 
 
 # Fine tuning our HAProxy configuration

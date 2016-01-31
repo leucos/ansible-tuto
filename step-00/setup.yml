@@ -1,5 +1,6 @@
 - hosts: all
-  sudo: yes
+  become: yes
+  become_user: root
   remote_user: vagrant
   
   tasks:

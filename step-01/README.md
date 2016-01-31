@@ -11,17 +11,17 @@ flag in ansible commands an provide the inventory path.
 We've created an inventory file for you in the directory that looks like this:
 
 ```bash
-host0.example.org ansible_ssh_host=192.168.33.10 ansible_ssh_user=root
-host1.example.org ansible_ssh_host=192.168.33.11 ansible_ssh_user=root
-host2.example.org ansible_ssh_host=192.168.33.12 ansible_ssh_user=root
+host0.example.org ansible_host=192.168.33.10 ansible_user=root
+host1.example.org ansible_host=192.168.33.11 ansible_user=root
+host2.example.org ansible_host=192.168.33.12 ansible_user=root
 ```
 
-`ansible_ssh_host` is a special _variable_ that sets the IP ansible will use 
+`ansible_host` is a special _variable_ that sets the IP ansible will use 
 when trying to connect to this host. It's not necessary here if you use the 
 vagrant-hostmaster gem. Also, you'll have to change the IPs if you have set 
 up your own virtual machines with different addresses.
 
-`ansible_ssh_user` is another special _variable_ that tells ansible to
+`ansible_user` is another special _variable_ that tells ansible to
 connect as this user when using ssh. By default ansible would use your
 current username, or use another default provided in ~/.ansible.cfg
 (`remote_user`).
