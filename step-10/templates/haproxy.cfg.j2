@@ -12,6 +12,7 @@ listen cluster
     bind {{ ansible_eth1['ipv4']['address'] }}:80
     mode http
     stats enable
+    stats uri  /haproxy?stats
     balance roundrobin
 {% for backend in groups['web'] %}
     server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_eth1']['ipv4']['address'] }} check port 80
