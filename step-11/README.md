@@ -6,7 +6,7 @@ Variables again
 
 So we've setup our loadbalancer, and it works quite well. We grabbed variables from 
 facts and used them to build the configuration. But Ansible also supports other kinds 
-of variables. We already saw `ansible_ssh_host` in inventory, but now we'll use variables 
+of variables. We already saw `ansible_host` in inventory, but now we'll use variables 
 defined in `host_vars` and `group_vars` files. 
 
 # Fine tuning our HAProxy configuration
@@ -30,15 +30,19 @@ directory. The file has to be named after the group you want to define the
 variables for. If we wanted to define variables for the web group, the file
 would be named `group_vars/web`.
 
-    haproxy_check_interval: 3000
-    haproxy_stats_socket: /tmp/sock
+```jinja
+haproxy_check_interval: 3000
+haproxy_stats_socket: /tmp/sock
+```
 
 The name is arbitrary. Meaningful names are recommended of course, but there is no 
 required syntax. You could even use complex variables (a.k.a. Python dict) like this:
 
-    haproxy:
-        check_interval: 3000
-        stats_socket: /tmp/sock
+```yaml
+haproxy:
+    check_interval: 3000
+    stats_socket: /tmp/sock
+```
 
 This is just a matter of taste. Complex vars can help group stuff logically. They 
 can also, under some circumstances, merge subsequently defined keys (note however 
@@ -50,12 +54,15 @@ Hosts vars follow exactly the same rules, but live in files under `host_vars` di
 
 Let's define weights for our backends in `host_vars/host1.example.com`:
 
-
-    haproxy_backend_weight: 100
+```
+haproxy_backend_weight: 100
+```
 
 and `host_vars/host2.example.com`:
 
-    haproxy_backend_weight: 150
+```
+haproxy_backend_weight: 150
+```
 
 If we'd define `haproxy_backend_weight` in `group_vars/web`, it would be used as a 'default': 
 variables defined in `host_vars` files overrides varibles defined in `group_vars`. 
@@ -64,28 +71,30 @@ variables defined in `host_vars` files overrides varibles defined in `group_vars
 
 The template must be updated to use these variables.
 
-    global
-        daemon
-        maxconn 256
-    {% if haproxy_stats_socket %}
-        stats socket {{ haproxy_stats_socket }}
-    {% endif %}
+```jinja
+global
+    daemon
+    maxconn 256
+{% if haproxy_stats_socket %}
+    stats socket {{ haproxy_stats_socket }}
+{% endif %}
 
-    defaults
-        mode http
-        timeout connect 5000ms
-        timeout client 50000ms
-        timeout server 50000ms
-    
-    listen cluster
-        bind {{ ansible_eth1['ipv4']['address'] }}:80
-        mode http
-        stats enable
-        balance roundrobin
-    {% for backend in groups['web'] %}
-        server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_eth1']['ipv4']['address'] }} check inter {{ haproxy_check_interval }} weight {{ hostvars[backend]['haproxy_backend_weight'] }} port 80
-    {% endfor %}
-        option httpchk HEAD /index.php HTTP/1.0
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+listen cluster
+    bind {{ ansible_eth1['ipv4']['address'] }}:80
+    mode http
+    stats enable
+    balance roundrobin
+{% for backend in groups['web'] %}
+    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_eth1']['ipv4']['address'] }} check inter {{ haproxy_check_interval }} weight {{ hostvars[backend]['haproxy_backend_weight'] }} port 80
+{% endfor %}
+    option httpchk HEAD /index.php HTTP/1.0
+```
 
 Note that we also introduced an `{% if ...` block. This block enclosed
 will only be rendered if the test is true. So if we define
@@ -97,22 +106,25 @@ suggested setup is highly insecure!).
 
 Let's go:
 
-    ansible-playbook -i step-11/hosts step-11/haproxy.yml
+```bash
+ansible-playbook -i step-11/hosts step-11/haproxy.yml
+```
 
 Note that, while we could, it's not necessary to run the apache playbook since nothing 
 changed, but we had to cheat a bit for that. Here is the updated haproxy playbook 
 :
 
-    - hosts: web
-    - hosts: haproxy
-      tasks:
-        - name: Installs haproxy load balancer
-          apt: pkg=haproxy state=installed update_cache=yes
+```yaml
+- hosts: web
+- hosts: haproxy
+  tasks:
+    - name: Installs haproxy load balancer
+      apt: pkg=haproxy state=installed update_cache=yes
 
-        - name: Pushes configuration
-          template: src=templates/haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg mode=0640 owner=root group=root
-          notify:
-            - restart haproxy
+    - name: Pushes configuration
+      template: src=templates/haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg mode=0640 owner=root group=root
+      notify:
+        - restart haproxy
 
         - name: Sets default starting flag to 1
           lineinfile: dest=/etc/default/haproxy regexp="^ENABLED" line="ENABLED=1"
@@ -122,6 +134,7 @@ changed, but we had to cheat a bit for that. Here is the updated haproxy playboo
       handlers:
         - name: restart haproxy
           service: name=haproxy state=restarted
+```
 
 See? We added an empty play for web hosts at the top. It does nothing. But it's
 here because it will trigger facts gathering on hosts in group `web`.

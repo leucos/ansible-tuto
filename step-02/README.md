@@ -18,12 +18,16 @@ Modules that take arguments pass them via `-a` switch. Let's see a few other mod
 
 This module lets you execute a shell command on the remote host:
 
-    ansible -i step-02/hosts -m shell -a 'uname -a' host0.example.org
+```bash
+ansible -i step-02/hosts -m shell -a 'uname -a' host0.example.org
+```
 
 Output should look like:
 
-    host0.example.org | success | rc=0 >>
-    Linux host0.example.org 3.2.0-23-generic-pae #36-Ubuntu SMP Tue Apr 10 22:19:09 UTC 2012 i686 i686 i386 GNU/Linux
+```bash
+host0.example.org | success | rc=0 >>
+Linux host0.example.org 3.2.0-23-generic-pae #36-Ubuntu SMP Tue Apr 10 22:19:09 UTC 2012 i686 i686 i386 GNU/Linux
+```
 
 Easy!
 
@@ -32,21 +36,25 @@ Easy!
 No surprise, with this module you can copy a file from the controlling machine to 
 the node. Lets say we want to copy our `/etc/motd` to `/tmp` of our target node:
 
-    ansible -i step-02/hosts -m copy -a 'src=/etc/motd dest=/tmp/' host0.example.org
+```bash
+ansible -i step-02/hosts -m copy -a 'src=/etc/motd dest=/tmp/' host0.example.org
+```
 
 Output should look similar to:
 
-    host0.example.org | success >> {
-        "changed": true, 
-        "dest": "/tmp/motd", 
-        "group": "root", 
-        "md5sum": "d41d8cd98f00b204e9800998ecf8427e", 
-        "mode": "0644", 
-        "owner": "root", 
-        "size": 0, 
-        "src": "/root/.ansible/tmp/ansible-1362910475.9-246937081757218/motd", 
-        "state": "file"
-    }
+```bash
+host0.example.org | success >> {
+    "changed": true, 
+    "dest": "/tmp/motd", 
+    "group": "root", 
+    "md5sum": "d41d8cd98f00b204e9800998ecf8427e", 
+    "mode": "0644", 
+    "owner": "root", 
+    "size": 0, 
+    "src": "/root/.ansible/tmp/ansible-1362910475.9-246937081757218/motd", 
+    "state": "file"
+}
+```
 
 Ansible (more accurately _copy_ module executed on the node) replied back a bunch of 
 useful information in JSON format. We'll see how that can be used later.
@@ -80,7 +88,7 @@ return:
 
 # Many more facts
 
-That was easy. However, I would be quickly become cumbersome if we
+That was easy. However, It would quickly become cumbersome if we
 wanted more information (ip addresses, RAM size, etc...). The solution
 comes from another really handy module (weirdly) called `setup`: it
 specializes in node's _facts_ gathering.
@@ -91,21 +99,23 @@ Try it out:
 
 replies with lots of information:
 
-    "ansible_facts": {
-        "ansible_all_ipv4_addresses": [
-            "192.168.0.60"
-        ], 
-        "ansible_all_ipv6_addresses": [], 
-        "ansible_architecture": "x86_64", 
-        "ansible_bios_date": "01/01/2007", 
-        "ansible_bios_version": "Bochs"
-        },
-        ---snip---
-        "ansible_virtualization_role": "guest", 
-        "ansible_virtualization_type": "kvm"
-    }, 
-    "changed": false, 
-    "verbose_override": true
+```json
+"ansible_facts": {
+    "ansible_all_ipv4_addresses": [
+        "192.168.0.60"
+    ], 
+    "ansible_all_ipv6_addresses": [], 
+    "ansible_architecture": "x86_64", 
+    "ansible_bios_date": "01/01/2007", 
+    "ansible_bios_version": "Bochs"
+    },
+    ---snip---
+    "ansible_virtualization_role": "guest", 
+    "ansible_virtualization_type": "kvm"
+}, 
+"changed": false, 
+"verbose_override": true
+```
 
 It's been truncated for brevity, but you can find many interesting bits in the returned 
 data. You may also filter returned keys, in case you're looking for something specific.
@@ -113,29 +123,31 @@ data. You may also filter returned keys, in case you're looking for something sp
 For instance, let's say you want to know how much memory you have on all your hosts, 
 easy with `ansible -i step-02/hosts -m setup -a 'filter=ansible_memtotal_mb' all`:
 
-    host2.example.org | success >> {
-        "ansible_facts": {
-            "ansible_memtotal_mb": 187
-        }, 
-        "changed": false, 
-        "verbose_override": true
-    }
+```json
+host2.example.org | success >> {
+    "ansible_facts": {
+        "ansible_memtotal_mb": 187
+    }, 
+    "changed": false, 
+    "verbose_override": true
+}
 
-    host1.example.org | success >> {
-        "ansible_facts": {
-            "ansible_memtotal_mb": 187
-        }, 
-        "changed": false, 
-        "verbose_override": true
-    }
+host1.example.org | success >> {
+    "ansible_facts": {
+        "ansible_memtotal_mb": 187
+    }, 
+    "changed": false, 
+    "verbose_override": true
+}
 
-    host0.example.org | success >> {
-        "ansible_facts": {
-            "ansible_memtotal_mb": 187
-        }, 
-        "changed": false, 
-        "verbose_override": true
-    }
+host0.example.org | success >> {
+    "ansible_facts": {
+        "ansible_memtotal_mb": 187
+    }, 
+    "changed": false, 
+    "verbose_override": true
+}
+```
 
 Notice that hosts replied in different order compared to the previous output. This 
 is because ansible parallelizes communications with hosts!
@@ -146,7 +158,7 @@ It will act like a shell glob.
 # Selecting hosts
 
 We saw that `all` means 'all hosts', but ansible provides a 
-[lot of other ways to select hosts](http://ansible.cc/docs/patterns.html#selecting-targets):
+[lot of other ways to select hosts](http://docs.ansible.com/intro_patterns.html):
 
 - `host0.example.org:host1.example.org` would run on host0.example.org and
   host1.example.org

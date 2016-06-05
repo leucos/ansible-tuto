@@ -16,69 +16,79 @@ virtualhost, activate it and restart apache.
 Let's create a directory called `files`, and add our virtualhost configuration
 for host1.example.org, which we'll call `awesome-app`:
 
-    <VirtualHost *:80>
-      DocumentRoot /var/www/awesome-app
+```xml
+<VirtualHost *:80>
+  DocumentRoot /var/www/awesome-app
 
-      Options -Indexes
+  Options -Indexes
 
-      ErrorLog /var/log/apache2/error.log
-      TransferLog /var/log/apache2/access.log
-    </VirtualHost>
+  ErrorLog /var/log/apache2/error.log
+  TransferLog /var/log/apache2/access.log
+</VirtualHost>
+```
 
 Now, a quick update to our apache playbook and we're set:
 
-    - hosts: web
-      tasks:
-        - name: Installs apache web server
-          apt: pkg=apache2 state=installed update_cache=true
+```yaml
+- hosts: web
+  tasks:
+    - name: Installs apache web server
+      apt: pkg=apache2 state=installed update_cache=true
 
-        - name: Push default virtual host configuration
-          copy: src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640 
+    - name: Push default virtual host configuration
+      copy: src=files/awesome-app dest=/etc/apache2/sites-available/awesome-app mode=0640 
 
-        - name: Deactivates the default virtualhost
-          command: a2dissite default
+    - name: Disable the default virtualhost
+      file: dest=/etc/apache2/sites-enabled/default state=absent
+      notify:
+        - restart apache
 
-        - name: Deactivates the default ssl virtualhost
-          command: a2dissite default-ssl
+    - name: Disable the default ssl virtualhost
+      file: dest=/etc/apache2/sites-enabled/default-ssl state=absent
+      notify:
+        - restart apache
 
-        - name: Activates our virtualhost
-          command: a2ensite awesome-app
-          notify:
-            - restart apache
+    - name: Activates our virtualhost
+      file: src=/etc/apache2/sites-available/awesome-app dest=/etc/apache2/sites-enabled/awesome-app state=link
+      notify:
+        - restart apache
 
-      handlers:
-        - name: restart apache
-          service: name=apache2 state=restarted
+  handlers:
+    - name: restart apache
+      service: name=apache2 state=restarted
+```
 
 Here we go:
 
-    $ ansible-playbook -i step-05/hosts -l host1.example.org step-05/apache.yml
+```bash
+$ ansible-playbook -i step-05/hosts -l host1.example.org step-05/apache.yml
 
-    PLAY [web] ********************* 
+PLAY [web] ********************* 
 
-    GATHERING FACTS ********************* 
-    ok: [host1.example.org]
+GATHERING FACTS ********************* 
+ok: [host1.example.org]
 
-    TASK: [Installs apache web server] ********************* 
-    ok: [host1.example.org]
+TASK: [Installs apache web server] ********************* 
+ok: [host1.example.org]
 
-    TASK: [Push default virtual host configuration] ********************* 
-    changed: [host1.example.org]
+TASK: [Push default virtual host configuration] ********************* 
+changed: [host1.example.org]
 
-    TASK: [Deactivates the default virtualhost] ********************* 
-    changed: [host1.example.org]
+TASK: [Disable the default virtualhost] ********************* 
+changed: [host1.example.org]
 
-    TASK: [Deactivates the default ssl virtualhost] ********************* 
-    changed: [host1.example.org]
+TASK: [Disable the default ssl virtualhost] ********************* 
+changed: [host1.example.org]
 
-    TASK: [Activates our virtualhost] ********************* 
-    changed: [host1.example.org]
+TASK: [Activates our virtualhost] ********************* 
+changed: [host1.example.org]
 
-    NOTIFIED: [restart apache] ********************* 
-    changed: [host1.example.org]
+NOTIFIED: [restart apache] ********************* 
+changed: [host1.example.org]
 
-    PLAY RECAP ********************* 
-    host1.example.org              : ok=7    changed=5    unreachable=0    failed=0    
+PLAY RECAP ********************* 
+host1.example.org              : ok=7    changed=5    unreachable=0    failed=0    
+```
 
 Pretty cool! Well, thinking about it, we're getting ahead of ourselves here. Shouldn't 
 we check that the config is ok before restarting apache? This way we won't end up 

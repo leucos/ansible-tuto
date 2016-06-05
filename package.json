@@ -1,0 +1,35 @@
+{
+  "name": "ansible-tuto",
+  "version": "0.1.0",
+  "description": "ansible step-by-step tutorial",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "gitbook-cli": "~2.2.0",
+    "gitbook-plugin-edit-link": "~2.0.2",
+    "gitbook-plugin-github": "~2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "docs:prepare": "gitbook install",
+    "docs:watch": "npm run docs:prepare && gitbook serve",
+    "docs:build": "npm run docs:prepare && rm -rf _book && gitbook build",
+    "docs:publish": "npm run docs:build && cd _book && git init && git commit --allow-empty -m 'Update docs' && git checkout -b gh-pages && git add . && git commit -am 'Update docs' && git push https://github.com/leucos/ansible-tuto gh-pages --force"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leucos/ansible-tuto.git"
+  },
+  "keywords": [
+    "ansible",
+    "vagrant"
+  ],
+  "author": "",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/leucos/ansible-tuto/issues"
+  },
+  "homepage": "https://github.com/leucos/ansible-tuto#readme"
+}

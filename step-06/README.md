@@ -16,14 +16,16 @@ valid.
 
 Let's change our `awesome-app` virtual host configuration file and break it:
 
-    <VirtualHost *:80>
-      RocumentDoot /var/www/awesome-app
+```xml
+<VirtualHost *:80>
+  RocumentDoot /var/www/awesome-app
 
-      Options -Indexes
+  Options -Indexes
 
-      ErrorLog /var/log/apache2/error.log
-      TransferLog /var/log/apache2/access.log
-    </VirtualHost>
+  ErrorLog /var/log/apache2/error.log
+  TransferLog /var/log/apache2/access.log
+</VirtualHost>
+```
 
 As said, when a task fails, processing stops. So we'll ensure that the
 configuration is valid before restarting the server. We also start by adding
@@ -34,62 +36,65 @@ Note that we should have done this in the first place. Since we ran our
 playbook already, the default virtualhost is already deactivated. Nevermind:
 this playbook might be used on other innocent hosts, so let's protect them.
 
-    - hosts: web
-      tasks:
-        - name: Installs apache web server
-          apt: pkg=apache2 state=installed update_cache=true
+```yaml
+- hosts: web
+  tasks:
+    - name: Installs apache web server
+      apt: pkg=apache2 state=installed update_cache=true
 
-        - name: Push future default virtual host configuration
-          copy: src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640
+    - name: Push future default virtual host configuration
+      copy: src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640
 
-        - name: Activates our virtualhost
-          command: a2ensite awesome-app
+    - name: Activates our virtualhost
+      command: a2ensite awesome-app
 
-        - name: Check that our config is valid
-          command: apache2ctl configtest
+    - name: Check that our config is valid
+      command: apache2ctl configtest
 
-        - name: Deactivates the default virtualhost
-          command: a2dissite default
+    - name: Deactivates the default virtualhost
+      command: a2dissite default
 
-        - name: Deactivates the default ssl virtualhost
-          command: a2dissite default-ssl
+    - name: Deactivates the default ssl virtualhost
+      command: a2dissite default-ssl
+      notify:
+        - restart apache
 
-        notify:
-            - restart apache
-
-      handlers:
-        - name: restart apache
-          service: name=apache2 state=restarted
+  handlers:
+    - name: restart apache
+      service: name=apache2 state=restarted
+```
 
 Here we go:
 
-    $ ansible-playbook -i step-06/hosts -l host1.example.org step-06/apache.yml
+```bash
+$ ansible-playbook -i step-06/hosts -l host1.example.org step-06/apache.yml
 
-    PLAY [web] ********************* 
+PLAY [web] ********************* 
 
-    GATHERING FACTS ********************* 
-    ok: [host1.example.org]
+GATHERING FACTS ********************* 
+ok: [host1.example.org]
 
-    TASK: [Installs apache web server] ********************* 
-    ok: [host1.example.org]
+TASK: [Installs apache web server] ********************* 
+ok: [host1.example.org]
 
-    TASK: [Push future default virtual host configuration] ********************* 
-    changed: [host1.example.org]
+TASK: [Push future default virtual host configuration] ********************* 
+changed: [host1.example.org]
 
-    TASK: [Activates our virtualhost] ********************* 
-    changed: [host1.example.org]
+TASK: [Activates our virtualhost] ********************* 
+changed: [host1.example.org]
 
-    TASK: [Check that our config is valid] ********************* 
-    failed: [host1.example.org] => {"changed": true, "cmd": ["apache2ctl", "configtest"], "delta": "0:00:00.045046", "end": "2013-03-08 16:09:32.002063", "rc": 1, "start": "2013-03-08 16:09:31.957017"}
-    stderr: Syntax error on line 2 of /etc/apache2/sites-enabled/awesome-app:
-    Invalid command 'RocumentDoot', perhaps misspelled or defined by a module not included in the server configuration
-    stdout: Action 'configtest' failed.
-    The Apache error log may have more information.
+TASK: [Check that our config is valid] ********************* 
+failed: [host1.example.org] => {"changed": true, "cmd": ["apache2ctl", "configtest"], "delta": "0:00:00.045046", "end": "2013-03-08 16:09:32.002063", "rc": 1, "start": "2013-03-08 16:09:31.957017"}
+stderr: Syntax error on line 2 of /etc/apache2/sites-enabled/awesome-app:
+Invalid command 'RocumentDoot', perhaps misspelled or defined by a module not included in the server configuration
+stdout: Action 'configtest' failed.
+The Apache error log may have more information.
 
-    FATAL: all hosts have already failed -- aborting
+FATAL: all hosts have already failed -- aborting
 
-    PLAY RECAP ********************* 
-    host1.example.org              : ok=4    changed=2    unreachable=0    failed=1    
+PLAY RECAP ********************* 
+host1.example.org              : ok=4    changed=2    unreachable=0    failed=1    
+```
 
 As you can see since `apache2ctl` returns with an exit code of 1 when it fails, ansible is 
 aware of it and stops processing. Great!
