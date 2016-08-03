@@ -17,6 +17,10 @@ Vagrant.configure("2") do |config|
           v.name = name
           v.customize ["modifyvm", :id, "--memory", 200]
       end
+
+      machine.vm.provision "ansible" do |ansible|
+        ansible.playbook = "./step-00/setup.yml"
+      end
     end
   end
 end
