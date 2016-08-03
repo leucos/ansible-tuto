@@ -4,8 +4,8 @@ Ansible tutorial
 Talking with nodes
 ------------------
 
-Now we're good to go. Let's play with the command we saw in the previous chapter: 
-`ansible`. This command is the first one of three that ansible provides which interact 
+Now we're good to go. Let's play with the command we saw in the previous chapter:
+`ansible`. This command is the first one of three that ansible provides which interact
 with nodes.
 
 # Doing something useful
@@ -33,7 +33,7 @@ Easy!
 
 ## Copy module
 
-No surprise, with this module you can copy a file from the controlling machine to 
+No surprise, with this module you can copy a file from the controlling machine to
 the node. Lets say we want to copy our `/etc/motd` to `/tmp` of our target node:
 
 ```bash
@@ -44,22 +44,22 @@ Output should look similar to:
 
 ```bash
 host0.example.org | success >> {
-    "changed": true, 
-    "dest": "/tmp/motd", 
-    "group": "root", 
-    "md5sum": "d41d8cd98f00b204e9800998ecf8427e", 
-    "mode": "0644", 
-    "owner": "root", 
-    "size": 0, 
-    "src": "/root/.ansible/tmp/ansible-1362910475.9-246937081757218/motd", 
+    "changed": true,
+    "dest": "/tmp/motd",
+    "group": "root",
+    "md5sum": "d41d8cd98f00b204e9800998ecf8427e",
+    "mode": "0644",
+    "owner": "root",
+    "size": 0,
+    "src": "/root/.ansible/tmp/ansible-1362910475.9-246937081757218/motd",
     "state": "file"
 }
 ```
 
-Ansible (more accurately _copy_ module executed on the node) replied back a bunch of 
+Ansible (more accurately _copy_ module executed on the node) replied back a bunch of
 useful information in JSON format. We'll see how that can be used later.
 
-We'll see other useful modules below. Ansible has a huge 
+We'll see other useful modules below. Ansible has a huge
 [module list](http://docs.ansible.com/list_of_all_modules.html) that covers almost anything you
 can do on a system. If you can't find the right module, writing one is pretty
 easy (it doesn't even have to be Python, it just needs to speak JSON).
@@ -78,13 +78,13 @@ know which Ubuntu version we have deployed on nodes, it's pretty easy:
 return:
 
     host1.example.org | success | rc=0 >>
-    DISTRIB_RELEASE=12.04
+    DISTRIB_RELEASE=14.04
 
     host2.example.org | success | rc=0 >>
-    DISTRIB_RELEASE=12.04
+    DISTRIB_RELEASE=14.04
 
     host0.example.org | success | rc=0 >>
-    DISTRIB_RELEASE=12.04
+    DISTRIB_RELEASE=14.04
 
 # Many more facts
 
@@ -103,53 +103,53 @@ replies with lots of information:
 "ansible_facts": {
     "ansible_all_ipv4_addresses": [
         "192.168.0.60"
-    ], 
-    "ansible_all_ipv6_addresses": [], 
-    "ansible_architecture": "x86_64", 
-    "ansible_bios_date": "01/01/2007", 
+    ],
+    "ansible_all_ipv6_addresses": [],
+    "ansible_architecture": "x86_64",
+    "ansible_bios_date": "01/01/2007",
     "ansible_bios_version": "Bochs"
     },
     ---snip---
-    "ansible_virtualization_role": "guest", 
+    "ansible_virtualization_role": "guest",
     "ansible_virtualization_type": "kvm"
-}, 
-"changed": false, 
+},
+"changed": false,
 "verbose_override": true
 ```
 
-It's been truncated for brevity, but you can find many interesting bits in the returned 
+It's been truncated for brevity, but you can find many interesting bits in the returned
 data. You may also filter returned keys, in case you're looking for something specific.
 
-For instance, let's say you want to know how much memory you have on all your hosts, 
+For instance, let's say you want to know how much memory you have on all your hosts,
 easy with `ansible -i step-02/hosts -m setup -a 'filter=ansible_memtotal_mb' all`:
 
 ```json
 host2.example.org | success >> {
     "ansible_facts": {
         "ansible_memtotal_mb": 187
-    }, 
-    "changed": false, 
+    },
+    "changed": false,
     "verbose_override": true
 }
 
 host1.example.org | success >> {
     "ansible_facts": {
         "ansible_memtotal_mb": 187
-    }, 
-    "changed": false, 
+    },
+    "changed": false,
     "verbose_override": true
 }
 
 host0.example.org | success >> {
     "ansible_facts": {
         "ansible_memtotal_mb": 187
-    }, 
-    "changed": false, 
+    },
+    "changed": false,
     "verbose_override": true
 }
 ```
 
-Notice that hosts replied in different order compared to the previous output. This 
+Notice that hosts replied in different order compared to the previous output. This
 is because ansible parallelizes communications with hosts!
 
 BTW, when using the setup module, you can use `*` in the `filter=` expression.
@@ -157,15 +157,15 @@ It will act like a shell glob.
 
 # Selecting hosts
 
-We saw that `all` means 'all hosts', but ansible provides a 
+We saw that `all` means 'all hosts', but ansible provides a
 [lot of other ways to select hosts](http://docs.ansible.com/intro_patterns.html):
 
 - `host0.example.org:host1.example.org` would run on host0.example.org and
   host1.example.org
-- `host*.example.org` would run on all hosts starting with 'host' and ending with 
+- `host*.example.org` would run on all hosts starting with 'host' and ending with
 '.example.org' (just like a shell glob too)
 
-There are other ways that involve groups, we'll see that in 
+There are other ways that involve groups, we'll see that in
 [step-03](https://github.com/leucos/ansible-tuto/tree/master/step-03).
 
 

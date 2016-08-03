@@ -4,17 +4,17 @@ Ansible tutorial
 Variables again
 ---------------
 
-So we've setup our loadbalancer, and it works quite well. We grabbed variables from 
-facts and used them to build the configuration. But Ansible also supports other kinds 
-of variables. We already saw `ansible_host` in inventory, but now we'll use variables 
-defined in `host_vars` and `group_vars` files. 
+So we've setup our loadbalancer, and it works quite well. We grabbed variables from
+facts and used them to build the configuration. But Ansible also supports other kinds
+of variables. We already saw `ansible_host` in inventory, but now we'll use variables
+defined in `host_vars` and `group_vars` files.
 
 # Fine tuning our HAProxy configuration
 
-HAProxy usually checks if the backends are alive. When a backend seems dead, it is 
-removed from the backend pool and HAproxy doesn't send requests to it anymore.
+HAProxy usually checks if the backends are alive. When a backend seems dead, it is
+removed from the backend pool and HAProxy doesn't send requests to it anymore.
 
-Backends can also have different weights (between 0 and 256). The higher the weight, 
+Backends can also have different weights (between 0 and 256). The higher the weight,
 the higher number of connections the backend will receive compared to other backends.
 It's useful to spread traffic more appropriately if nodes are not equally powerful.
 
@@ -22,7 +22,7 @@ We'll use variables to configure all these parameters.
 
 # Group vars
 
-The check interval will be set in a group_vars file for haproxy. This will ensure 
+The check interval will be set in a group_vars file for HAProxy. This will ensure
 all haproxies will inherit from it.
 
 We just need to create the file `group_vars/haproxy` below the inventory
@@ -35,7 +35,7 @@ haproxy_check_interval: 3000
 haproxy_stats_socket: /tmp/sock
 ```
 
-The name is arbitrary. Meaningful names are recommended of course, but there is no 
+The name is arbitrary. Meaningful names are recommended of course, but there is no
 required syntax. You could even use complex variables (a.k.a. Python dict) like this:
 
 ```yaml
@@ -44,8 +44,8 @@ haproxy:
     stats_socket: /tmp/sock
 ```
 
-This is just a matter of taste. Complex vars can help group stuff logically. They 
-can also, under some circumstances, merge subsequently defined keys (note however 
+This is just a matter of taste. Complex vars can help group stuff logically. They
+can also, under some circumstances, merge subsequently defined keys (note however
 that this is not the default ansible behaviour). For now we'll just use simple variables.
 
 # Hosts vars
@@ -64,8 +64,8 @@ and `host_vars/host2.example.com`:
 haproxy_backend_weight: 150
 ```
 
-If we'd define `haproxy_backend_weight` in `group_vars/web`, it would be used as a 'default': 
-variables defined in `host_vars` files overrides varibles defined in `group_vars`. 
+If we'd define `haproxy_backend_weight` in `group_vars/web`, it would be used as a 'default':
+variables defined in `host_vars` files overrides varibles defined in `group_vars`.
 
 # Updating the template
 
@@ -96,7 +96,7 @@ listen cluster
     option httpchk HEAD /index.php HTTP/1.0
 ```
 
-Note that we also introduced an `{% if ...` block. This block enclosed
+Note that we also introduced an `{% if ...` block. The block enclosed
 will only be rendered if the test is true. So if we define
 `haproxy_stats_socket` somewhere for our loadbalancer (we might even use the
 `--extra-vars="haproxy_stats_sockets=/tmp/sock"` at the command line), the enclosed
@@ -110,8 +110,8 @@ Let's go:
 ansible-playbook -i step-11/hosts step-11/haproxy.yml
 ```
 
-Note that, while we could, it's not necessary to run the apache playbook since nothing 
-changed, but we had to cheat a bit for that. Here is the updated haproxy playbook 
+Note that, while we could, it's not necessary to run the apache playbook since nothing
+changed, but we had to cheat a bit for that. Here is the updated haproxy playbook
 :
 
 ```yaml
@@ -129,7 +129,7 @@ changed, but we had to cheat a bit for that. Here is the updated haproxy playboo
         - name: Sets default starting flag to 1
           lineinfile: dest=/etc/default/haproxy regexp="^ENABLED" line="ENABLED=1"
           notify:
-            - restart haproxy 
+            - restart haproxy
 
       handlers:
         - name: restart haproxy
@@ -140,7 +140,7 @@ See? We added an empty play for web hosts at the top. It does nothing. But it's
 here because it will trigger facts gathering on hosts in group `web`.
 This is required because the haproxy playbook needs to pick facts from
 hosts in this group. If we don't do this, ansible will complain saying
-that `ansible_eth1` key doesn't exist.
+that the `ansible_eth1` key doesn't exist.
 
 Now on to the next chapter about "Migrating to Roles!", in [step-12](https://github.com/leucos/ansible-tuto/tree/master/step-12).
 

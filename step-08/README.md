@@ -9,8 +9,8 @@ Now we'll use the git module to deploy our application.
 
 # The git module
 
-Well, this is a kind of break. Nothing necessarily new here. The `git` module is 
-just another module. But we'll try it out just for fun. And we'll be familiar with 
+Well, this is a kind of break. Nothing necessarily new here. The `git` module is
+just another module. But we'll try it out just for fun. And we'll be familiar with
 it when it comes to `ansible-pull` later on.
 
 Our virtualhost is set, but we need a few changes to finish our deployment.
@@ -33,7 +33,7 @@ We could do it like this:
 ...
 ```
 
-but Ansible provides a more readable way to write this. Ansible can loop over a series 
+but Ansible provides a more readable way to write this. Ansible can loop over a series
 of items, and use each item in an action like this:
 
 
@@ -44,7 +44,7 @@ of items, and use each item in an action like this:
       apt: update_cache=true
 
     - name: Installs necessary packages
-      apt: pkg={{ item }} state=latest 
+      apt: pkg={{ item }} state=latest
       with_items:
         - apache2
         - libapache2-mod-php5
@@ -96,74 +96,73 @@ Here we go:
 ```bash
 $ ansible-playbook -i step-08/hosts -l host1.example.org step-08/apache.yml
 
-PLAY [web] ********************* 
+PLAY [web] *********************
 
-GATHERING FACTS ********************* 
+TASK [setup] *********************
 ok: [host1.example.org]
 
-TASK: [Updates apt cache] ********************* 
+TASK [Updates apt cache] *********************
 ok: [host1.example.org]
 
-TASK: [Installs necessary packages] ********************* 
+TASK [Installs necessary packages] *********************
 changed: [host1.example.org] => (item=apache2,libapache2-mod-php5,git)
 
-TASK: [Push future default virtual host configuration] ********************* 
+TASK [Push future default virtual host configuration] *********************
 changed: [host1.example.org]
 
-TASK: [Activates our virtualhost] ********************* 
+TASK [Activates our virtualhost] *********************
 changed: [host1.example.org]
 
-TASK: [Check that our config is valid] ********************* 
+TASK [Check that our config is valid] *********************
 changed: [host1.example.org]
 
-TASK: [Rolling back - Restoring old default virtualhost] ********************* 
+TASK [Rolling back - Restoring old default virtualhost] *********************
 skipping: [host1.example.org]
 
-TASK: [Rolling back - Removing out virtualhost] ********************* 
+TASK [Rolling back - Removing out virtualhost] *********************
 skipping: [host1.example.org]
 
-TASK: [Rolling back - Ending playbook] ********************* 
+TASK [Rolling back - Ending playbook] *********************
 skipping: [host1.example.org]
 
-TASK: [Deploy our awesome application] ********************* 
+TASK [Deploy our awesome application] *********************
 changed: [host1.example.org]
 
-TASK: [Deactivates the default virtualhost] ********************* 
+TASK [Deactivates the default virtualhost] *********************
 changed: [host1.example.org]
 
-TASK: [Deactivates the default ssl virtualhost] ********************* 
+TASK [Deactivates the default ssl virtualhost] *********************
 changed: [host1.example.org]
 
-NOTIFIED: [restart apache] ********************* 
+RUNNING HANDLER [restart apache] *********************
 changed: [host1.example.org]
 
-PLAY RECAP ********************* 
-host1.example.org              : ok=10   changed=8    unreachable=0    failed=0    
+PLAY RECAP *********************
+host1.example.org              : ok=10   changed=8    unreachable=0    failed=0
 ```
 
 You can now browse to http://192.168.33.11, and it should display a
 kitten, and the server hostname.
 
-Note the `tags: deploy` line allows you to execute just a part of the playbook. 
-Let's say you push a new version for your site. You want to speed up and execute 
+Note the `tags: deploy` line allows you to execute just a part of the playbook.
+Let's say you push a new version for your site. You want to speed up and execute
 only the part that takes care of deployment. Tags allows you to do it.
 Of course, "deploy" is just a string, it doesn't have any specific
 meaning and can be anything. Let's see how to use it:
 
 ```bash
-$ ansible-playbook -i step-08/hosts -l host1.example.org step-08/apache.yml -t deploy 
-X11 forwarding request failed on channel 0
+$ ansible-playbook -i step-08/hosts -l host1.example.org step-08/apache.yml -t deploy
 
-PLAY [web] ********************* 
+PLAY [web] *********************
 
-GATHERING FACTS ********************* 
+TASK [setup] *********************
 ok: [host1.example.org]
 
-TASK: [Deploy our awesome application] ********************* 
+TASK [Deploy our awesome application] *********************
 changed: [host1.example.org]
 
-PLAY RECAP ********************* 
-host1.example.org              : ok=2    changed=1    unreachable=0    failed=0    
+PLAY RECAP *********************
+host1.example.org              : ok=2    changed=1    unreachable=0    failed=0
 ```
- 
+
 Ok, let's deploy another web server in [step-09](https://github.com/leucos/ansible-tuto/tree/master/step-09).

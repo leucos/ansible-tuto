@@ -5,18 +5,18 @@ Templates
 ---------
 
 We'll use the `haproxy` as loadbalancer. Of course, install is just like we
-did for apache. But now configuration is a bit more tricky since we need to list 
+did for apache. But now configuration is a bit more tricky since we need to list
 all web servers in haproxy's configuration. How can we do that?
 
 # HAProxy configuration template
 
-Ansible uses [Jinja2](http://jinja.pocoo.org/docs/), a templating engine for Python. 
+Ansible uses [Jinja2](http://jinja.pocoo.org/docs/), a templating engine for Python.
 When you write Jinja2 templates, you can use any variable defined by Ansible.
 
-For instance, if you want to output the inventory_name of the host the template is 
+For instance, if you want to output the inventory_name of the host the template is
 currently built for, you just can write `{{ inventory_hostname }}` in the Jinja template.
 
-Or if you need the IP of the first ethernet interface (which ansible knows thanks 
+Or if you need the IP of the first ethernet interface (which ansible knows thanks
 to the `setup` module), you just write: `{{ ansible_eth1['ipv4']['address'] }}`
 in your template.
 
@@ -48,25 +48,25 @@ listen cluster
     option httpchk HEAD /index.php HTTP/1.0
 ```
 
-We have many new things going on here. 
+We have many new things going on here.
 
-First, `{{ ansible_eth1['ipv4']['address'] }}` will be replaced by the 
-IP of the load balancer on eth1. 
+First, `{{ ansible_eth1['ipv4']['address'] }}` will be replaced by the
+IP of the load balancer on eth1.
 
 Then, we have a loop. This loop is used to build the backend servers list.
-It will loop over every host listed in the `[web]` group (and put this host in the 
-`backend` variable). For each of the hosts it will render a line using host's facts. 
-All hosts' facts are exposed in the `hostvars` variable, so it's easy to access another 
+It will loop over every host listed in the `[web]` group (and put this host in the
+`backend` variable). For each of the hosts it will render a line using host's facts.
+All hosts' facts are exposed in the `hostvars` variable, so it's easy to access another
 host variables (like its hostname or in this case IP).
 
 We could have written the host list by hand, since we have only 2 of them. But
 we're hoping that the server will be very successful, and that we'll need a
 hundred of them. Thus, adding servers to the configuration or swapping some
-out boils down to adding or removing hosts from the `[web]` group. 
+out boils down to adding or removing hosts from the `[web]` group.
 
 # HAProxy playbook
 
-We've done the most difficult part of the job. Writing a playbook to install and 
+We've done the most difficult part of the job. Writing a playbook to install and
 configure HAproxy is a breeze:
 
 ```yaml
@@ -83,104 +83,104 @@ configure HAproxy is a breeze:
     - name: Sets default starting flag to 1
       lineinfile: dest=/etc/default/haproxy regexp="^ENABLED" line="ENABLED=1"
       notify:
-        - restart haproxy 
+        - restart haproxy
 
   handlers:
     - name: restart haproxy
       service: name=haproxy state=restarted
 ```
 
-Looks familiar, isn't it? The only new module here is `template`, which has the same arguments 
+Looks familiar, isn't it? The only new module here is `template`, which has the same arguments
 as `copy`. We also restrict this playbook to the group `haproxy`.
 
 And now... let's try this out. Since our inventory contains only hosts
 necessary for the cluster, we don't need to limit the host list and can even
-run both playbooks. Well, to tell the truth, we must run both of them at the same time, since the 
+run both playbooks. Well, to tell the truth, we must run both of them at the same time, since the
 haproxy playbook requires facts _from_ the two webservers.
 In step-11 we'll show how to avoid this.
 
 ```bash
 $ ansible-playbook -i step-10/hosts step-10/apache.yml step-10/haproxy.yml
 
-PLAY [web] ********************* 
+PLAY [web] *********************
 
-GATHERING FACTS ********************* 
+TASK [setup] *********************
 ok: [host1.example.org]
 ok: [host2.example.org]
 
-TASK: [Updates apt cache] ********************* 
+TASK [Updates apt cache] *********************
 ok: [host1.example.org]
 ok: [host2.example.org]
 
-TASK: [Installs necessary packages] ********************* 
+TASK [Installs necessary packages] *********************
 ok: [host1.example.org] => (item=apache2,libapache2-mod-php5,git)
 ok: [host2.example.org] => (item=apache2,libapache2-mod-php5,git)
 
-TASK: [Push future default virtual host configuration] ********************* 
+TASK [Push future default virtual host configuration] *********************
 ok: [host2.example.org]
 ok: [host1.example.org]
 
-TASK: [Activates our virtualhost] ********************* 
+TASK [Activates our virtualhost] *********************
 changed: [host1.example.org]
 changed: [host2.example.org]
 
-TASK: [Check that our config is valid] ********************* 
+TASK [Check that our config is valid] *********************
 changed: [host1.example.org]
 changed: [host2.example.org]
 
-TASK: [Rolling back - Restoring old default virtualhost] ********************* 
+TASK [Rolling back - Restoring old default virtualhost] *********************
 skipping: [host1.example.org]
 skipping: [host2.example.org]
 
-TASK: [Rolling back - Removing out virtualhost] ********************* 
+TASK [Rolling back - Removing out virtualhost] *********************
 skipping: [host1.example.org]
 skipping: [host2.example.org]
 
-TASK: [Rolling back - Ending playbook] ********************* 
+TASK [Rolling back - Ending playbook] *********************
 skipping: [host1.example.org]
 skipping: [host2.example.org]
 
-TASK: [Deploy our awesome application] ********************* 
+TASK [Deploy our awesome application] *********************
 ok: [host2.example.org]
 ok: [host1.example.org]
 
-TASK: [Deactivates the default virtualhost] ********************* 
+TASK [Deactivates the default virtualhost] *********************
 changed: [host1.example.org]
 changed: [host2.example.org]
 
-TASK: [Deactivates the default ssl virtualhost] ********************* 
+TASK [Deactivates the default ssl virtualhost] *********************
 changed: [host2.example.org]
 changed: [host1.example.org]
 
-NOTIFIED: [restart apache] ********************* 
+RUNNING HANDLER [restart apache] *********************
 changed: [host2.example.org]
 changed: [host1.example.org]
 
-PLAY RECAP ********************* 
-host1.example.org              : ok=10   changed=5    unreachable=0    failed=0    
-host2.example.org              : ok=10   changed=5    unreachable=0    failed=0    
+PLAY RECAP *********************
+host1.example.org              : ok=10   changed=5    unreachable=0    failed=0
+host2.example.org              : ok=10   changed=5    unreachable=0    failed=0
 
 
 
-PLAY [haproxy] ********************* 
+PLAY [haproxy] *********************
 
-GATHERING FACTS ********************* 
+TASK [setup] *********************
 ok: [host0.example.org]
 
-TASK: [Installs haproxy load balancer] ********************* 
+TASK [Installs haproxy load balancer] *********************
 changed: [host0.example.org]
 
-TASK: [Pushes configuration] ********************* 
+TASK [Pushes configuration] *********************
 changed: [host0.example.org]
 
-TASK: [Sets default starting flag to 1] ********************* 
+TASK [Sets default starting flag to 1] *********************
 changed: [host0.example.org]
 
-NOTIFIED: [restart haproxy] ********************* 
+RUNNING HANDLER [restart haproxy] *********************
 changed: [host0.example.org]
 
-PLAY RECAP ********************* 
-host0.example.org              : ok=5    changed=4    unreachable=0    failed=0    
+PLAY RECAP *********************
+host0.example.org              : ok=5    changed=4    unreachable=0    failed=0
 ```
 
 Looks good. Now head to http://192.168.33.10/ and
