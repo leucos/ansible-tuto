@@ -1,15 +1,15 @@
 Ansible tutorial
 ================
 
-This tutorial presents ansible step-by-step. You'll need to have a (virtual or
-physical) machine to act as an ansible node. A vagrant environment is provided for 
+This tutorial presents Ansible step-by-step. You'll need to have a (virtual or
+physical) machine to act as an Ansible node. A Vagrant environment is provided for 
 going through this tutorial.
 
-Ansible is a configuration management software that let's you control and
+Ansible is a configuration management software that lets you control and
 configure nodes from  another machine. What makes it different from other
-management software is that ansible  uses (potentially existing) SSH
-infrastructure, while others (chef, puppet, ...) need a specific PKI
-infrastructure to be set-up.
+management software is that Ansible  uses (potentially existing) SSH
+infrastructure, while others (Chef, Puppet, ...) need a specific PKI
+infrastructure to be set up.
 
 Ansible also emphasises push mode, where configuration is pushed from a master
 machine (a master machine is only a machine where you can SSH to nodes from) to
@@ -45,7 +45,7 @@ git clone git://github.com/ansible/ansible.git
 cd ./ansible
 ```
 
-At this point, we can load the ansible environment:
+At this point, we can load the Ansible environment:
 
 ```bash
 source ./hacking/env-setup
@@ -54,7 +54,7 @@ source ./hacking/env-setup
 ## From a deb package
 
 When running from an installed package, this is absolutely not necessary. If
-you prefer running from a debian package ansible, provides a `make target` to
+you prefer running from a Debian package Ansible, provides a `make target` to
 build it. You need a few packages to build the deb:
 
 ```bash
@@ -144,7 +144,7 @@ Thanks to all people who have contributed to this tutorial:
 
 (and sorry if I forgot anyone)
 
-I've been using Ansible almost since it's birth, but I learned a lot in
+I've been using Ansible almost since its birth, but I learned a lot in
 the process of writing it. If you want to jump in, it's a great way to
 learn, feel free to add your contributions.
 
