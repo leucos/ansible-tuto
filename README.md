@@ -128,6 +128,7 @@ Thanks to all people who have contributed to this tutorial:
 * [dalton](https://github.com/dalton)
 * [Daniel Howard](https://github.com/dannyman)
 * [David Golden](https://github.com/dagolden)
+* [Davide Restivo](https://github.com/daviderestivo)
 * [Eric Corson](https://github.com/frodopwns)
 * [Eugene Kalinin](https://github.com/ekalinin)
 * [Hartmut Goebel](https://github.com/htgoebel)
