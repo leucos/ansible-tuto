@@ -208,6 +208,13 @@ Now let's create the haproxy role:
 mkdir -p step-12/roles/haproxy/{tasks,handlers,templates}
 cp step-11/templates/haproxy.cfg.j2 step-12/roles/haproxy/templates/
 ```
+Instead of creating the haproxy role directory structure using mkdir, it's
+possible to use ansible-galaxy:
+
+```bash
+ansible-galaxy --offline init step-12/roles/haproxy
+cp step-11/templates/haproxy.cfg.j2 step-12/roles/haproxy/templates/
+```
 
 then extract the handler, and remove reference to `templates/`.
 
