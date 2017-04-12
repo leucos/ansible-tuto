@@ -86,9 +86,17 @@ If you wish to proceed without Vagrant (not recommended!), go straight to
 
 [Terminology](https://docs.ansible.com/ansible/glossary.html):
  - [command or action](https://docs.ansible.com/ansible/intro_adhoc.html): [ansible module](https://docs.ansible.com/ansible/modules.html) like just a shell command. Intro in [step-02](https://github.com/leucos/ansible-tuto/tree/master/step-02).
- - task: it's combine an action (a module and its arguments) with a name and optionally some other keywords (like looping directives).
- - [playbook](https://docs.ansible.com/ansible/playbooks_intro.html): an yaml file contains roles executed in sequence, and eventually individual tasks. Intro in [step-04](https://github.com/leucos/ansible-tuto/tree/master/step-04).
- - [role](https://docs.ansible.com/ansible/playbooks_roles.html): an organisational unit grouping tasks together in order to install a piece of software. Intro in [step-12](https://github.com/leucos/ansible-tuto/tree/master/step-12).
+ - task: it combines an action (a module and its arguments) with a name
+   and optionally some other keywords (like looping directives).
+ - play: a yaml structure executing a list of roles or tasks over a list
+   of hosts
+ - [playbook](https://docs.ansible.com/ansible/playbooks_intro.html): an
+   yaml file containing multiple plays. Intro in
+   [step-04](https://github.com/leucos/ansible-tuto/tree/master/step-04).
+ - [role](https://docs.ansible.com/ansible/playbooks_roles.html): an
+   organisational unit grouping tasks together in order to achieve
+   something (install a piece of software for instance). Intro in
+   [step-12](https://github.com/leucos/ansible-tuto/tree/master/step-12).
 
 Just in case you want to skip to a specific step, here is a topic table of contents.
 
