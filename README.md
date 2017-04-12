@@ -141,7 +141,7 @@ Thanks to all people who have contributed to this tutorial:
 * [Pierre-Gilles Levallois](https://github.com/Pilooz)
 * [Ruud Kamphuis](https://github.com/ruudk)
 * [tkermode](https://github.com/tkermode)
-* [torenware] (https://github.com/torenware)
+* [torenware](https://github.com/torenware)
 * [Victor Boivie](https://github.com/boivie)
 
 (and sorry if I forgot anyone)
