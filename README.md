@@ -85,12 +85,14 @@ If you wish to proceed without Vagrant (not recommended!), go straight to
 ## Contents
 
 [Terminology](https://docs.ansible.com/ansible/glossary.html):
- - [command or action](https://docs.ansible.com/ansible/intro_adhoc.html): [ansible module](https://docs.ansible.com/ansible/modules.html) like just a shell command. Intro in [step-02](https://github.com/leucos/ansible-tuto/tree/master/step-02).
- - task: it combines an action (a module and its arguments) with a name
+ - [command or
+   action](https://docs.ansible.com/ansible/intro_adhoc.html): [ansible module](https://docs.ansible.com/ansible/modules.html) executed in
+   stand-alone mode. Intro in [step-02](https://github.com/leucos/ansible-tuto/tree/master/step-02).
+ - task: combines an action (a module and its arguments) with a name
    and optionally some other keywords (like looping directives).
  - play: a yaml structure executing a list of roles or tasks over a list
    of hosts
- - [playbook](https://docs.ansible.com/ansible/playbooks_intro.html): an
+ - [playbook](https://docs.ansible.com/ansible/playbooks_intro.html):
    yaml file containing multiple plays. Intro in
    [step-04](https://github.com/leucos/ansible-tuto/tree/master/step-04).
  - [role](https://docs.ansible.com/ansible/playbooks_roles.html): an
