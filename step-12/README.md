@@ -200,7 +200,7 @@ site-wide configuration in it. While we're at it, we'll include
     - { role: haproxy }
 ```
 
-That wasn't too hard. 
+That wasn't too hard.
 
 Now let's create the haproxy role:
 

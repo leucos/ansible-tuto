@@ -16,9 +16,9 @@ host1.example.org ansible_host=192.168.33.11 ansible_user=root
 host2.example.org ansible_host=192.168.33.12 ansible_user=root
 ```
 
-`ansible_host` is a special _variable_ that sets the IP ansible will use 
-when trying to connect to this host. It's not necessary here if you use the 
-vagrant-hostmaster gem. Also, you'll have to change the IPs if you have set 
+`ansible_host` is a special _variable_ that sets the IP ansible will use
+when trying to connect to this host. It's not necessary here if you use the
+vagrant-hostmaster gem. Also, you'll have to change the IPs if you have set
 up your own virtual machines with different addresses.
 
 `ansible_user` is another special _variable_ that tells ansible to
@@ -41,17 +41,17 @@ The output should look like this:
 
 ```json
 host0.example.org | success >> {
-    "changed": false, 
+    "changed": false,
     "ping": "pong"
 }
 
 host1.example.org | success >> {
-    "changed": false, 
+    "changed": false,
     "ping": "pong"
 }
 
 host2.example.org | success >> {
-    "changed": false, 
+    "changed": false,
     "ping": "pong"
 }
 ```

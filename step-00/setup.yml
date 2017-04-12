@@ -2,7 +2,7 @@
   become: yes
   become_user: root
   remote_user: vagrant
-  
+
   tasks:
     # This should work too / #2372
     # - name: Pushes user key to root's on vagrant boxes
@@ -14,7 +14,7 @@
     - name: Creates destination directory
       # Workaround for #2372
       file: state=directory mode=0700 dest=/root/.ssh/
-      
+
     - name: Pushes user's rsa key to root's vagrant box (it's ok if this TASK fails)
       # action: authorized_key user=root key='$FILE(~/.ssh/id_rsa.pub)'
       # Workaround for #2372
@@ -39,7 +39,3 @@
 
     - name: Checks if resolver is working properly with new nameserver
       command: host -t A ansible.cc
-
-    - name: Final greeting
-      pause: prompt="Don't worry about all the red above; if you made it here, your Vagrant VMs are probably fine !
-        Please press [Enter]"

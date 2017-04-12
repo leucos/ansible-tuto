@@ -11,7 +11,7 @@ But we want to revert things to a stable state if something goes wrong.
 
 A word of warning: there's no magic here. The previous error was not
 ansible's fault. It's not a backup system, and it can't rollback all
-things. It's your job to make sure your playbooks are safe. Ansible 
+things. It's your job to make sure your playbooks are safe. Ansible
 just doesn't know how to revert the effects of `a2ensite awesome-app`.
 
 But if we care to do it, it's well within our reach.
@@ -72,21 +72,21 @@ Here we go:
 ```bash
 $ ansible-playbook -i step-07/hosts -l host1.example.org step-07/apache.yml
 
-PLAY [web] ********************* 
+PLAY [web] *********************
 
-GATHERING FACTS ********************* 
+TASK [setup] *********************
 ok: [host1.example.org]
 
-TASK: [Installs apache web server] ********************* 
+TASK [Installs apache web server] *********************
 ok: [host1.example.org]
 
-TASK: [Push future default virtual host configuration] ********************* 
+TASK [Push future default virtual host configuration] *********************
 ok: [host1.example.org]
 
-TASK: [Activates our virtualhost] ********************* 
+TASK [Activates our virtualhost] *********************
 changed: [host1.example.org]
 
-TASK: [Check that our config is valid] ********************* 
+TASK [Check that our config is valid] *********************
 failed: [host1.example.org] => {"changed": true, "cmd": ["apache2ctl", "configtest"], "delta": "0:00:00.051874", "end": "2013-03-10 10:50:17.714105", "rc": 1, "start": "2013-03-10 10:50:17.662231"}
 stderr: Syntax error on line 2 of /etc/apache2/sites-enabled/awesome-app:
 Invalid command 'RocumentDoot', perhaps misspelled or defined by a module not included in the server configuration
@@ -94,20 +94,20 @@ stdout: Action 'configtest' failed.
 The Apache error log may have more information.
 ...ignoring
 
-TASK: [Rolling back - Restoring old default virtualhost] ********************* 
+TASK [Rolling back - Restoring old default virtualhost] *********************
 changed: [host1.example.org]
 
-TASK: [Rolling back - Removing our virtualhost] ********************* 
+TASK [Rolling back - Removing our virtualhost] *********************
 changed: [host1.example.org]
 
-TASK: [Rolling back - Ending playbook] ********************* 
+TASK [Rolling back - Ending playbook] *********************
 failed: [host1.example.org] => {"failed": true}
 msg: Configuration file is not valid. Please check that before re-running the playbook.
 
 FATAL: all hosts have already failed -- aborting
 
-PLAY RECAP ********************* 
-host1.example.org              : ok=7    changed=4    unreachable=0    failed=1    
+PLAY RECAP *********************
+host1.example.org              : ok=7    changed=4    unreachable=0    failed=1
 ```
 
 Seemed to work as expected. Let's try to restart apache to see if it really worked:
@@ -117,8 +117,8 @@ $ ansible -i step-07/hosts -m service -a 'name=apache2 state=restarted' host1.ex
 ```
 ```json
 host1.example.org | success >> {
-    "changed": true, 
-    "name": "apache2", 
+    "changed": true,
+    "name": "apache2",
     "state": "started"
 }
 ```

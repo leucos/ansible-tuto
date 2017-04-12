@@ -10,7 +10,7 @@ We've installed apache, now lets set up our virtualhost.
 
 We need just one virtualhost on our server, but we want to replace the
 default one with something more specific.
-So we'll have to remove the current (presumably `default`) virtualhost, send our 
+So we'll have to remove the current (presumably `default`) virtualhost, send our
 virtualhost, activate it and restart apache.
 
 Let's create a directory called `files`, and add our virtualhost configuration
@@ -36,7 +36,7 @@ Now, a quick update to our apache playbook and we're set:
       apt: pkg=apache2 state=installed update_cache=true
 
     - name: Push default virtual host configuration
-      copy: src=files/awesome-app dest=/etc/apache2/sites-available/awesome-app mode=0640 
+      copy: src=files/awesome-app dest=/etc/apache2/sites-available/awesome-app mode=0640
 
     - name: Disable the default virtualhost
       file: dest=/etc/apache2/sites-enabled/default state=absent
@@ -63,35 +63,35 @@ Here we go:
 ```bash
 $ ansible-playbook -i step-05/hosts -l host1.example.org step-05/apache.yml
 
-PLAY [web] ********************* 
+PLAY [web] *********************
 
-GATHERING FACTS ********************* 
+TASK [setup] *********************
 ok: [host1.example.org]
 
-TASK: [Installs apache web server] ********************* 
+TASK [Installs apache web server] *********************
 ok: [host1.example.org]
 
-TASK: [Push default virtual host configuration] ********************* 
+TASK [Push default virtual host configuration] *********************
 changed: [host1.example.org]
 
-TASK: [Disable the default virtualhost] ********************* 
+TASK [Disable the default virtualhost] *********************
 changed: [host1.example.org]
 
-TASK: [Disable the default ssl virtualhost] ********************* 
+TASK [Disable the default ssl virtualhost] *********************
 changed: [host1.example.org]
 
-TASK: [Activates our virtualhost] ********************* 
+TASK [Activates our virtualhost] *********************
 changed: [host1.example.org]
 
-NOTIFIED: [restart apache] ********************* 
+NOTIFIED [restart apache] *********************
 changed: [host1.example.org]
 
-PLAY RECAP ********************* 
-host1.example.org              : ok=7    changed=5    unreachable=0    failed=0    
+PLAY RECAP *********************
+host1.example.org              : ok=7    changed=5    unreachable=0    failed=0
 ```
 
-Pretty cool! Well, thinking about it, we're getting ahead of ourselves here. Shouldn't 
-we check that the config is ok before restarting apache? This way we won't end up 
+Pretty cool! Well, thinking about it, we're getting ahead of ourselves here. Shouldn't
+we check that the config is ok before restarting apache? This way we won't end up
 interrupting the service if our configuration file is incorrect.
 
 Lets do that in [step-06](https://github.com/leucos/ansible-tuto/tree/master/step-06).

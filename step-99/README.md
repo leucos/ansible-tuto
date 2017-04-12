@@ -22,13 +22,13 @@ ansible-playbook -i step-99/hosts step-99/site.yml
 ```
 
 Just one command to rule them all: you have your cluster, can add nodes ad
-nauseam, tune settings, ... all this can be extended at will with more variables, 
+nauseam, tune settings, ... all this can be extended at will with more variables,
 other plays, etc...
 
 # The end
 
-Ok, seems we're done with our tutorial. Hope you enjoyed playing with Ansible, and 
+Ok, seems we're done with our tutorial. Hope you enjoyed playing with Ansible, and
 felt the power of this new tool.
 
-Now go straight to [Ansible website](http://ansible.com), dive in the docs, check references, 
+Now go straight to [Ansible website](http://ansible.com), dive in the docs, check references,
 skim through playbooks, chat on freenode in #ansible, and foremost, have fun!
