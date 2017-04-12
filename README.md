@@ -143,6 +143,7 @@ Thanks to all people who have contributed to this tutorial:
 * [tkermode](https://github.com/tkermode)
 * [torenware](https://github.com/torenware)
 * [Victor Boivie](https://github.com/boivie)
+* [Yauheni Dakuka](https://github.com/ydakuka)
 
 (and sorry if I forgot anyone)
 
