@@ -15,6 +15,14 @@
       # Workaround for #2372
       file: state=directory mode=0700 dest=/root/.ssh/
       
+    - name: Check if id_rsa.pub exists
+      stat: path=/root/.ssh/id_rsa.pub
+      register: keygen
+
+    - name: Generates a new rsa key file if the file doesn't exists
+      command: ssh-keygen -b 2048 -t rsa -f /root/.ssh/id_rsa -q -N ""
+      when: not keygen.stat.exists
+
     - name: Pushes user's rsa key to root's vagrant box (it's ok if this TASK fails)
       # action: authorized_key user=root key='$FILE(~/.ssh/id_rsa.pub)'
       # Workaround for #2372
