@@ -74,6 +74,12 @@ git clone https://github.com/leucos/ansible-tuto.git
 cd ansible-tuto
 ```
 
+# Running the tutorials interactively with Docker
+
+You can run the tutorials here interactively including a very simple setup with docker.
+
+Check [this repository](https://github.com/turkenh/ansible-interactive-tutorial) for details.
+
 # Using Vagrant with the tutorial
 
 It's highly recommended to use Vagrant to follow this tutorial. If you don't have 
