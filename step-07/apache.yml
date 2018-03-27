@@ -10,7 +10,7 @@
           command: a2dissite 000-default
 
         - name: Activates our virtualhost
-          command: a2ensite awesome-app
+          command: a2ensite awesome-app.conf
 
         - name: Check that our config is valid
           command: apache2ctl configtest
@@ -22,7 +22,7 @@
           when: result|failed
 
         - name: Rolling back - Removing out virtualhost
-          command: a2dissite awesome-app
+          command: a2dissite awesome-app.conf
           when: result|failed
 
         - name: Rolling back - Ending playbook
