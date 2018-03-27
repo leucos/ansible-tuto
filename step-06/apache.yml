@@ -7,7 +7,7 @@
           copy: src=files/awesome-app dest=/etc/apache2/sites-available/awesome-app.conf mode=0640
 
         - name: Activates our virtualhost
-          command: a2ensite awesome-app
+          command: a2ensite awesome-app.conf
 
         - name: Check that our config is valid
           command: apache2ctl configtest
