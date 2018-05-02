@@ -1,25 +1,34 @@
-    - hosts: web
-      tasks:
-        - name: Installs apache web server
-          apt: pkg=apache2 state=installed update_cache=true
+---
+- hosts: web
+  tasks:
+    - name: Installs apache web server
+      apt:
+        pkg: apache2
+        state: installed
+        update_cache: true
 
-        - name: Push future default virtual host configuration
-          copy: src=files/awesome-app dest=/etc/apache2/sites-available/awesome-app.conf mode=0640
+    - name: Push future default virtual host configuration
+      copy:
+        src: files/awesome-app
+        dest: /etc/apache2/sites-available/awesome-app.conf
+        mode: 0640
 
-        - name: Activates our virtualhost
-          command: a2ensite awesome-app
+    - name: Activates our virtualhost
+      command: a2ensite awesome-app
 
-        - name: Check that our config is valid
-          command: apache2ctl configtest
-        
-        - name: Deactivates the default virtualhost
-          command: a2dissite 000-default
+    - name: Check that our config is valid
+      command: apache2ctl configtest
 
-        - name: Deactivates the default ssl virtualhost
-          command: a2dissite default-ssl
-          notify: 
-            - restart apache
+    - name: Deactivates the default virtualhost
+      command: a2dissite 000-default
 
-      handlers:
-        - name: restart apache
-          service: name=apache2 state=restarted
+    - name: Deactivates the default ssl virtualhost
+      command: a2dissite default-ssl
+      notify:
+        - restart apache
+
+  handlers:
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted

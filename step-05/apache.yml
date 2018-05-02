@@ -1,26 +1,42 @@
-    - hosts: web
-      tasks:
-        - name: Installs apache web server
-          apt: pkg=apache2 state=installed update_cache=true
+---
+- hosts: web
+  tasks:
+    - name: Installs apache web server
+      apt:
+        pkg: apache2
+        state: installed
+        update_cache: true
 
-        - name: Push default virtual host configuration
-          copy: src=files/awesome-app dest=/etc/apache2/sites-available/awesome-app.conf mode=0640 
+    - name: Push default virtual host configuration
+      copy:
+        src: files/awesome-app
+        dest: /etc/apache2/sites-available/awesome-app.conf
+        mode: 0640
 
-        - name: Disable the default virtualhost
-          file: dest=/etc/apache2/sites-enabled/000-default.conf state=absent
-          notify:
-            - restart apache
+    - name: Disable the default virtualhost
+      file:
+        dest: /etc/apache2/sites-enabled/000-default.conf
+        state: absent
+      notify:
+        - restart apache
 
-        - name: Disable the default ssl virtualhost
-          file: dest=/etc/apache2/sites-enabled/default-ssl.conf state=absent
-          notify:
-            - restart apache
+    - name: Disable the default ssl virtualhost
+      file:
+        dest: /etc/apache2/sites-enabled/default-ssl.conf
+        state: absent
+      notify:
+        - restart apache
 
-        - name: Activates our virtualhost
-          file: src=/etc/apache2/sites-available/awesome-app.conf dest=/etc/apache2/sites-enabled/awesome-app.conf state=link
-          notify:
-            - restart apache
-            
-      handlers:
-        - name: restart apache
-          service: name=apache2 state=restarted
+    - name: Activates our virtualhost
+      file:
+        src: /etc/apache2/sites-available/awesome-app.conf
+        dest: /etc/apache2/sites-enabled/awesome-app.conf
+        state: link
+      notify:
+        - restart apache
+
+  handlers:
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
