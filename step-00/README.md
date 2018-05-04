@@ -52,13 +52,28 @@ explain what's happening for now. Just trust me.
 ansible-playbook -c paramiko -i step-00/hosts step-00/setup.yml --ask-pass --become
 ```
 
+When asked for password, enter _vagrant_. Be patient, the method used is
+_really slow_....
 
-When asked for password, enter _vagrant_. If you get "Connections refused" errors, please check the firewall settings of your machine.
+
+If you get "Connections refused" errors, please check the firewall settings of your machine.
+
+If you get errors like:
+
+```
+fatal: [192.168.33.10]: UNREACHABLE! => {"changed": false, "msg": "host key mismatch for 192.168.33.10", "unreachable": true}
+```
+
+then you probably already have SSH host keys for those IPs in your
+`~/.ssh/known_hosts`. You can remove them with `ssh-keygen -R
+<IP_ADDRESS>`.
+
+Otherwise, juste type `yes` when prompted to access ssh host keys.
 
 To polish things up, it's better to have an ssh-agent running, and add your keys 
 to it (`ssh-add`).
 
-**NOTE:** We are assuming that you're using Ansible version v2 on your local machine. If not you should upgrade ansible to v2 before using this repository
+**NOTE:** We are assuming that you're using Ansible version v2.5+ on your local machine. If not you should upgrade ansible to v2.5+ before using this repository (or run under virtualenv).
 
 To check your ansible version use the command `ansible --version`. The output should be similar to the above:
 
