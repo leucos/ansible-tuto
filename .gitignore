@@ -6,3 +6,5 @@ _book/
 node_modules/
 
 
+*.retry
+package-lock.json

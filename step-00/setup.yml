@@ -1,3 +1,4 @@
+---
 - hosts: all
   become: yes
   become_user: root
@@ -13,19 +14,30 @@
 
     - name: Creates destination directory
       # Workaround for #2372
-      file: state=directory mode=0700 dest=/root/.ssh/
+      file:
+        state: directory
+        mode: 0700
+        dest: /root/.ssh/
       
     - name: Pushes user's rsa key to root's vagrant box (it's ok if this TASK fails)
       # action: authorized_key user=root key='$FILE(~/.ssh/id_rsa.pub)'
       # Workaround for #2372
-      copy: src=~/.ssh/id_rsa.pub dest=/root/.ssh/authorized_keys owner=root mode=0600
+      copy:
+        src: ~/.ssh/id_rsa.pub
+        dest: /root/.ssh/authorized_keys
+        owner: root
+        mode: 0600
       register: rsa
       ignore_errors: yes
 
     - name: Pushes user's dsa key to root's vagrant box (it's NOT ok if both TASKs fail)
       # action: authorized_key user=root key='$FILE(~/.ssh/id_dsa.pub)'
       # Workaround for #2372
-      copy: src=~/.ssh/id_dsa.pub dest=/root/.ssh/authorized_keys owner=root mode=0600
+      copy:
+        src: ~/.ssh/id_dsa.pub
+        dest: /root/.ssh/authorized_keys
+        owner: root
+        mode: 0600
       when: rsa|failed
 
     - name: Checks if resolver is working properly (issues with some VBox/Host OS combinations)
@@ -34,12 +46,16 @@
       ignore_errors: yes
 
     - name: Pushes new resolver configuration if resolver fails
-      lineinfile: regexp="^nameserver " line="nameserver 8.8.8.8" dest=/etc/resolv.conf
+      lineinfile:
+        regexp: "^nameserver "
+        line: "nameserver 8.8.8.8"
+        dest: /etc/resolv.conf
       when: ns|failed
 
     - name: Checks if resolver is working properly with new nameserver
       command: host -t A ansible.cc
 
     - name: Final greeting
-      pause: prompt="Don't worry about all the red above; if you made it here, your Vagrant VMs are probably fine !
+      pause:
+        prompt: "Don't worry about all the red above; if you made it here, your Vagrant VMs are probably fine !
         Please press [Enter]"

@@ -1,3 +1,4 @@
+---
 - hosts: web
   roles:
     - { role: apache }
