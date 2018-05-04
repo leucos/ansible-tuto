@@ -119,21 +119,34 @@ changed, but we had to cheat a bit for that. Here is the updated haproxy playboo
 - hosts: haproxy
   tasks:
     - name: Installs haproxy load balancer
-      apt: pkg=haproxy state=installed update_cache=yes
+      apt:
+        pkg: haproxy
+        state: present
+        update_cache: yes
 
     - name: Pushes configuration
-      template: src=templates/haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg mode=0640 owner=root group=root
+      template:
+        src: templates/haproxy.cfg.j2
+        dest: /etc/haproxy/haproxy.cfg
+        mode: 0640
+        owner: root
+        group: root
       notify:
         - restart haproxy
 
-        - name: Sets default starting flag to 1
-          lineinfile: dest=/etc/default/haproxy regexp="^ENABLED" line="ENABLED=1"
-          notify:
-            - restart haproxy 
+    - name: Sets default starting flag to 1
+      lineinfile:
+        dest: /etc/default/haproxy
+        regexp: "^ENABLED"
+        line: "ENABLED=1"
+      notify:
+        - restart haproxy
 
-      handlers:
-        - name: restart haproxy
-          service: name=haproxy state=restarted
+  handlers:
+    - name: restart haproxy
+      service:
+        name: haproxy
+        state: restarted
 ```
 
 See? We added an empty play for web hosts at the top. It does nothing. But it's

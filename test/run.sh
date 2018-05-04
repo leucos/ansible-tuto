@@ -44,7 +44,7 @@ default=$(grep -A1 ^default test/expectations 2> /dev/null | tail -1 | sed -e 's
 list=$1
 
 if [[ -z $1 ]]; then
-  list=$(find . -maxdepth 2 -name *.yml | grep -v "step-00" | sort)
+  list=$(find . -maxdepth 2 -name *.yml | grep -v "step-00\|step-99" | sort)
 fi
 
 for pbook in $list; do

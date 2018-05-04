@@ -25,10 +25,16 @@ what we've done.
 - hosts: web
   tasks:
     - name: Installs apache web server
-      apt: pkg=apache2 state=installed update_cache=true
+      apt:
+        pkg: apache2
+        state: present
+        update_cache: true
 
     - name: Push future default virtual host configuration
-      copy: src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640
+      copy:
+        src: files/awesome-app
+        dest: /etc/apache2/sites-available/
+        mode: 0640
 
     - name: Activates our virtualhost
       command: a2ensite awesome-app
@@ -40,15 +46,16 @@ what we've done.
 
     - name: Rolling back - Restoring old default virtualhost
       command: a2ensite default
-      when: result|failed
+      when: result is failed
 
     - name: Rolling back - Removing our virtualhost
       command: a2dissite awesome-app
-      when: result|failed
+      when: result is failed
 
     - name: Rolling back - Ending playbook
-      fail: msg="Configuration file is not valid. Please check that before re-running the playbook."
-      when: result|failed
+      fail:
+        msg: "Configuration file is not valid. Please check that before re-running the playbook."
+      when: result is failed
 
     - name: Deactivates the default virtualhost
       command: a2dissite default
@@ -60,7 +67,9 @@ what we've done.
 
   handlers:
     - name: restart apache
-      service: name=apache2 state=restarted
+      service:
+        name: apache2
+        state: restarted
 ```
 
 The `register` keyword records output from the `apache2ctl configtest`

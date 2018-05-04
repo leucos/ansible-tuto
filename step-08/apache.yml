@@ -30,16 +30,16 @@
 
     - name: Rolling back - Restoring old default virtualhost
       command: a2ensite 000-default
-      when: result|failed
+      when: result is failed
 
     - name: Rolling back - Removing out virtualhost
       command: a2dissite awesome-app
-      when: result|failed
+      when: result is failed
 
     - name: Rolling back - Ending playbook
       fail:
         msg: "Configuration file is not valid. Please check that before re-running the playbook."
-      when: result|failed
+      when: result is failed
 
     - name: Deploy our awesome application
       git:

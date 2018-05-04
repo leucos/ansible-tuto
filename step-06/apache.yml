@@ -4,7 +4,7 @@
     - name: Installs apache web server
       apt:
         pkg: apache2
-        state: installed
+        state: present
         update_cache: true
 
     - name: Push future default virtual host configuration

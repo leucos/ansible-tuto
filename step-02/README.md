@@ -37,21 +37,21 @@ No surprise, with this module you can copy a file from the controlling machine t
 the node. Lets say we want to copy our `/etc/motd` to `/tmp` of our target node:
 
 ```bash
-ansible -i step-02/hosts -m copy -a 'src=/etc/motd dest=/tmp/' host0.example.org
+ansible -i step-02/hosts -m copy -a 'src=/etc/hosts dest=/tmp/' host0.example.org
 ```
 
 Output should look similar to:
 
 ```bash
 host0.example.org | success >> {
-    "changed": true, 
-    "dest": "/tmp/motd", 
-    "group": "root", 
-    "md5sum": "d41d8cd98f00b204e9800998ecf8427e", 
-    "mode": "0644", 
-    "owner": "root", 
-    "size": 0, 
-    "src": "/root/.ansible/tmp/ansible-1362910475.9-246937081757218/motd", 
+    "changed": true,
+    "dest": "/tmp/hosts",
+    "group": "root",
+    "md5sum": "d41d8cd98f00b204e9800998ecf8427e",
+    "mode": "0644",
+    "owner": "root",
+    "size": 0,
+    "src": "/root/.ansible/tmp/ansible-1362910475.9-246937081757218/motd",
     "state": "file"
 }
 ```
@@ -78,13 +78,13 @@ know which Ubuntu version we have deployed on nodes, it's pretty easy:
 return:
 
     host1.example.org | success | rc=0 >>
-    DISTRIB_RELEASE=12.04
+    DISTRIB_RELEASE=14.04
 
     host2.example.org | success | rc=0 >>
-    DISTRIB_RELEASE=12.04
+    DISTRIB_RELEASE=14.04
 
     host0.example.org | success | rc=0 >>
-    DISTRIB_RELEASE=12.04
+    DISTRIB_RELEASE=14.04
 
 # Many more facts
 
@@ -127,25 +127,22 @@ easy with `ansible -i step-02/hosts -m setup -a 'filter=ansible_memtotal_mb' all
 host2.example.org | success >> {
     "ansible_facts": {
         "ansible_memtotal_mb": 187
-    }, 
-    "changed": false, 
-    "verbose_override": true
+    },
+    "changed": false
 }
 
 host1.example.org | success >> {
     "ansible_facts": {
         "ansible_memtotal_mb": 187
-    }, 
-    "changed": false, 
-    "verbose_override": true
+    },
+    "changed": false
 }
 
 host0.example.org | success >> {
     "ansible_facts": {
         "ansible_memtotal_mb": 187
     }, 
-    "changed": false, 
-    "verbose_override": true
+    "changed": false
 }
 ```
 

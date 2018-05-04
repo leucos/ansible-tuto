@@ -18,7 +18,7 @@
         state: directory
         mode: 0700
         dest: /root/.ssh/
-      
+
     - name: Pushes user's rsa key to root's vagrant box (it's ok if this TASK fails)
       # action: authorized_key user=root key='$FILE(~/.ssh/id_rsa.pub)'
       # Workaround for #2372
@@ -38,7 +38,7 @@
         dest: /root/.ssh/authorized_keys
         owner: root
         mode: 0600
-      when: rsa|failed
+      when: rsa is failed
 
     - name: Checks if resolver is working properly (issues with some VBox/Host OS combinations)
       command: host -t A ansible.cc
@@ -50,7 +50,7 @@
         regexp: "^nameserver "
         line: "nameserver 8.8.8.8"
         dest: /etc/resolv.conf
-      when: ns|failed
+      when: ns is failed
 
     - name: Checks if resolver is working properly with new nameserver
       command: host -t A ansible.cc

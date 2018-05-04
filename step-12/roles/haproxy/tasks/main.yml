@@ -2,7 +2,7 @@
 - name: Installs haproxy load balancer
   apt:
     pkg: haproxy
-    state: installed
+    state: present
     update_cache: yes
 
 - name: Pushes configuration

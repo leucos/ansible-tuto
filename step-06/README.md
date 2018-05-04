@@ -40,10 +40,16 @@ this playbook might be used on other innocent hosts, so let's protect them.
 - hosts: web
   tasks:
     - name: Installs apache web server
-      apt: pkg=apache2 state=installed update_cache=true
+      apt:
+        pkg: apache2
+        state: present
+        update_cache: true
 
     - name: Push future default virtual host configuration
-      copy: src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640
+      copy:
+        src: files/awesome-app
+        dest: /etc/apache2/sites-available/
+        mode: 0640
 
     - name: Activates our virtualhost
       command: a2ensite awesome-app
@@ -61,7 +67,9 @@ this playbook might be used on other innocent hosts, so let's protect them.
 
   handlers:
     - name: restart apache
-      service: name=apache2 state=restarted
+      service:
+        name: apache2
+        state: restarted
 ```
 
 Here we go:

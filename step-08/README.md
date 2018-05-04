@@ -23,13 +23,20 @@ We could do it like this:
 ```
 ...
 - name: Installs apache web server
-  apt: pkg=apache2 state=installed update_cache=true
+  apt:
+    pkg: apache2
+    state: present
+    update_cache: true
 
 - name: Installs php5 module
-  apt: pkg=libapache2-mod-php5 state=installed
+  apt:
+    pkg: libapache2-mod-php5
+    state: present
 
 - name: Installs git
-  apt: pkg=git state=installed
+  apt:
+    pkg: git
+    state: present
 ...
 ```
 
@@ -41,17 +48,23 @@ of items, and use each item in an action like this:
 - hosts: web
   tasks:
     - name: Updates apt cache
-      apt: update_cache=true
+      apt:
+        update_cache: true
 
     - name: Installs necessary packages
-      apt: pkg={{ item }} state=latest 
+      apt:
+        pkg: "{{ item }}"
+        state: latest
       with_items:
         - apache2
         - libapache2-mod-php5
         - git
 
     - name: Push future default virtual host configuration
-      copy: src=files/awesome-app dest=/etc/apache2/sites-available/ mode=0640
+      copy:
+        src: files/awesome-app
+        dest: /etc/apache2/sites-available/
+        mode: 0640
 
     - name: Activates our virtualhost
       command: a2ensite awesome-app
@@ -63,18 +76,21 @@ of items, and use each item in an action like this:
 
     - name: Rolling back - Restoring old default virtualhost
       command: a2ensite default
-      when: result|failed
+      when: result is failed
 
     - name: Rolling back - Removing out virtualhost
       command: a2dissite awesome-app
-      when: result|failed
+      when: result is failed
 
     - name: Rolling back - Ending playbook
-      fail: msg="Configuration file is not valid. Please check that before re-running the playbook."
-      when: result|failed
+      fail:
+        msg: "Configuration file is not valid. Please check that before re-running the playbook."
+      when: result is failed
 
     - name: Deploy our awesome application
-      git: repo=https://github.com/leucos/ansible-tuto-demosite.git dest=/var/www/awesome-app
+      git:
+        repo: https://github.com/leucos/ansible-tuto-demosite.git
+        dest: /var/www/awesome-app
       tags: deploy
 
     - name: Deactivates the default virtualhost
@@ -87,7 +103,9 @@ of items, and use each item in an action like this:
 
   handlers:
     - name: restart apache
-      service: name=apache2 state=restarted
+      service:
+        name: apache2
+        state: restarted
 ```
 
 

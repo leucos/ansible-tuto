@@ -71,8 +71,6 @@ roles
            |_ ...
 ```
 
-
-Quite simple.
 The files named `main.yml` are not mandatory. However, when they exist,
 roles will add them to the play automatically.
 You can use this file to include other tasks, handlers, ... in the play.
@@ -138,10 +136,13 @@ file looks like this:
 
 ```yaml
 - name: Updates apt cache
-  apt: update_cache=true
+  apt:
+    update_cache: true
 
 - name: Installs necessary packages
-  apt: pkg={{ item }} state=latest
+  apt:
+    pkg: "{{ item }}"
+    state: latest
   with_items:
     - apache2
     - libapache2-mod-php5
@@ -169,7 +170,9 @@ We can extract the handlers part and create
 
 ```yaml
 - name: restart apache
-  service: name=apache2 state=restarted
+  service:
+    name: apache2
+    state: restarted
 ```
 
 ## Moving the configuration file
@@ -193,14 +196,14 @@ site-wide configuration in it. While we're at it, we'll include
 ```yaml
 - hosts: web
   roles:
-    - { role: apache }
+    - apache
 
 - hosts: haproxy
   roles:
-    - { role: haproxy }
+    - haproxy
 ```
 
-That wasn't too hard. 
+That wasn't too hard.
 
 Now let's create the haproxy role:
 

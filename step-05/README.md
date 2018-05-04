@@ -33,29 +33,44 @@ Now, a quick update to our apache playbook and we're set:
 - hosts: web
   tasks:
     - name: Installs apache web server
-      apt: pkg=apache2 state=installed update_cache=true
+      apt:
+        pkg: apache2
+        state: present
+        update_cache: true
 
     - name: Push default virtual host configuration
-      copy: src=files/awesome-app dest=/etc/apache2/sites-available/awesome-app mode=0640 
+      copy:
+        src: files/awesome-app
+        dest: /etc/apache2/sites-available/awesome-app
+        mode: 0640
 
     - name: Disable the default virtualhost
-      file: dest=/etc/apache2/sites-enabled/default state=absent
+      file:
+        dest: /etc/apache2/sites-enabled/default
+        state: absent
       notify:
         - restart apache
 
     - name: Disable the default ssl virtualhost
-      file: dest=/etc/apache2/sites-enabled/default-ssl state=absent
+      file:
+        dest: /etc/apache2/sites-enabled/default-ssl
+        state: absent
       notify:
         - restart apache
 
     - name: Activates our virtualhost
-      file: src=/etc/apache2/sites-available/awesome-app dest=/etc/apache2/sites-enabled/awesome-app state=link
+      file:
+        src: /etc/apache2/sites-available/awesome-app
+        dest: /etc/apache2/sites-enabled/awesome-app
+        state: link
       notify:
         - restart apache
 
   handlers:
     - name: restart apache
-      service: name=apache2 state=restarted
+      service:
+        name: apache2
+        state: restarted
 ```
 
 Here we go:

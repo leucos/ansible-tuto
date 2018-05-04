@@ -34,7 +34,10 @@ Lets build a playbook that will install apache on machines in the `web` group.
 - hosts: web
   tasks:
     - name: Installs apache web server
-      apt: pkg=apache2 state=installed update_cache=true
+      apt:
+        pkg: apache2
+        state: present
+        update_cache: true
 ```
 
 We just need to say what we want to do using the right ansible modules. Here,

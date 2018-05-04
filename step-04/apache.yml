@@ -4,5 +4,5 @@
     - name: Installs apache web server
       apt:
         pkg: apache2
-        state: installed
+        state: present
         update_cache: true
