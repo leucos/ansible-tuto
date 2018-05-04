@@ -147,6 +147,7 @@ Thanks to all people who have contributed to this tutorial:
 * [Davide Restivo](https://github.com/daviderestivo)
 * [Eric Corson](https://github.com/frodopwns)
 * [Eugene Kalinin](https://github.com/ekalinin)
+* [Ludovic Gasc](https://github.com/GMLudo)
 * [Hartmut Goebel](https://github.com/htgoebel)
 * [Jelly Robot](https://github.com/jellyjellyrobot)
 * [Justin Garrison](https://github.com/rothgar)
