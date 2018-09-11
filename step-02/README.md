@@ -34,7 +34,7 @@ Easy!
 ## Copy module
 
 No surprise, with this module you can copy a file from the controlling machine to 
-the node. Lets say we want to copy our `/etc/motd` to `/tmp` of our target node:
+the node. Lets say we want to copy our `/etc/hosts` to `/tmp` of our target node:
 
 ```bash
 ansible -i step-02/hosts -m copy -a 'src=/etc/hosts dest=/tmp/' host0.example.org
@@ -51,7 +51,7 @@ host0.example.org | success >> {
     "mode": "0644",
     "owner": "root",
     "size": 0,
-    "src": "/root/.ansible/tmp/ansible-1362910475.9-246937081757218/motd",
+    "src": "/root/.ansible/tmp/ansible-1362910475.9-246937081757218/source",
     "state": "file"
 }
 ```
