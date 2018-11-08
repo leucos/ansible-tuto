@@ -49,14 +49,12 @@ Ansible is perfect for this and we will use it for the job. However I won't
 explain what's happening for now. Just trust me.
 
 ```bash
-ansible-playbook -c paramiko -i step-00/hosts step-00/setup.yml --ask-pass --become
+ansible-playbook -i step-00/hosts step-00/setup.yml
 ```
 
-When asked for password, enter _vagrant_. Be patient, the method used is
-_really slow_....
-
-
-If you get "Connections refused" errors, please check the firewall settings of your machine.
+If you get "Connections refused" errors, please tryagain after few
+seconds. Hosts might take some time at first boot to be SSH-ready. Also
+check the firewall settings of your machine.
 
 If you get errors like:
 
