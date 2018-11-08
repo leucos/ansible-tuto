@@ -1,4 +1,6 @@
-192.168.33.10
-192.168.33.11
-192.168.33.12
+host0 ansible_host=192.168.33.10
+host1 ansible_host=192.168.33.11
+host2 ansible_host=192.168.33.12
 
+[all:vars]
+ansible_ssh_private_key_file=.vagrant/machines/{{ inventory_hostname }}/virtualbox/private_key

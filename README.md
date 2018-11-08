@@ -24,7 +24,8 @@ configuration too!), and most of the time they are.
 # Prerequisites for Ansible
 
 You need the following python modules on your machine (the machine you run ansible 
-on) 
+on):
+
 - python-yaml
 - python-jinja2
 
@@ -34,6 +35,24 @@ On Debian/Ubuntu run:
 We're also assuming you have a keypair in your ~/.ssh directory.
 
 # Installing Ansible
+
+## Using pip
+
+The best way to install Ansible (by far) is to use `pip`.
+
+You should also use virtualenv so you can have multiple Ansible versions
+installed side by side, and test upgrades or use different versions in
+different projects.
+
+Check
+[virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/)
+for this. It makes managing virtualenvs very easy.
+
+To install ansible via `pip`, just run:
+
+```
+pip install ansible==VERSION
+```
 
 ## From source
 

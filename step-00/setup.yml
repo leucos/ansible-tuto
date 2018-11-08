@@ -1,9 +1,9 @@
 ---
 - hosts: all
-  become: yes
+  become: true
   become_user: root
   remote_user: vagrant
-  
+  gather_facts: no
   tasks:
     # This should work too / #2372
     # - name: Pushes user key to root's on vagrant boxes
@@ -11,6 +11,9 @@
     #   first_available_file:
     #     - ~/.ssh/id_dsa.pub
     #     - ~/.ssh/id_rsa.pub
+
+    - name: Installs python
+      raw: apt-get update && apt-get install -y python
 
     - name: Creates destination directory
       # Workaround for #2372
