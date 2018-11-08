@@ -21,6 +21,8 @@ accessible 'master' to be able to configure remote nodes: it's the nodes
 that need to be accessible (we'll see later that 'hidden' nodes can pull their
 configuration too!), and most of the time they are.
 
+This tutorial has been tested with **Ansible 2.7.1**.
+
 # Prerequisites for Ansible
 
 You need the following python modules on your machine (the machine you run ansible 
@@ -81,10 +83,8 @@ sudo apt-get install make fakeroot cdbs python-support
 git clone git://github.com/ansible/ansible.git
 cd ./ansible
 make deb
-sudo dpkg -i ../ansible_1.1_all.deb (version may vary)
+sudo dpkg -i ../ansible_x.y_all.deb (version may vary)
 ```
-
-We'll assume you're using the deb packages in the rest of this tutorial.
 
 # Cloning the tutorial
 

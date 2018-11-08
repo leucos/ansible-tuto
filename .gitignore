@@ -8,3 +8,4 @@ node_modules/
 
 *.retry
 package-lock.json
+ubuntu-*-console.log

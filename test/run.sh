@@ -32,8 +32,9 @@ GREEN="\033[32m"
 NORMAL="\033[0m"
 
 # Check current directory
-if [[ $0 != "test/run.sh" ]]; then
+if [[ $0 != "test/run.sh" && $0 != "./test/run.sh" ]] ; then
   echo Sorry, I can only be run from the top level directory
+  exit 1
 fi
 
 # Remove old logs
