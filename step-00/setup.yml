@@ -12,6 +12,16 @@
     #     - ~/.ssh/id_dsa.pub
     #     - ~/.ssh/id_rsa.pub
 
+    - name: Wait for ssh to be up
+      become: false
+      wait_for:
+        port: 22
+        delay: 5
+        connect_timeout: 5
+        timeout: 360
+        host: "{{ ansible_host }}"
+      delegate_to: localhost
+
     - name: Installs python
       raw: apt-get update && apt-get install -y python
 

@@ -52,9 +52,8 @@ explain what's happening for now. Just trust me.
 ansible-playbook -i step-00/hosts step-00/setup.yml
 ```
 
-If you get "Connections refused" errors, please tryagain after few
-seconds. Hosts might take some time at first boot to be SSH-ready. Also
-check the firewall settings of your machine.
+If you get "Connections timed out" errors, please check the firewall
+settings of your machine.
 
 If you get errors like:
 
@@ -66,7 +65,8 @@ then you probably already have SSH host keys for those IPs in your
 `~/.ssh/known_hosts`. You can remove them with `ssh-keygen -R
 <IP_ADDRESS>`.
 
-Otherwise, juste type `yes` when prompted to access ssh host keys.
+Otherwise, juste type `yes` when prompted to access ssh host keys if
+requested.
 
 To polish things up, it's better to have an ssh-agent running, and add your keys 
 to it (`ssh-add`).
@@ -75,10 +75,15 @@ to it (`ssh-add`).
 
 To check your ansible version use the command `ansible --version`. The output should be similar to the above:
 
-    $ ansible --version
-      ansible 2.0.0.2
-        config file = /etc/ansible/ansible.cfg
-        configured module search path = Default w/o overrides
+```
+ansible 2.7.1
+  config file = ...
+  configured module search path = [ ... ]
+  ansible python module location = ...
+  executable location = ...
+  python version = 2.7.15rc1 (default, Apr 15 2018, 21:51:34) [GCC 7.3.0]
+
+```
 
 Now head to the first step in [step-01](https://github.com/leucos/ansible-tuto/tree/master/step-01).
 
