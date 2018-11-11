@@ -7,7 +7,7 @@
 
     - name: Installs necessary packages
       apt:
-        pkg: ["apache2", "libapache2-mod-php5", "git"]
+        pkg: ["apache2", "libapache2-mod-php", "git"]
         state: latestmod-php5
 
     - name: Push future default virtual host configuration
