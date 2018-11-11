@@ -17,7 +17,7 @@ For instance, if you want to output the inventory_name of the host the template 
 currently built for, you just can write `{{ inventory_hostname }}` in the Jinja template.
 
 Or if you need the IP of the first ethernet interface (which ansible knows thanks 
-to the `setup` module), you just write: `{{ ansible_eth1['ipv4']['address'] }}`
+to the `setup` module), you just write: `{{ ansible_enp0s8['ipv4']['address'] }}`
 in your template.
 
 Jinja2 templates also support conditionals, for-loops, etc...
@@ -38,19 +38,19 @@ defaults
     timeout server 50000ms
 
 listen cluster
-    bind {{ ansible_eth1['ipv4']['address'] }}:80
+    bind {{ ansible_enp0s8['ipv4']['address'] }}:80
     mode http
     stats enable
     balance roundrobin
 {% for backend in groups['web'] %}
-    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_eth1']['ipv4']['address'] }} check port 80
+    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_enp0s8']['ipv4']['address'] }} check port 80
 {% endfor %}
     option httpchk HEAD /index.php HTTP/1.0
 ```
 
 We have many new things going on here. 
 
-First, `{{ ansible_eth1['ipv4']['address'] }}` will be replaced by the 
+First, `{{ ansible_enp0s8['ipv4']['address'] }}` will be replaced by the 
 IP of the load balancer on eth1. 
 
 Then, we have a loop. This loop is used to build the backend servers list.

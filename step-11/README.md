@@ -86,12 +86,12 @@ defaults
     timeout server 50000ms
 
 listen cluster
-    bind {{ ansible_eth1['ipv4']['address'] }}:80
+    bind {{ ansible_enp0s8['ipv4']['address'] }}:80
     mode http
     stats enable
     balance roundrobin
 {% for backend in groups['web'] %}
-    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_eth1']['ipv4']['address'] }} check inter {{ haproxy_check_interval }} weight {{ hostvars[backend]['haproxy_backend_weight'] }} port 80
+    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_enp0s8']['ipv4']['address'] }} check inter {{ haproxy_check_interval }} weight {{ hostvars[backend]['haproxy_backend_weight'] }} port 80
 {% endfor %}
     option httpchk HEAD /index.php HTTP/1.0
 ```
@@ -153,7 +153,7 @@ See? We added an empty play for web hosts at the top. It does nothing. But it's
 here because it will trigger facts gathering on hosts in group `web`.
 This is required because the haproxy playbook needs to pick facts from
 hosts in this group. If we don't do this, ansible will complain saying
-that `ansible_eth1` key doesn't exist.
+that `ansible_enp0s8` key doesn't exist.
 
 Now on to the next chapter about "Migrating to Roles!", in [step-12](https://github.com/leucos/ansible-tuto/tree/master/step-12).
 

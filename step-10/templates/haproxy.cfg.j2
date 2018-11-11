@@ -9,12 +9,12 @@ defaults
     timeout server 50000ms
 
 listen cluster
-    bind {{ ansible_eth1['ipv4']['address'] }}:80
+    bind {{ ansible_enp0s8['ipv4']['address'] }}:80
     mode http
     stats enable
     balance roundrobin
 {% for backend in groups['web'] %}
-    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_eth1']['ipv4']['address'] }} check port 80
+    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_enp0s8']['ipv4']['address'] }} check port 80
 {% endfor %}
     option httpchk HEAD /index.php HTTP/1.0
 
