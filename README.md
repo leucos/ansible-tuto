@@ -1,5 +1,4 @@
-Ansible tutorial
-================
+# Ansible tutorial
 
 This tutorial presents Ansible step-by-step. You'll need to have a (virtual or
 physical) machine to act as an Ansible node. A Vagrant environment is provided for 
@@ -25,14 +24,23 @@ This tutorial has been tested with **Ansible 2.7.1**.
 
 We're also assuming you have a keypair in your ~/.ssh directory.
 
-# Installing Ansible
+## Quick start
+
+- install Vagrant if you don't have it
+- install ansible (preferably 2.7.1 and using pip+virtualenv)
+- `vagrant up`
+- goto [step-00](./step-00/README.md)
+
+## Complete explanations
+
+### Installing Ansible
 
 The reference is the [installation
 guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html),
 but I strongly recomment the [Using pip & virtualenv (higly recommended
 !)](#using-pip--virtualenv-higly-recommended-) method.
 
-## Using pip & virtualenv (higly recommended !)
+#### Using pip & virtualenv (higly recommended !)
 
 The best way to install Ansible (by far) is to use `pip` andf virtual
 environments.
@@ -88,7 +96,7 @@ workon ansible-tuto
 
 Use `lsvirtualenv` to list all your virtual environments.
 
-## From source (if you want to hack on ansible source code)
+#### From source (if you want to hack on ansible source code)
 
 Ansible devel branch is always usable, so we'll run straight from a git checkout.
 You might need to install git for this (`sudo apt-get install git` on Debian/Ubuntu).
@@ -104,13 +112,13 @@ At this point, we can load the Ansible environment:
 source ./hacking/env-setup
 ```
 
-## From a distribution package (discouraged)
+#### From a distribution package (discouraged)
 
 ```bash
 sudo apt-get install ansible
 ```
 
-## From a built deb package (discouraged)
+#### From a built deb package (discouraged)
 
 When running from an distribution package, this is absolutely not
 necessary. If you prefer running from an up to date Debian package,
@@ -126,20 +134,20 @@ make deb
 sudo dpkg -i ../ansible_x.y_all.deb (version may vary)
 ```
 
-# Cloning the tutorial
+### Cloning the tutorial
 
 ```bash
 git clone https://github.com/leucos/ansible-tuto.git
 cd ansible-tuto
 ```
 
-# Running the tutorials interactively with Docker
+### Running the tutorials interactively with Docker
 
 You can run the tutorials here interactively including a very simple setup with docker.
 
 Check [this repository](https://github.com/turkenh/ansible-interactive-tutorial) for details.
 
-# Using Vagrant with the tutorial
+### Using Vagrant with the tutorial
 
 It's highly recommended to use Vagrant to follow this tutorial. If you don't have 
 it already, setting up should be quite easy and is described in [step-00/README.md](https://github.com/leucos/ansible-tuto/tree/master/step-00/README.md).
@@ -252,5 +260,3 @@ For typos, grammar, etc... please send a PR for the master branch
 directly.
 
 Thank you!
-
-
