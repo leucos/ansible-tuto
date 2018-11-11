@@ -23,20 +23,14 @@ configuration too!), and most of the time they are.
 
 This tutorial has been tested with **Ansible 2.7.1**.
 
-# Prerequisites for Ansible
-
-You need the following python modules on your machine (the machine you run ansible 
-on):
-
-- python-yaml
-- python-jinja2
-
-On Debian/Ubuntu run:
-``sudo apt-get install python-yaml python-jinja2 python-paramiko python-crypto python-pip``
-
 We're also assuming you have a keypair in your ~/.ssh directory.
 
 # Installing Ansible
+
+The reference is the [installation
+guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html),
+but I strongly recomment the [Using pip & virtualenv (higly recommended
+!)](#using-pip--virtualenv-higly-recommended-) method.
 
 ## Using pip & virtualenv (higly recommended !)
 
@@ -56,7 +50,7 @@ Under Ubuntu, installing virtualenv & virtualenvwrapper can be done like
 so:
 
 ```bash
-sudo apt-get install python-virtualenv virtualenvwrapper
+sudo apt-get install python-virtualenv virtualenvwrapper python-pip
 exec $SHELL
 ```
 
@@ -110,14 +104,22 @@ At this point, we can load the Ansible environment:
 source ./hacking/env-setup
 ```
 
-## From a deb package (discouraged)
-
-When running from an installed package, this is absolutely not necessary. If
-you prefer running from a Debian package Ansible, provides a `make target` to
-build it. You need a few packages to build the deb:
+## From a distribution package (discouraged)
 
 ```bash
-sudo apt-get install make fakeroot cdbs python-support
+sudo apt-get install ansible
+```
+
+## From a built deb package (discouraged)
+
+When running from an distribution package, this is absolutely not
+necessary. If you prefer running from an up to date Debian package,
+Ansible provides a `make target` to build it. You need a few packages to
+build the deb and
+few dependencies:
+
+```bash
+sudo apt-get install make fakeroot cdbs python-support python-yaml python-jinja2 python-paramiko python-crypto python-pip
 git clone git://github.com/ansible/ansible.git
 cd ./ansible
 make deb
