@@ -32,31 +32,69 @@ on):
 - python-jinja2
 
 On Debian/Ubuntu run:
-``sudo apt-get install python-yaml python-jinja2 python-paramiko python-crypto``
+``sudo apt-get install python-yaml python-jinja2 python-paramiko python-crypto python-pip``
 
 We're also assuming you have a keypair in your ~/.ssh directory.
 
 # Installing Ansible
 
-## Using pip
+## Using pip & virtualenv (higly recommended !)
 
-The best way to install Ansible (by far) is to use `pip`.
+The best way to install Ansible (by far) is to use `pip` andf virtual
+environments.
 
-You should also use virtualenv so you can have multiple Ansible versions
+Using virtualenv will let you have multiple Ansible versions
 installed side by side, and test upgrades or use different versions in
-different projects.
+different projects. Also, by using a virtualenv, you won't pollute your
+system's python installation.
 
 Check
 [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/)
 for this. It makes managing virtualenvs very easy.
 
-To install ansible via `pip`, just run:
+Under Ubuntu, installing virtualenv & virtualenvwrapper can be done like
+so:
 
-```
-pip install ansible==VERSION
+```bash
+sudo apt-get install python-virtualenv virtualenvwrapper
+exec $SHELL
 ```
 
-## From source
+You can then create a virtualenv:
+
+```bash
+mkvirtualenv ansible-tuto
+workon ansible-tuto
+```
+
+(`mkvirtualenv` usually switches you automatically to your newly created
+virtualenv, so here `workon ansible-tuto` is not strictly necessary, but
+lets be safe).
+
+Then, install ansible via `pip`:
+
+```bash
+pip install ansible==2.7.1
+```
+
+(or use whatever version you want).
+
+When you're done, you can deactivate your virtualenv to return to your
+system's python settings & modules:
+
+```bash
+deactivate
+```
+
+If you later want to return to your virtualenv:
+
+```bash
+workon ansible-tuto
+```
+
+Use `lsvirtualenv` to list all your virtual environments.
+
+## From source (if you want to hack on ansible source code)
 
 Ansible devel branch is always usable, so we'll run straight from a git checkout.
 You might need to install git for this (`sudo apt-get install git` on Debian/Ubuntu).
@@ -72,7 +110,7 @@ At this point, we can load the Ansible environment:
 source ./hacking/env-setup
 ```
 
-## From a deb package
+## From a deb package (discouraged)
 
 When running from an installed package, this is absolutely not necessary. If
 you prefer running from a Debian package Ansible, provides a `make target` to
@@ -140,7 +178,7 @@ Just in case you want to skip to a specific step, here is a topic table of conte
 - [10. Templates](https://github.com/leucos/ansible-tuto/tree/master/step-10)
 - [11. Variables again](https://github.com/leucos/ansible-tuto/tree/master/step-11)
 - [12. Migrating to roles](https://github.com/leucos/ansible-tuto/tree/master/step-12)
-- [13. Using tags](https://github.com/leucos/ansible-tuto/tree/master/step-13)
+- [13. Using tags (TBD)](https://github.com/leucos/ansible-tuto/tree/master/step-13)
 - [14. Roles dependencies (TBD)](https://github.com/leucos/ansible-tuto/tree/master/step-14)
 - [15. Debugging (TBD)](https://github.com/leucos/ansible-tuto/tree/master/step-15)
 - [99. The end](https://github.com/leucos/ansible-tuto/tree/master/step-99)
@@ -212,4 +250,5 @@ For typos, grammar, etc... please send a PR for the master branch
 directly.
 
 Thank you!
+
 
