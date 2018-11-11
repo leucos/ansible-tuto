@@ -133,7 +133,7 @@ file looks like this:
 ```yaml
 - name: Installs necessary packages
   apt:
-    pkg: ["apache2", "libapache2-mod-php5", "git"]
+    pkg: ["apache2", "libapache2-mod-php", "git"]
     state: latest
     update_cache: true
   tags:

@@ -1,15 +1,10 @@
 # Format:
 # 
-# stageX:<stageY:>...
-#   <regexp to find in ansible summary line>
+# stageX_playbookA,[stageY_playbookB,...]:
+#   hostX:ok=A,changed=B,unreachable=C,failed=D[,hostY:...]
 #
-# If summary line span several lines, lines will be concatenated with
-# ' ' (see step-12).
+# If summary line span several lines, lines will be concatenated (see step-12).
 #
-# You can define stages together if they expect the same output (see above) or
-# on a specific section.
-#
-# If default is used as stage name, it is used a a default value
 #
 
 step-04_apache:
@@ -25,25 +20,28 @@ step-07_apache:
   host1:ok=8,changed=5,unreachable=0,failed=1
 
 step-08_apache:
-  host1:ok=10,changed=9,unreachable=0,failed=0
+  host1:ok=9,changed=8,unreachable=0,failed=0
 
 step-09_apache:
-  host1:ok=10,changed=6,unreachable=0,failed=0,host2:ok=10,changed=9,unreachable=0,failed=0
+  host1:ok=9,changed=5,unreachable=0,failed=0,host2:ok=9,changed=8,unreachable=0,failed=0
 
 step-10_apache:
-  host1:ok=10,changed=6,unreachable=0,failed=0,host2:ok=10,changed=6,unreachable=0,failed=0
+  host1:ok=9,changed=5,unreachable=0,failed=0,host2:ok=9,changed=5,unreachable=0,failed=0
 
 step-10_haproxy:
   host0:ok=5,changed=4,unreachable=0,failed=0,host1:ok=1,changed=0,unreachable=0,failed=0,host2:ok=1,changed=0,unreachable=0,failed=0
 
 step-11_apache:
-  host1:ok=10,changed=6,unreachable=0,failed=0,host2:ok=10,changed=6,unreachable=0,failed=0
+  host1:ok=9,changed=5,unreachable=0,failed=0,host2:ok=9,changed=5,unreachable=0,failed=0
 
 step-11_haproxy:
   host0:ok=5,changed=2,unreachable=0,failed=0,host1:ok=1,changed=0,unreachable=0,failed=0,host2:ok=1,changed=0,unreachable=0,failed=0 
 
 step-12_site:
-  host0:ok=4,changed=0,unreachable=0,failed=0,host1:ok=10,changed=6,unreachable=0,failed=0,host2:ok=10,changed=6,unreachable=0,failed=0   
+  host0:ok=4,changed=0,unreachable=0,failed=0,host1:ok=9,changed=5,unreachable=0,failed=0,host2:ok=9,changed=5,unreachable=0,failed=0   
+
+step-13_site:
+  host0:ok=4,changed=0,unreachable=0,failed=0,host1:ok=9,changed=5,unreachable=0,failed=0,host2:ok=9,changed=5,unreachable=0,failed=0   
 
 step-42:
   this_step_does_not_exist_and_that-s_ok
