@@ -17,7 +17,8 @@ For instance, if you want to output the inventory_name of the host the template 
 currently built for, you just can write `{{ inventory_hostname }}` in the Jinja template.
 
 Or if you need the IP of the first ethernet interface (which ansible knows thanks 
-to the `setup` module), you just write: `{{ ansible_eth1['ipv4']['address'] }}`
+to the `setup` module), you just write: `{{ ansible_default_ipv4.address
+}}` (which is equivalent to `{{ ansible_default_ipv4['address'] }}`).
 in your template.
 
 Jinja2 templates also support conditionals, for-loops, etc...
@@ -38,20 +39,20 @@ defaults
     timeout server 50000ms
 
 listen cluster
-    bind {{ ansible_eth1['ipv4']['address'] }}:80
+    bind {{ ansible_default_ipv4.address }}:80
     mode http
     stats enable
     balance roundrobin
 {% for backend in groups['web'] %}
-    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_eth1']['ipv4']['address'] }} check port 80
+    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_default_ipv4']['address'] }} check port 80
 {% endfor %}
     option httpchk HEAD /index.php HTTP/1.0
 ```
 
 We have many new things going on here. 
 
-First, `{{ ansible_eth1['ipv4']['address'] }}` will be replaced by the 
-IP of the load balancer on eth1. 
+First, `{{ ansible_default_ipv4.address }}` will be replaced by the 
+IP of the load balancer on i's firts noon-local interface.
 
 Then, we have a loop. This loop is used to build the backend servers list.
 It will loop over every host listed in the `[web]` group (and put this host in the 
@@ -70,6 +71,9 @@ We've done the most difficult part of the job. Writing a playbook to install and
 configure HAproxy is a breeze:
 
 ```yaml
+- hosts: all
+  gather_facts: true
+
 - hosts: haproxy
   tasks:
     - name: Installs haproxy load balancer
@@ -103,8 +107,9 @@ configure HAproxy is a breeze:
         state: restarted
 ```
 
-Looks familiar, isn't it? The only new module here is `template`, which has the same arguments 
-as `copy`. We also restrict this playbook to the group `haproxy`.
+Looks familiar, isn't it? The only new module here is `template`, which
+has the same arguments as `copy`. We also restrict this playbook to the
+group `haproxy`.
 
 And now... let's try this out. Since our inventory contains only hosts
 necessary for the cluster, we don't need to limit the host list and can even

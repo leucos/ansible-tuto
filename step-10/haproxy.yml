@@ -30,3 +30,4 @@
       service:
         name: haproxy
         state: restarted
+
