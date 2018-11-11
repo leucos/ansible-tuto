@@ -1,14 +1,11 @@
 ---
 - hosts: web
   tasks:
-    - name: Updates apt cache
-      apt:
-        update_cache: true
-
     - name: Installs necessary packages
       apt:
         pkg: ["apache2", "libapache2-mod-php", "git"]
         state: latest
+        update_cache: true
 
     - name: Push future default virtual host configuration
       copy:

@@ -23,10 +23,14 @@ We'll use variables to configure all these parameters.
 The check interval will be set in a group_vars file for haproxy. This will
 ensure all haproxies will inherit from it.
 
-We just need to create the file `group_vars/haproxy` below the inventory
+We just need to create the file `group_vars/haproxy.yml` below the inventory
 directory. The file has to be named after the group you want to define the
 variables for. If we wanted to define variables for the web group, the file
-would be named `group_vars/web`.
+would be named `group_vars/web.yml`.
+
+Note that the `.yml` is optionalm: we could name haproxy group vars file
+`group_vars/haproxy` and Ansible would be ok with it. The extension just helps
+editors picking the right syntax highlighter.
 
 ```jinja
 haproxy_check_interval: 3000

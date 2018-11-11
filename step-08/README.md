@@ -42,14 +42,11 @@ series of items, and use each item in an action like this:
 ```yaml
 - hosts: web
   tasks:
-    - name: Updates apt cache
-      apt:
-        update_cache: true
-
     - name: Installs necessary packages
       apt:
         pkg: "{{ item }}"
         state: latest
+        update_cache: true
       with_items:
         - apache2
         - libapache2-mod-php

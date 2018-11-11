@@ -131,18 +131,13 @@ Now we need to copy the tasks from `apache.yml` to `main.yml`, so this
 file looks like this:
 
 ```yaml
-- name: Updates apt cache
-  apt:
-    update_cache: true
-
 - name: Installs necessary packages
   apt:
-    pkg: "{{ item }}"
+    pkg: ["apache2", "libapache2-mod-php5", "git"]
     state: latest
-  with_items:
-    - apache2
-    - libapache2-mod-php
-    - git
+    update_cache: true
+  tags:
+    - apache
 
 ...
 
@@ -228,9 +223,9 @@ If eveything goes well, we should end up with a happy "PLAY RECAP" like
 this one:
 
 ```none
-host0          : ok=5    changed=2    unreachable=0 failed=0
-host1          : ok=10   changed=5    unreachable=0 failed=0
-host2          : ok=10   changed=5    unreachable=0 failed=0
+host0          : ok=4    changed=0    unreachable=0 failed=0
+host1          : ok=10   changed=6    unreachable=0 failed=0
+host2          : ok=10   changed=6    unreachable=0 failed=0
 ```
 
 You may have noticed that running all roles in site.yml can take a long
