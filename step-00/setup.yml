@@ -3,7 +3,7 @@
   become: true
   become_user: root
   remote_user: vagrant
-  gather_facts: no
+  gather_facts: false
   tasks:
     # This should work too / #2372
     # - name: Pushes user key to root's on vagrant boxes
@@ -41,7 +41,7 @@
         owner: root
         mode: 0600
       register: rsa
-      ignore_errors: yes
+      ignore_errors: true
 
     - name: Pushes user's dsa key to root's vagrant box (it's NOT ok if both TASKs fail)
       # action: authorized_key user=root key='$FILE(~/.ssh/id_dsa.pub)'
@@ -56,7 +56,7 @@
     - name: Checks if resolver is working properly (issues with some VBox/Host OS combinations)
       command: host -t A ansible.cc
       register: ns
-      ignore_errors: yes
+      ignore_errors: true
 
     - name: Pushes new resolver configuration if resolver fails
       lineinfile:
@@ -71,5 +71,5 @@
     - name: Final greeting
       pause:
         seconds: 1
-        echo: no
+        echo: false
         prompt: "Don't worry about all the red above; if you made it here, your Vagrant VMs are probably fine !"

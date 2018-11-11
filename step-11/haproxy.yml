@@ -8,7 +8,7 @@
       apt:
         pkg: haproxy
         state: present
-        update_cache: yes
+        update_cache: true
 
     - name: Pushes configuration
       template:
@@ -26,7 +26,7 @@
         regexp: "^ENABLED"
         line: "ENABLED=1"
       notify:
-        - restart haproxy 
+        - restart haproxy
 
   handlers:
     - name: restart haproxy

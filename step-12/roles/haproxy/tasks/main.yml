@@ -3,7 +3,7 @@
   apt:
     pkg: haproxy
     state: present
-    update_cache: yes
+    update_cache: true
 
 - name: Pushes configuration
   template:
@@ -22,4 +22,3 @@
     line: "ENABLED=1"
   notify:
     - restart haproxy
-

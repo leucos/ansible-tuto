@@ -22,7 +22,7 @@
     - name: Check that our config is valid
       command: apache2ctl configtest
       register: result
-      ignore_errors: True
+      ignore_errors: true
 
     - name: Rolling back - Restoring old default virtualhost
       command: a2ensite 000-default

@@ -9,7 +9,7 @@
       apt:
         pkg: ["apache2", "libapache2-mod-php", "git"]
         state: latest
-        
+
     - name: Push future default virtual host configuration
       copy:
         src: files/awesome-app
@@ -22,7 +22,7 @@
     - name: Check that our config is valid
       command: apache2ctl configtest
       register: result
-      ignore_errors: True
+      ignore_errors: true
 
     - name: Rolling back - Restoring old default virtualhost
       command: a2ensite 000-default
