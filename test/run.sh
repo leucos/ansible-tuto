@@ -6,7 +6,7 @@
 #
 # The script runs the whole suite when called without arguments:
 #
-#   $ test/run.sh 
+#   $ test/run.sh
 #   Checking playbook apache for step-04         success
 #   Checking playbook apache for step-05         success
 #   ...
@@ -16,10 +16,14 @@
 #
 # The script will run a specific step if called with an argument :
 #
-#   $ test/run.sh step-12/site.yml 
+#   $ test/run.sh step-12/site.yml
 #   Checking playbook site for step-12           success
 #   Ran 1 : 1 ok, 0 failures
 #   $
+#
+# Two files will be generated:
+# - step-xx_yyyyy.log: ansible execution result log
+# - step-xx_yyyyy.log.test: comparaison result log
 #
 
 errors=0
@@ -38,7 +42,7 @@ if [[ $0 != "test/run.sh" && $0 != "./test/run.sh" ]] ; then
 fi
 
 # Remove old logs
-rm -f test/step-*.log
+rm -f test/step-*.log{.test}
 
 default=$(grep -A1 ^default test/expectations 2> /dev/null | tail -1 | sed -e 's/^[ \t]*//')
 
@@ -58,7 +62,7 @@ for pbook in $list; do
 
   # Execute playbook at step
   printf "%-45s%s" "Checking playbook $book for $step "
-  ansible-playbook -i ./$step/hosts $pbook 2>&1 > $log
+  ansible-playbook -i ./$step/hosts $pbook > $log 2>&1
 
   # Get output
   got=$(grep "ok=.*changed=.*unreachable=.*failed=" $log | tr '\n' ' ')
@@ -70,14 +74,14 @@ for pbook in $list; do
   if [[ "x$expect" == "x" ]]; then
     expect=$default
   fi
-    
-  echo -e "TEST expected : ($expect)" >> $log
-  echo -e "TEST got      : ($got)" >> $log
+
+  echo -e "TEST expected : ($expect)" >> ${log}.test
+  echo -e "TEST got      : ($got)" >> ${log}.test
 
   # Check if an error occured
   if ! cat $log | grep "$expect" >> $log 2>&1; then
     errors=$[errors+1]
-    echo -e $RED"failed"$NORMAL"...please check log ($log)"
+    echo -e $RED"failed"$NORMAL"...please check run log ($log) and test log (${log}.test)"
     echo -e "\texpected : ($expect)" | tee -a $log
     echo -e "\tgot      : ($got)" | tee -a $log
   else
