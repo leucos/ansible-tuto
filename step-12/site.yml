@@ -1,9 +1,8 @@
 ---
 - hosts: web
   roles:
-    - { role: apache }
+    - apache
 
 - hosts: haproxy
   roles:
-    - { role: haproxy }
-
+    - haproxy

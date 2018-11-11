@@ -71,24 +71,24 @@ this playbook might be used on other innocent hosts, so let's protect them.
 Here we go:
 
 ```bash
-$ ansible-playbook -i step-06/hosts -l host1.example.org step-06/apache.yml
+$ ansible-playbook -i step-06/hosts -l host1 step-06/apache.yml
 
 PLAY [web] *********************
 
 GATHERING FACTS *********************
-ok: [host1.example.org]
+ok: [host1]
 
 TASK: [Installs apache web server] *********************
-ok: [host1.example.org]
+ok: [host1]
 
 TASK: [Push future default virtual host configuration] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 TASK: [Activates our virtualhost] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 TASK: [Check that our config is valid] *********************
-failed: [host1.example.org] => {"changed": true, "cmd": ["apache2ctl", "configtest"], "delta": "0:00:00.045046", "end": "2013-03-08 16:09:32.002063", "rc": 1, "start": "2013-03-08 16:09:31.957017"}
+failed: [host1] => {"changed": true, "cmd": ["apache2ctl", "configtest"], "delta": "0:00:00.045046", "end": "2013-03-08 16:09:32.002063", "rc": 1, "start": "2013-03-08 16:09:31.957017"}
 stderr: Syntax error on line 2 of /etc/apache2/sites-enabled/awesome-app:
 Invalid command 'RocumentDoot', perhaps misspelled or defined by a module not included in the server configuration
 stdout: Action 'configtest' failed.
@@ -97,7 +97,7 @@ The Apache error log may have more information.
 FATAL: all hosts have already failed -- aborting
 
 PLAY RECAP *********************
-host1.example.org              : ok=4    changed=2    unreachable=0    failed=1
+host1              : ok=4    changed=2    unreachable=0    failed=1
 ```
 
 As you can see since `apache2ctl` returns with an exit code of 1 when it fails,

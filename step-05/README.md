@@ -10,7 +10,7 @@ one with something more specific. So we'll have to remove the current
 restart apache.
 
 Let's create a directory called `files`, and add our virtualhost configuration
-for host1.example.org, which we'll call `awesome-app`:
+for host1, which we'll call `awesome-app`:
 
 ```xml
 <VirtualHost *:80>
@@ -72,33 +72,33 @@ Now, a quick update to our apache playbook and we're set:
 Here we go:
 
 ```bash
-$ ansible-playbook -i step-05/hosts -l host1.example.org step-05/apache.yml
+$ ansible-playbook -i step-05/hosts -l host1 step-05/apache.yml
 
 PLAY [web] *********************
 
 GATHERING FACTS *********************
-ok: [host1.example.org]
+ok: [host1]
 
 TASK: [Installs apache web server] *********************
-ok: [host1.example.org]
+ok: [host1]
 
 TASK: [Push default virtual host configuration] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 TASK: [Disable the default virtualhost] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 TASK: [Disable the default ssl virtualhost] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 TASK: [Activates our virtualhost] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 NOTIFIED: [restart apache] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 PLAY RECAP *********************
-host1.example.org              : ok=7    changed=5    unreachable=0    failed=0
+host1              : ok=7    changed=5    unreachable=0    failed=0
 ```
 
 Pretty cool! Well, thinking about it, we're getting ahead of ourselves here.

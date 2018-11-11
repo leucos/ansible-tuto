@@ -1,2 +1,2 @@
 [web]
-host1.example.org ansible_host=192.168.33.11 ansible_user=root
+host1 ansible_host=192.168.33.11 ansible_user=root

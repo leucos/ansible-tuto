@@ -63,10 +63,10 @@ for pbook in $list; do
   ansible-playbook -i ./$step/hosts $pbook > $log 2>&1
 
   # Get output
-  got=$(grep "ok=.*changed=.*unreachable=.*failed=" $log | tr '\n' ' ')
+  got=$(grep "ok=.*changed=.*unreachable=.*failed=" $log | tr '\n' ' ' | sed -e 's/^\s*//' | sed -e 's/\s*$//')
 
   # Get expectation
-  expect=$(grep -A1 "$step.*:" test/expectations 2> /dev/null | tail -1 | sed -e 's/^[ \t]*//')
+  expect=$(grep -A1 "${step}_${book}" test/expectations 2> /dev/null | tail -1 | sed -e 's/^\s*//' | sed -e 's/\s*$//'  | sed -e 's/[:,]/.*/g')
 
   # Use default if no expectation is found
   if [[ "x$expect" == "x" ]]; then
@@ -78,15 +78,14 @@ for pbook in $list; do
 
   # Check if an error occured
   if echo $got | grep "$expect" >> $log.test 2>&1; then
+    success=$((success + 1))
+    echo -e $GREEN"success"$NORMAL
+  else
     errors=$((errors+1))
     echo -e $RED"failed"$NORMAL
     echo -e "\texpected : ($expect)"
     echo -e "\tgot      : ($got)"
     echo -e "\tplease check run log ($log) and test log (${log}.test)"
-  else
-#    rm $log
-    success=$((success + 1))
-    echo -e $GREEN"success"$NORMAL
   fi
 done
 

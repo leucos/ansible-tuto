@@ -12,14 +12,38 @@
 # If default is used as stage name, it is used a a default value
 #
 
-default:
-  ok=.*failed=0
+step-04_apache:
+  host1:ok=2,changed=1,unreachable=0,failed=0
 
-step-06,step-07:
-  ok=.*failed=1
+step-05_apache:
+  host1:ok=7,changed=4,unreachable=0,failed=0
 
-step-12,step-99:
-  host0.* ok=4 .* failed=0 .* host1.* ok=10 .* failed=0 .* host2.* ok=10 .* failed=0
+step-06_apache
+  host1:ok=4,changed=2,unreachable=0,failed=1
+
+step-07_apache:
+  host1:ok=8,changed=5,unreachable=0,failed=1
+
+step-08_apache:
+  host1:ok=10,changed=9,unreachable=0,failed=0
+
+step-09_apache:
+  host1:ok=10,changed=6,unreachable=0,failed=0,host2:ok=10,changed=9,unreachable=0,failed=0
+
+step-10_apache:
+  host1:ok=10,changed=6,unreachable=0,failed=0,host2:ok=10,changed=6,unreachable=0,failed=0
+
+step-10_haproxy:
+  host0:ok=5,changed=4,unreachable=0,failed=0,host1:ok=1,changed=0,unreachable=0,failed=0,host2:ok=1,changed=0,unreachable=0,failed=0
+
+step-11_apache:
+  host1:ok=10,changed=6,unreachable=0,failed=0,host2:ok=10,changed=6,unreachable=0,failed=0
+
+step-11_haproxy:
+  host0:ok=5,changed=2,unreachable=0,failed=0,host1:ok=1,changed=0,unreachable=0,failed=0,host2:ok=1,changed=0,unreachable=0,failed=0 
+
+step-12_site:
+  host0:ok=4,changed=0,unreachable=0,failed=0,host1:ok=10,changed=6,unreachable=0,failed=0,host2:ok=10,changed=6,unreachable=0,failed=0   
 
 step-42:
   this_step_does_not_exist_and_that-s_ok

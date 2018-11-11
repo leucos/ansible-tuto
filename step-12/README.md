@@ -228,9 +228,9 @@ If eveything goes well, we should end up with a happy "PLAY RECAP" like
 this one:
 
 ```none
-host0.example.org          : ok=5    changed=2    unreachable=0 failed=0
-host1.example.org          : ok=10   changed=5    unreachable=0 failed=0
-host2.example.org          : ok=10   changed=5    unreachable=0 failed=0
+host0          : ok=5    changed=2    unreachable=0 failed=0
+host1          : ok=10   changed=5    unreachable=0 failed=0
+host2          : ok=10   changed=5    unreachable=0 failed=0
 ```
 
 You may have noticed that running all roles in site.yml can take a long

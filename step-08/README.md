@@ -106,51 +106,51 @@ series of items, and use each item in an action like this:
 Here we go:
 
 ```bash
-$ ansible-playbook -i step-08/hosts -l host1.example.org step-08/apache.yml
+$ ansible-playbook -i step-08/hosts -l host1 step-08/apache.yml
 
 PLAY [web] *********************
 
 GATHERING FACTS *********************
-ok: [host1.example.org]
+ok: [host1]
 
 TASK: [Updates apt cache] *********************
-ok: [host1.example.org]
+ok: [host1]
 
 TASK: [Installs necessary packages] *********************
-changed: [host1.example.org] => (item=apache2,libapache2-mod-php,git)
+changed: [host1] => (item=apache2,libapache2-mod-php,git)
 
 TASK: [Push future default virtual host configuration] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 TASK: [Activates our virtualhost] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 TASK: [Check that our config is valid] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 TASK: [Rolling back - Restoring old default virtualhost] *********************
-skipping: [host1.example.org]
+skipping: [host1]
 
 TASK: [Rolling back - Removing out virtualhost] *********************
-skipping: [host1.example.org]
+skipping: [host1]
 
 TASK: [Rolling back - Ending playbook] *********************
-skipping: [host1.example.org]
+skipping: [host1]
 
 TASK: [Deploy our awesome application] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 TASK: [Deactivates the default virtualhost] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 TASK: [Deactivates the default ssl virtualhost] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 NOTIFIED: [restart apache] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 PLAY RECAP *********************
-host1.example.org              : ok=10   changed=8    unreachable=0    failed=0
+host1              : ok=10   changed=8    unreachable=0    failed=0
 ```
 
 You can now browse to [http://192.168.33.11](http://192.168.33.11), and it
@@ -163,19 +163,19 @@ Of course, "deploy" is just a string, it doesn't have any specific meaning and
 can be anything. Let's see how to use it:
 
 ```bash
-$ ansible-playbook -i step-08/hosts -l host1.example.org step-08/apache.yml -t deploy
+$ ansible-playbook -i step-08/hosts -l host1 step-08/apache.yml -t deploy
 X11 forwarding request failed on channel 0
 
 PLAY [web] *********************
 
 GATHERING FACTS *********************
-ok: [host1.example.org]
+ok: [host1]
 
 TASK: [Deploy our awesome application] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 PLAY RECAP *********************
-host1.example.org              : ok=2    changed=1    unreachable=0    failed=0
+host1              : ok=2    changed=1    unreachable=0    failed=0
 ```
 
 Ok, let's deploy another web server in

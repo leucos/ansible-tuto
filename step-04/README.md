@@ -13,7 +13,7 @@ We assume we have the following inventory file (let's name it `hosts`):
 
 ```ini
 [web]
-host1.example.org
+host1
 ```
 
 and all hosts are debian-like.
@@ -48,11 +48,11 @@ All in all, this was quite easy!
 You can run the playbook (lets call it `apache.yml`):
 
 ```bash
-ansible-playbook -i step-04/hosts -l host1.example.org step-04/apache.yml
+ansible-playbook -i step-04/hosts -l host1 step-04/apache.yml
 ```
 
 Here, `step-04/hosts` is the inventory file, `-l` limits the run only to
-`host1.example.org` and `apache.yml` is our playbook.
+`host1` and `apache.yml` is our playbook.
 
 When you run the above command, you should see something like:
 
@@ -60,13 +60,13 @@ When you run the above command, you should see something like:
 PLAY [web] *********************
 
 GATHERING FACTS *********************
-ok: [host1.example.org]
+ok: [host1]
 
 TASK: [Installs apache web server] *********************
-changed: [host1.example.org]
+changed: [host1]
 
 PLAY RECAP *********************
-host1.example.org              : ok=2    changed=1    unreachable=0    failed=0
+host1              : ok=2    changed=1    unreachable=0    failed=0
 ```
 
 Note: You might see a cow passing by if you have `cowsay` installed. You can
@@ -84,7 +84,7 @@ in our playbook, it would show up too (but after the first play has completed).
 
 ```bash
 GATHERING FACTS *********************
-ok: [host1.example.org]
+ok: [host1]
 ```
 
 Remember when we used the `setup` module? Before each play, ansible runs it on
@@ -94,15 +94,15 @@ entry (same level as `tasks:`).
 
 ```bash
 TASK: [Installs apache web server] *********************
-changed: [host1.example.org]
+changed: [host1]
 ```
 
 Next, the real stuff: our (first and only) task is run, and because it says
-`changed`, we know that it changed something on `host1.example.org`.
+`changed`, we know that it changed something on `host1`.
 
 ```bash
-PLAY RECAP ********************* 
-host1.example.org              : ok=2    changed=1    unreachable=0    failed=0
+PLAY RECAP *********************
+host1              : ok=2    changed=1    unreachable=0    failed=0
 ```
 
 Finally, ansible outputs a recap of what happened: two tasks have been run and
@@ -112,18 +112,18 @@ doesn't change anything).
 Now let's try to run it again and see what happens:
 
 ```bash
-$ ansible-playbook -i step-04/hosts -l host1.example.org step-04/apache.yml
+$ ansible-playbook -i step-04/hosts -l host1 step-04/apache.yml
 
 PLAY [web] *********************
 
 GATHERING FACTS *********************
-ok: [host1.example.org]
+ok: [host1]
 
 TASK: [Installs apache web server] *********************
-ok: [host1.example.org]
+ok: [host1]
 
 PLAY RECAP *********************
-host1.example.org              : ok=2    changed=0    unreachable=0    failed=0
+host1              : ok=2    changed=0    unreachable=0    failed=0
 ```
 
 Now changed is '0'. This is absolutely normal and is one of the core feature of

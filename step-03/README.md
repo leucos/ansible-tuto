@@ -5,16 +5,16 @@ group, a `web-servers` group, a `production` group, etc...
 
 ```ini
 [debian]
-host0.example.org
-host1.example.org
-host2.example.org
+host0
+host1
+host2
 ```
 
 This can even be expressed shorter:
 
 ```ini
 [debian]
-host[0:2].example.org
+host[0:2]
 ```
 
 If you wish to use child groups, just define a `[groupname:children]` and add child 
@@ -24,10 +24,10 @@ our inventory like this:
 
 ```ini
 [ubuntu]
-host0.example.org
+host0
 
 [debian]
-host[1:2].example.org
+host[1:2]
 
 [linux:children]
 ubuntu
@@ -56,7 +56,7 @@ will try to connect at.
 
 ```ini
 [ubuntu]
-host0.example.org ansible_host=192.168.0.12 ansible_port=2222
+host0 ansible_host=192.168.0.12 ansible_port=2222
 ```
 
 Ansible will look for additional variables definitions in group and host variable 
@@ -64,11 +64,11 @@ files. These files will be searched in directories `group_vars` and `host_vars`,
 below the directory where the main inventory file is located.
 
 The files will be searched by name. For instance, using the previously mentioned inventory file,
-`host0.example.org` variables will be searched in those files:
+`host0` variables will be searched in those files:
 
 - `group_vars/linux`
 - `group_vars/ubuntu`
-- `host_vars/host0.example.org`
+- `host_vars/host0`
 
 It doesn't matter if those files do not exist, but if they do, ansible will use them.
 
