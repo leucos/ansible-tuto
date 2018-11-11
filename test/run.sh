@@ -77,11 +77,11 @@ for pbook in $list; do
   echo -e "TEST got      : ($got)" >> ${log}.test
 
   # Check if an error occured
-  if ! grep "$expect" $log >> $log.test 2>&1; then
+  if echo $got | grep "$expect" >> $log.test 2>&1; then
     errors=$((errors+1))
     echo -e $RED"failed"$NORMAL
-    echo -e "\texpected : ($expect)" | tee -a $log.test
-    echo -e "\tgot      : ($got)" | tee -a $log.test
+    echo -e "\texpected : ($expect)"
+    echo -e "\tgot      : ($got)"
     echo -e "\tplease check run log ($log) and test log (${log}.test)"
   else
 #    rm $log

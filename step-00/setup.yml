@@ -70,5 +70,6 @@
 
     - name: Final greeting
       pause:
-        prompt: "Don't worry about all the red above; if you made it here, your Vagrant VMs are probably fine !
-        Please press [Enter]"
+        seconds: 1
+        echo: no
+        prompt: "Don't worry about all the red above; if you made it here, your Vagrant VMs are probably fine !"
