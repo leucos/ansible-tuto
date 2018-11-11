@@ -1,18 +1,14 @@
-Ansible tutorial
-================
+# Ansible tutorial: Restarting when config is correct
 
-Restarting when config is correct
-------------------------------
+We've installed apache, pushed our virtualhost and restarted the server. But
+what if we wanted the playbook to restart the server only if the config is
+correct? Let's do that.
 
-We've installed apache, pushed our virtualhost and restarted the server.
-But what if we wanted the playbook to restart the server only if the config is correct?
-Let's do that.
+## Bailing out when things go wrong
 
-# Bailing out when things go wrong
-
-Ansible has a nifty feature: it will stop all processing if something goes wrong. 
-We'll take advantage of this feature to stop our playbook if the config file is not 
-valid.
+Ansible has a nifty feature: it will stop all processing if something goes
+wrong. We'll take advantage of this feature to stop our playbook if the config
+file is not valid.
 
 Let's change our `awesome-app` virtual host configuration file and break it:
 
@@ -77,21 +73,21 @@ Here we go:
 ```bash
 $ ansible-playbook -i step-06/hosts -l host1.example.org step-06/apache.yml
 
-PLAY [web] ********************* 
+PLAY [web] *********************
 
-GATHERING FACTS ********************* 
+GATHERING FACTS *********************
 ok: [host1.example.org]
 
-TASK: [Installs apache web server] ********************* 
+TASK: [Installs apache web server] *********************
 ok: [host1.example.org]
 
-TASK: [Push future default virtual host configuration] ********************* 
+TASK: [Push future default virtual host configuration] *********************
 changed: [host1.example.org]
 
-TASK: [Activates our virtualhost] ********************* 
+TASK: [Activates our virtualhost] *********************
 changed: [host1.example.org]
 
-TASK: [Check that our config is valid] ********************* 
+TASK: [Check that our config is valid] *********************
 failed: [host1.example.org] => {"changed": true, "cmd": ["apache2ctl", "configtest"], "delta": "0:00:00.045046", "end": "2013-03-08 16:09:32.002063", "rc": 1, "start": "2013-03-08 16:09:31.957017"}
 stderr: Syntax error on line 2 of /etc/apache2/sites-enabled/awesome-app:
 Invalid command 'RocumentDoot', perhaps misspelled or defined by a module not included in the server configuration
@@ -100,15 +96,16 @@ The Apache error log may have more information.
 
 FATAL: all hosts have already failed -- aborting
 
-PLAY RECAP ********************* 
-host1.example.org              : ok=4    changed=2    unreachable=0    failed=1    
+PLAY RECAP *********************
+host1.example.org              : ok=4    changed=2    unreachable=0    failed=1
 ```
 
-As you can see since `apache2ctl` returns with an exit code of 1 when it fails, ansible is 
-aware of it and stops processing. Great!
+As you can see since `apache2ctl` returns with an exit code of 1 when it fails,
+ansible is aware of it and stops processing. Great!
 
-Mmmh, not so great in fact... Our virtual host has been added anyway. Any subsequent 
-apache restart will complain about our config and bail out. So we need a way to catch 
-failures and revert back.
+Mmmh, not so great in fact... Our virtual host has been added anyway. Any
+subsequent apache restart will complain about our config and bail out. So we
+need a way to catch failures and revert back.
 
-Let's do that in [step-07](https://github.com/leucos/ansible-tuto/tree/master/step-07).
+Let's do that in
+[step-07](https://github.com/leucos/ansible-tuto/tree/master/step-07).

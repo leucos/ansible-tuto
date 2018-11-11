@@ -29,8 +29,6 @@
 errors=0
 success=0
 
-result=""
-
 RED="\033[31m"
 GREEN="\033[32m"
 NORMAL="\033[0m"
@@ -42,26 +40,26 @@ if [[ $0 != "test/run.sh" && $0 != "./test/run.sh" ]] ; then
 fi
 
 # Remove old logs
-rm -f test/step-*.log{.test}
+rm -f test/step-*.log{,.test}
 
 default=$(grep -A1 ^default test/expectations 2> /dev/null | tail -1 | sed -e 's/^[ \t]*//')
 
 list=$1
 
 if [[ -z $1 ]]; then
-  list=$(find . -maxdepth 2 -name *.yml | grep -v "step-00\|step-99" | sort)
+  list=$(find . -maxdepth 2 -name '*.yml' | grep -v "step-00\|step-99" | sort)
 fi
 
 for pbook in $list; do
   # Find base step directory name and playbook name
-  step=$(basename $(dirname $pbook))
+  step=$(basename "$(dirname ${pbook})")
   book=$(basename $pbook)
   book=${book%.*}
 
-  log="test/"$step"_"$book".log"
+  log="test/${step}_${book}.log"
 
   # Execute playbook at step
-  printf "%-45s%s" "Checking playbook $book for $step "
+  printf "%-45s" "Checking playbook $book for $step "
   ansible-playbook -i ./$step/hosts $pbook > $log 2>&1
 
   # Get output
@@ -79,18 +77,17 @@ for pbook in $list; do
   echo -e "TEST got      : ($got)" >> ${log}.test
 
   # Check if an error occured
-  if ! cat $log | grep "$expect" >> $log 2>&1; then
-    errors=$[errors+1]
+  if ! grep "$expect" $log >> $log.test 2>&1; then
+    errors=$((errors+1))
     echo -e $RED"failed"$NORMAL
-    echo -e "\texpected : ($expect)" | tee -a $log
-    echo -e "\tgot      : ($got)" | tee -a $log
+    echo -e "\texpected : ($expect)" | tee -a $log.test
+    echo -e "\tgot      : ($got)" | tee -a $log.test
     echo -e "\tplease check run log ($log) and test log (${log}.test)"
   else
 #    rm $log
-    success=$[success + 1]
+    success=$((success + 1))
     echo -e $GREEN"success"$NORMAL
   fi
 done
 
 echo -e "Ran $((success + errors)) : $GREEN$success ok$NORMAL, $RED$errors failures$NORMAL"
-

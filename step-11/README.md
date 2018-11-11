@@ -1,29 +1,27 @@
-Ansible tutorial
-================
+# Ansible tutorial: Variables again
 
-Variables again
----------------
+So we've setup our loadbalancer, and it works quite well. We grabbed variables
+from facts and used them to build the configuration. But Ansible also supports
+other kinds of variables. We already saw `ansible_host` in inventory, but now
+we'll use variables defined in `host_vars` and `group_vars` files.
 
-So we've setup our loadbalancer, and it works quite well. We grabbed variables from 
-facts and used them to build the configuration. But Ansible also supports other kinds 
-of variables. We already saw `ansible_host` in inventory, but now we'll use variables 
-defined in `host_vars` and `group_vars` files. 
+## Fine tuning our HAProxy configuration
 
-# Fine tuning our HAProxy configuration
+HAProxy usually checks if the backends are alive. When a backend seems dead, it
+is removed from the backend pool and HAproxy doesn't send requests to it
+anymore.
 
-HAProxy usually checks if the backends are alive. When a backend seems dead, it is 
-removed from the backend pool and HAproxy doesn't send requests to it anymore.
-
-Backends can also have different weights (between 0 and 256). The higher the weight, 
-the higher number of connections the backend will receive compared to other backends.
-It's useful to spread traffic more appropriately if nodes are not equally powerful.
+Backends can also have different weights (between 0 and 256). The higher the
+weight, the higher number of connections the backend will receive compared to
+other backends. It's useful to spread traffic more appropriately if nodes are
+not equally powerful.
 
 We'll use variables to configure all these parameters.
 
-# Group vars
+## Group vars
 
-The check interval will be set in a group_vars file for haproxy. This will ensure 
-all haproxies will inherit from it.
+The check interval will be set in a group_vars file for haproxy. This will
+ensure all haproxies will inherit from it.
 
 We just need to create the file `group_vars/haproxy` below the inventory
 directory. The file has to be named after the group you want to define the
@@ -35,8 +33,9 @@ haproxy_check_interval: 3000
 haproxy_stats_socket: /tmp/sock
 ```
 
-The name is arbitrary. Meaningful names are recommended of course, but there is no 
-required syntax. You could even use complex variables (a.k.a. Python dict) like this:
+The name is arbitrary. Meaningful names are recommended of course, but there is
+no required syntax. You could even use complex variables (a.k.a. Python dict)
+like this:
 
 ```yaml
 haproxy:
@@ -44,30 +43,33 @@ haproxy:
     stats_socket: /tmp/sock
 ```
 
-This is just a matter of taste. Complex vars can help group stuff logically. They 
-can also, under some circumstances, merge subsequently defined keys (note however 
-that this is not the default ansible behaviour). For now we'll just use simple variables.
+This is just a matter of taste. Complex vars can help group stuff logically.
+They can also, under some circumstances, merge subsequently defined keys (note
+however that this is not the default ansible behaviour). For now we'll just use
+simple variables.
 
-# Hosts vars
+## Hosts vars
 
-Hosts vars follow exactly the same rules, but live in files under `host_vars` directory.
+Hosts vars follow exactly the same rules, but live in files under `host_vars`
+directory.
 
 Let's define weights for our backends in `host_vars/host1.example.com`:
 
-```
+```ini
 haproxy_backend_weight: 100
 ```
 
 and `host_vars/host2.example.com`:
 
-```
+```ini
 haproxy_backend_weight: 150
 ```
 
-If we'd define `haproxy_backend_weight` in `group_vars/web`, it would be used as a 'default': 
-variables defined in `host_vars` files overrides varibles defined in `group_vars`. 
+If we'd define `haproxy_backend_weight` in `group_vars/web`, it would be used
+as a 'default': variables defined in `host_vars` files overrides variables
+defined in `group_vars`.
 
-# Updating the template
+## Updating the template
 
 The template must be updated to use these variables.
 
@@ -102,7 +104,6 @@ will only be rendered if the test is true. So if we define
 `--extra-vars="haproxy_stats_sockets=/tmp/sock"` at the command line), the enclosed
 line will appear in the generated configuration file (note that the
 suggested setup is highly insecure!).
-
 
 Let's go:
 
@@ -161,5 +162,3 @@ Note that we already did that in the previous step, but we did not mention it.
 
 Now on to the next chapter about "Migrating to Roles!", in
 [step-12](https://github.com/leucos/ansible-tuto/tree/master/step-12).
-
-

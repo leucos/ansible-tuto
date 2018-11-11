@@ -1,8 +1,4 @@
-Ansible tutorial
-================
-
-Migrating to roles!
---------------------
+# Ansible tutorial: Migrating to roles
 
 Now that our playbook is done, let's refactor everything! We'll replace
 our plays with roles. Roles are just a new way of organizing files but
@@ -15,18 +11,17 @@ applied too. We'll see this in the [next
 chapter](https://github.com/leucos/ansible-tuto/tree/master/step-13),
 but for now, let's refactor our playbook to use roles.
 
-# Roles structures
+## Roles structures
 
 Roles add a bit of "magic" to Ansible: they assume a specific file
 organization. While there is a suggested layout regarding roles, you can
-organize things the way you want using includes. However, role's
-conventions help building modular playbooks, and housekeeping will be
-much simpler.
+organize things the way you want using includes. However, role's conventions
+help building modular playbooks, and housekeeping will be much simpler.
 Rubyists would call this "convention over configuration".
 
 The file layout for roles looks like this:
 
-```
+```none
 roles
   |
   |_some_role
@@ -111,19 +106,20 @@ variable in `ansible.cfg`](http://docs.ansible.com/intro_configuration.html#role
 This way you can setup a 'central place ' for all your roles, and use
 them in all your playbooks.
 
-# Creating the Apache role
+## Creating the Apache role
 
 Ok, now that we know the required layout, we can create our apache role
 from our apache playbook.
 
 The steps required are really simple:
+
 - create the roles directory and apache role layout
 - extract the apache handler into `roles/apache/handlers/main.yml`
 - move the apache configuration file `awesome-app` into
   `roles/apache/files/`
 - create a role playbook
 
-## Creating the role layout
+### Creating the role layout
 
 This is what has been done to convert step-11 apache files into a role:
 
@@ -163,7 +159,7 @@ Note that we also have to remove references to `files/` and `templates/`
 directories in tasks. Since we're using the roles structure, Ansible
 will look for them in the right directories.
 
-## Extracting the handler
+### Extracting the handler
 
 We can extract the handlers part and create
 `step-12/roles/apache/handlers/main.yml`:
@@ -175,7 +171,7 @@ We can extract the handlers part and create
     state: restarted
 ```
 
-## Moving the configuration file
+### Moving the configuration file
 
 As simple as:
 
@@ -186,7 +182,7 @@ cp step-11/files/awesome-app step-12/roles/apache/files/
 At this point, the apache role is fully working, but we need a way to
 invoke it.
 
-## Create a role playbook
+### Create a role playbook
 
 Let's create a top level playbook that we'll use to map hosts and host
 groups to roles. We'll call it `site.yml`, since our goal is to have our
@@ -211,6 +207,7 @@ Now let's create the haproxy role:
 mkdir -p step-12/roles/haproxy/{tasks,handlers,templates}
 cp step-11/templates/haproxy.cfg.j2 step-12/roles/haproxy/templates/
 ```
+
 Instead of creating the haproxy role directory structure using mkdir, it's
 possible to use ansible-galaxy:
 
@@ -230,7 +227,7 @@ ansible-playbook -i step-12/hosts step-12/site.yml
 If eveything goes well, we should end up with a happy "PLAY RECAP" like
 this one:
 
-```
+```none
 host0.example.org          : ok=5    changed=2    unreachable=0 failed=0
 host1.example.org          : ok=10   changed=5    unreachable=0 failed=0
 host2.example.org          : ok=10   changed=5    unreachable=0 failed=0
@@ -240,7 +237,9 @@ You may have noticed that running all roles in site.yml can take a long
 time.  What if you only wanted to push changes to web?  This is also
 easy, with the limit flag:
 
-    ansible-playbook -i step-12/hosts -l web step-12/site.yml
+```bash
+ansible-playbook -i step-12/hosts -l web step-12/site.yml
+```
 
 This concludes our migration to roles. It was quite easy, and adds a
 bunch of features to our playbook that we'll use in a future step.
@@ -249,6 +248,3 @@ In
 [step-13](https://github.com/leucos/ansible-tuto/tree/master/step-13),
 we will see how we can use tags to select which parts of our playbook we
 want to run.
-
-
-

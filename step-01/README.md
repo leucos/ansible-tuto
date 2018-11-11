@@ -1,7 +1,4 @@
-Ansible tutorial
-================
-
-# Inventory
+Ansible tutorial: Inventory
 
 Before continuing, you need an inventory file. The default place for such a
 file is  `/etc/ansible/hosts`. However, you can configure ansible to look
@@ -26,7 +23,7 @@ connect as this user when using ssh. By default ansible would use your
 current username, or use another default provided in ~/.ansible.cfg
 (`remote_user`).
 
-# Testing
+## Testing
 
 Now that ansible is installed, let's check everything works properly.
 
@@ -59,4 +56,3 @@ host2.example.org | success >> {
 Good! All 3 hosts are alive and kicking, and ansible can talk to them.
 
 Now head to next step in directory [step-02](https://github.com/leucos/ansible-tuto/tree/master/step-02).
-

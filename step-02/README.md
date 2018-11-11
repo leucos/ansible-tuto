@@ -1,20 +1,16 @@
-Ansible tutorial
-================
-
-Talking with nodes
-------------------
+# Ansible tutorial: Talking to nodes
 
 Now we're good to go. Let's play with the command we saw in the previous chapter: 
 `ansible`. This command is the first one of three that ansible provides which interact 
 with nodes.
 
-# Doing something useful
+## Doing something useful
 
 In the previous command, `-m ping` means "use module _ping_". This module is
 one of many available with ansible. `ping` module is really simple, it doesn't need any arguments.
 Modules that take arguments pass them via `-a` switch. Let's see a few other modules.
 
-## Shell module
+### Shell module
 
 This module lets you execute a shell command on the remote host:
 
@@ -29,9 +25,9 @@ host0.example.org | success | rc=0 >>
 Linux host0.example.org 3.2.0-23-generic-pae #36-Ubuntu SMP Tue Apr 10 22:19:09 UTC 2012 i686 i686 i386 GNU/Linux
 ```
 
-Easy!
+Cool!
 
-## Copy module
+### Copy module
 
 No surprise, with this module you can copy a file from the controlling machine to 
 the node. Lets say we want to copy our `/etc/hosts` to `/tmp` of our target node:
@@ -64,7 +60,7 @@ We'll see other useful modules below. Ansible has a huge
 can do on a system. If you can't find the right module, writing one is pretty
 easy (it doesn't even have to be Python, it just needs to speak JSON).
 
-# Many hosts, same command
+## Many hosts, same command
 
 Ok, the above stuff is fun, but we have many nodes to manage. Let's try that on
 other hosts too.
@@ -86,7 +82,7 @@ return:
     host0.example.org | success | rc=0 >>
     DISTRIB_RELEASE=14.04
 
-# Many more facts
+## Many more facts
 
 That was easy. However, It would quickly become cumbersome if we
 wanted more information (ip addresses, RAM size, etc...). The solution
@@ -152,17 +148,15 @@ is because ansible parallelizes communications with hosts!
 BTW, when using the setup module, you can use `*` in the `filter=` expression.
 It will act like a shell glob.
 
-# Selecting hosts
+## Selecting hosts
 
 We saw that `all` means 'all hosts', but ansible provides a 
 [lot of other ways to select hosts](http://docs.ansible.com/intro_patterns.html):
 
 - `host0.example.org:host1.example.org` would run on host0.example.org and
   host1.example.org
-- `host*.example.org` would run on all hosts starting with 'host' and ending with 
-'.example.org' (just like a shell glob too)
+- `host*.example.org` would run on all hosts starting with 'host' and ending
+  with '.example.org' (just like a shell glob too)
 
 There are other ways that involve groups, we'll see that in 
 [step-03](https://github.com/leucos/ansible-tuto/tree/master/step-03).
-
-
