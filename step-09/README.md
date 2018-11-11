@@ -44,8 +44,8 @@ ok: [host1.example.org]
 ok: [host2.example.org]
 
 TASK: [Installs necessary packages] ********************* 
-ok: [host1.example.org] => (item=apache2,libapache2-mod-php5,git)
-changed: [host2.example.org] => (item=apache2,libapache2-mod-php5,git)
+ok: [host1.example.org] => (item=apache2,libapache2-mod-php,git)
+changed: [host2.example.org] => (item=apache2,libapache2-mod-php,git)
 
 TASK: [Push future default virtual host configuration] ********************* 
 ok: [host1.example.org]

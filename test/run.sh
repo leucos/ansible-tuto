@@ -81,9 +81,10 @@ for pbook in $list; do
   # Check if an error occured
   if ! cat $log | grep "$expect" >> $log 2>&1; then
     errors=$[errors+1]
-    echo -e $RED"failed"$NORMAL"...please check run log ($log) and test log (${log}.test)"
+    echo -e $RED"failed"$NORMAL
     echo -e "\texpected : ($expect)" | tee -a $log
     echo -e "\tgot      : ($got)" | tee -a $log
+    echo -e "\tplease check run log ($log) and test log (${log}.test)"
   else
 #    rm $log
     success=$[success + 1]

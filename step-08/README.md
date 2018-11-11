@@ -15,7 +15,7 @@ it when it comes to `ansible-pull` later on.
 
 Our virtualhost is set, but we need a few changes to finish our deployment.
 First, we're deploying a PHP application. So we need to install the
-`libapache2-mod-php5` package. Second, we have to install `git` since the
+`libapache2-mod-php` package. Second, we have to install `git` since the
 git module (used to clone our application's git repository) uses it.
 
 We could do it like this:
@@ -28,9 +28,9 @@ We could do it like this:
     state: present
     update_cache: true
 
-- name: Installs php5 module
+- name: Installs php module
   apt:
-    pkg: libapache2-mod-php5
+    pkg: libapache2-mod-php
     state: present
 
 - name: Installs git
@@ -57,7 +57,7 @@ of items, and use each item in an action like this:
         state: latest
       with_items:
         - apache2
-        - libapache2-mod-php5
+        - libapache2-mod-php
         - git
 
     - name: Push future default virtual host configuration
@@ -123,7 +123,7 @@ TASK: [Updates apt cache] *********************
 ok: [host1.example.org]
 
 TASK: [Installs necessary packages] ********************* 
-changed: [host1.example.org] => (item=apache2,libapache2-mod-php5,git)
+changed: [host1.example.org] => (item=apache2,libapache2-mod-php,git)
 
 TASK: [Push future default virtual host configuration] ********************* 
 changed: [host1.example.org]

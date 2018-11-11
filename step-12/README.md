@@ -145,7 +145,7 @@ file looks like this:
     state: latest
   with_items:
     - apache2
-    - libapache2-mod-php5
+    - libapache2-mod-php
     - git
 
 ...
