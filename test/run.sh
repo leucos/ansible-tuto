@@ -52,7 +52,9 @@ fi
 
 for pbook in $list; do
   # Find base step directory name and playbook name
+  # shellcheck disable=SC2086 
   step=$(basename "$(dirname ${pbook})")
+  # shellcheck disable=SC2086 
   book=$(basename $pbook)
   book=${book%.*}
 
@@ -60,10 +62,10 @@ for pbook in $list; do
 
   # Execute playbook at step
   printf "%-45s" "Checking playbook $book for $step "
-  ansible-playbook -i ./$step/hosts $pbook > $log 2>&1
+  ansible-playbook -i "./${step}/hosts" "${pbook}" > "${log}" 2>&1
 
   # Get output
-  got=$(grep "ok=.*changed=.*unreachable=.*failed=" $log | tr '\n' ' ' | sed -e 's/^\s*//' | sed -e 's/\s*$//')
+  got=$(grep "ok=.*changed=.*unreachable=.*failed=" "${log}" | tr '\n' ' ' | sed -e 's/^\s*//' | sed -e 's/\s*$//')
 
   # Get expectation
   expect=$(grep -A1 "${step}_${book}" test/expectations 2> /dev/null | tail -1 | sed -e 's/^\s*//' | sed -e 's/\s*$//'  | sed -e 's/[:,]/.*/g')
@@ -73,16 +75,16 @@ for pbook in $list; do
     expect=$default
   fi
 
-  echo -e "TEST expected : ($expect)" >> ${log}.test
-  echo -e "TEST got      : ($got)" >> ${log}.test
+  echo -e "TEST expected : ($expect)" >> "${log}.test"
+  echo -e "TEST got      : ($got)" >> "${log}.test"
 
   # Check if an error occured
-  if echo $got | grep "$expect" >> $log.test 2>&1; then
+  if echo "${got}" | grep "$expect" >> "${log}.test" 2>&1; then
     success=$((success + 1))
-    echo -e $GREEN"success"$NORMAL
+    echo -e "${GREEN}success${NORMAL}"
   else
     errors=$((errors+1))
-    echo -e $RED"failed"$NORMAL
+    echo -e "${RED}failed${NORMAL}"
     echo -e "\texpected : ($expect)"
     echo -e "\tgot      : ($got)"
     echo -e "\tplease check run log ($log) and test log (${log}.test)"
