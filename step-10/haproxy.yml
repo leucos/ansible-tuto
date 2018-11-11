@@ -1,4 +1,7 @@
 ---
+- hosts: web
+  gather_facts: true
+
 - hosts: haproxy
   tasks:
     - name: Installs haproxy load balancer

@@ -39,20 +39,20 @@ defaults
     timeout server 50000ms
 
 listen cluster
-    bind {{ ansible_default_ipv4.address }}:80
+    bind {{ ansible_all_ipv4_addresses.1 }}:80
     mode http
     stats enable
     balance roundrobin
 {% for backend in groups['web'] %}
-    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_default_ipv4']['address'] }} check port 80
+    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend].ansible_all_ipv4_addresses.1 }} check port 80
 {% endfor %}
     option httpchk HEAD /index.php HTTP/1.0
 ```
 
 We have many new things going on here. 
 
-First, `{{ ansible_default_ipv4.address }}` will be replaced by the 
-IP of the load balancer on i's firts noon-local interface.
+First, `{{ ansible_all_ipv4_addresses.1 }}` will be replaced by the 2nd IP of
+the server, which happens to be 192.168.33.10.
 
 Then, we have a loop. This loop is used to build the backend servers list.
 It will loop over every host listed in the `[web]` group (and put this host in the 
@@ -71,7 +71,7 @@ We've done the most difficult part of the job. Writing a playbook to install and
 configure HAproxy is a breeze:
 
 ```yaml
-- hosts: all
+- hosts: web
   gather_facts: true
 
 - hosts: haproxy
@@ -113,8 +113,8 @@ group `haproxy`.
 
 And now... let's try this out. Since our inventory contains only hosts
 necessary for the cluster, we don't need to limit the host list and can even
-run both playbooks. Well, to tell the truth, we must run both of them at the same time, since the 
-haproxy playbook requires facts _from_ the two webservers.
+run both playbooks. Well, to tell the truth, we must run both of them at the
+same time, since the haproxy playbook requires facts _from_ the two webservers.
 In step-11 we'll show how to avoid this.
 
 ```bash
@@ -207,4 +207,5 @@ see the result. Your cluster is deployed!
 you can even peek at HAProxy's statistics at
 http://192.168.33.10/haproxy?stats.
 
-Now on to the next chapter about "Variables again", in [step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11).
+Now on to the next chapter about "Variables again", in
+[step-11](https://github.com/leucos/ansible-tuto/tree/master/step-11).

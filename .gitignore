@@ -1,7 +1,7 @@
 .tags
 .vagrant
-test/step-*.log
-test/step-*.log.test
+test/*.log
+test/*.log.test
 
 _book/
 node_modules/

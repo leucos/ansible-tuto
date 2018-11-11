@@ -86,12 +86,12 @@ defaults
     timeout server 50000ms
 
 listen cluster
-    bind {{ ansible_default_ipv4.address }}:80
+    bind {{ ansible_all_ipv4_addresses.1 }}:80
     mode http
     stats enable
     balance roundrobin
 {% for backend in groups['web'] %}
-    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_default_ipv4']['address'] }} check port 80
+    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend].ansible_all_ipv4_addresses.1 }} check port 80
 {% endfor %}
     option httpchk HEAD /index.php HTTP/1.0
 ```
@@ -110,9 +110,9 @@ Let's go:
 ansible-playbook -i step-11/hosts step-11/haproxy.yml
 ```
 
-Note that, while we could, it's not necessary to run the apache playbook since nothing 
-changed, but we had to cheat a bit for that. Here is the updated haproxy playbook 
-:
+Note that, while we could, it's not necessary to run the apache playbook since
+nothing changed, but we had to cheat a bit for that. Here is the updated
+haproxy playbook:
 
 ```yaml
 - hosts: web
@@ -151,13 +151,15 @@ changed, but we had to cheat a bit for that. Here is the updated haproxy playboo
         state: restarted
 ```
 
-See? We added an empty play for web hosts at the top. It does nothing
-except `gather_facts: true`. But it's here because it will trigger facts
-gathering on hosts in group `web`.  This is required because the haproxy
-playbook needs to pick facts from hosts in this group. If we don't do
-this, ansible will complain saying that `ansible_default_ipv4` key doesn't
-exist.
+See? We added an empty play for web hosts at the top. It does nothing except
+`gather_facts: true`. But it's here because it will trigger facts gathering on
+hosts in group `web`.  This is required because the haproxy playbook needs to
+pick facts from hosts in this group. If we don't do this, ansible will complain
+saying that `ansible_all_ipv4_addresses` key doesn't exist.
 
-Now on to the next chapter about "Migrating to Roles!", in [step-12](https://github.com/leucos/ansible-tuto/tree/master/step-12).
+Note that we already did that in the previous step, but we did not mention it.
+
+Now on to the next chapter about "Migrating to Roles!", in
+[step-12](https://github.com/leucos/ansible-tuto/tree/master/step-12).
 
 
