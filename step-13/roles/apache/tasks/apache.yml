@@ -1,0 +1,47 @@
+---
+- name: Installs necessary packages
+  apt:
+    pkg: ["apache2", "libapache2-mod-php", "git"]
+    state: latest
+    update_cache: true
+
+- name: Push future default virtual host configuration
+  copy:
+    src: awesome-app
+    dest: /etc/apache2/sites-available/awesome-app.conf
+    mode: 0640
+
+- name: Activates our virtualhost
+  command: a2ensite awesome-app
+
+- name: Check that our config is valid
+  command: apache2ctl configtest
+  register: result
+  ignore_errors: true
+
+- name: Rolling back - Restoring old default virtualhost
+  command: a2ensite 000-default
+  when: result is failed
+
+- name: Rolling back - Removing out virtualhost
+  command: a2dissite awesome-app
+  when: result is failed
+
+- name: Rolling back - Ending playbook
+  fail:
+    msg: "Configuration file is not valid. Please check that before re-running the playbook."
+  when: result is failed
+
+- name: Deploy our awesome application
+  git:
+    repo: https://github.com/leucos/ansible-tuto-demosite.git
+    dest: /var/www/awesome-app
+  tags: deploy
+
+- name: Deactivates the default virtualhost
+  command: a2dissite 000-default
+
+- name: Deactivates the default ssl virtualhost
+  command: a2dissite default-ssl
+  notify:
+    - restart apache

@@ -1,0 +1,6 @@
+[web]
+host1 ansible_ssh_host=192.168.33.11 ansible_ssh_user=root
+host2 ansible_ssh_host=192.168.33.12 ansible_ssh_user=root
+
+[haproxy]
+host0 ansible_ssh_host=192.168.33.10 ansible_ssh_user=root

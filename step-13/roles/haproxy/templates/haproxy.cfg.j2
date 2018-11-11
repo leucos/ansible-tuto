@@ -1,0 +1,22 @@
+global
+    daemon
+    maxconn 256
+{% if haproxy_stats_socket %}
+    stats socket {{ haproxy_stats_socket }}
+{% endif %}
+
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+listen cluster
+    bind {{ ansible_all_ipv4_addresses.1 }}:80
+    mode http
+    stats enable
+    balance roundrobin
+{% for backend in groups['web'] %}
+    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend].ansible_all_ipv4_addresses.1 }} check port 80
+{% endfor %}
+    option httpchk HEAD /index.php HTTP/1.0
