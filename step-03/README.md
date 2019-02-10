@@ -47,10 +47,11 @@ default resolves hosts' name when it attempts to connect via SSH. But when
 you're bootstrapping a host, it might not have its definitive IP address yet.
 `ansible_host` comes in handy here.
 
-When using `ansible` or `ansible-pull` command, variables can also be set with
-`--extra-vars` (or `-e`) command line switch as a whitespace-separated list of
-`key=val` pairs (it's possible to use the switch multiple times for each
-variable initialization). We'll talk about `ansible-pull` in the next step.
+When using `ansible` or `ansible-playbook` command, variables can also be set
+with `--extra-vars` (or `-e`) command line switch as a whitespace-separated
+list of `key=val` pairs (it's possible to use the switch multiple times for
+each variable initialization). We'll talk about `ansible-playbook` in the next
+step.
 
 `ansible_port`, as you can guess, has the same function regarding the SSH port
 ansible will try to connect at.
