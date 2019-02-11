@@ -37,28 +37,28 @@ Now, a quick update to our apache playbook and we're set:
     - name: Push default virtual host configuration
       copy:
         src: files/awesome-app
-        dest: /etc/apache2/sites-available/awesome-app
+        dest: /etc/apache2/sites-available/awesome-app.conf
         mode: 0640
+
+    - name: Activates our virtualhost
+      file:
+        src: /etc/apache2/sites-available/awesome-app.conf
+        dest: /etc/apache2/sites-enabled/awesome-app.conf
+        state: link
+      notify:
+        - restart apache
 
     - name: Disable the default virtualhost
       file:
-        dest: /etc/apache2/sites-enabled/default
+        dest: /etc/apache2/sites-enabled/000-default.conf
         state: absent
       notify:
         - restart apache
 
     - name: Disable the default ssl virtualhost
       file:
-        dest: /etc/apache2/sites-enabled/default-ssl
+        dest: /etc/apache2/sites-enabled/default-ssl.conf
         state: absent
-      notify:
-        - restart apache
-
-    - name: Activates our virtualhost
-      file:
-        src: /etc/apache2/sites-available/awesome-app
-        dest: /etc/apache2/sites-enabled/awesome-app
-        state: link
       notify:
         - restart apache
 
@@ -85,13 +85,13 @@ ok: [host1]
 TASK: [Push default virtual host configuration] *********************
 changed: [host1]
 
+TASK: [Activates our virtualhost] *********************
+changed: [host1]
+
 TASK: [Disable the default virtualhost] *********************
 changed: [host1]
 
 TASK: [Disable the default ssl virtualhost] *********************
-changed: [host1]
-
-TASK: [Activates our virtualhost] *********************
 changed: [host1]
 
 NOTIFIED: [restart apache] *********************
