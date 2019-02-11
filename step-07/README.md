@@ -68,7 +68,7 @@ continue processing if there is a failure but only to revert what we've done.
 ```
 
 The `register` keyword records output from the `apache2ctl configtest`
-command (exit status, stdout, stderr, ...), and `when: result|failed`
+command (exit status, stdout, stderr, ...), and `when: result is failed`
 checks if the registered variable (`result`) contains a failed status.
 
 Here we go:
