@@ -69,7 +69,7 @@ PLAY RECAP *********************
 host1              : ok=2    changed=1    unreachable=0    failed=0
 ```
 
-Note: You might see a cow passing by if you have `cowsay` installed. You can
+Note: you might see a cow passing by if you have `cowsay` installed. You can
 get rid of it with `export ANSIBLE_NOCOWS="1"` if you don't like it.
 
 Let's analyse the output one line at a time.
@@ -79,8 +79,9 @@ PLAY [web] *********************
 ```
 
 Ansible tells us it's running the play on hosts `web`. A play is a suite of
-ansible instructions related to a host. If we'd have another `-host: blah` line
-in our playbook, it would show up too (but after the first play has completed).
+ansible instructions related to a host. If we'd have another `- hosts: blah`
+line in our playbook, it would show up too (but after the first play has
+completed).
 
 ```bash
 GATHERING FACTS *********************
