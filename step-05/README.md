@@ -92,13 +92,13 @@ TASK: [Disable the default virtualhost] *********************
 changed: [host1]
 
 TASK: [Disable the default ssl virtualhost] *********************
-changed: [host1]
+ok: [host1]
 
 NOTIFIED: [restart apache] *********************
 changed: [host1]
 
 PLAY RECAP *********************
-host1              : ok=7    changed=5    unreachable=0    failed=0
+host1              : ok=7    changed=4    unreachable=0    failed=0
 ```
 
 Pretty cool! Well, thinking about it, we're getting ahead of ourselves here.
