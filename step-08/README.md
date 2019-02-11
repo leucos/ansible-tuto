@@ -155,7 +155,7 @@ should display a picture, and the server hostname.
 
 Note the `tags: deploy` line allows you to execute just a part of the playbook.
 Let's say you push a new version for your site. You want to speed up and
-execute only the part that takes care of deployment. Tags allows you to do it.
+execute only the part that takes care of deployment. Tags allow you to do it.
 Of course, "deploy" is just a string, it doesn't have any specific meaning and
 can be anything. Let's see how to use it:
 
