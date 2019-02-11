@@ -127,9 +127,9 @@ PLAY RECAP *********************
 host1              : ok=2    changed=0    unreachable=0    failed=0
 ```
 
-Now changed is '0'. This is absolutely normal and is one of the core feature of
-ansible: the playbook will act only if there is something to do. It's called
-_idempotency_, and means that you can run your playbook as many times as you
+Now 'changed' is '0'. This is absolutely normal and is one of the core features
+of ansible: the playbook will act only if there is something to do. It's called
+_idempotency_ and means that you can run your playbook as many times as you
 want, you will always end up in the same state (well, unless you do crazy
 things with the `shell` module of course, but this is beyond ansible's
 control).
