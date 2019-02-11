@@ -44,7 +44,7 @@ this playbook might be used on other innocent hosts, so let's protect them.
     - name: Push future default virtual host configuration
       copy:
         src: files/awesome-app
-        dest: /etc/apache2/sites-available/
+        dest: /etc/apache2/sites-available/awesome-app.conf
         mode: 0640
 
     - name: Activates our virtualhost
@@ -54,7 +54,7 @@ this playbook might be used on other innocent hosts, so let's protect them.
       command: apache2ctl configtest
 
     - name: Deactivates the default virtualhost
-      command: a2dissite default
+      command: a2dissite 000-default
 
     - name: Deactivates the default ssl virtualhost
       command: a2dissite default-ssl
