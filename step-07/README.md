@@ -28,7 +28,7 @@ continue processing if there is a failure but only to revert what we've done.
     - name: Push future default virtual host configuration
       copy:
         src: files/awesome-app
-        dest: /etc/apache2/sites-available/
+        dest: /etc/apache2/sites-available/awesome-app.conf
         mode: 0640
 
     - name: Activates our virtualhost
@@ -37,10 +37,10 @@ continue processing if there is a failure but only to revert what we've done.
     - name: Check that our config is valid
       command: apache2ctl configtest
       register: result
-      ignore_errors: True
+      ignore_errors: true
 
     - name: Rolling back - Restoring old default virtualhost
-      command: a2ensite default
+      command: a2ensite 000-default
       when: result is failed
 
     - name: Rolling back - Removing our virtualhost
@@ -53,7 +53,7 @@ continue processing if there is a failure but only to revert what we've done.
       when: result is failed
 
     - name: Deactivates the default virtualhost
-      command: a2dissite default
+      command: a2dissite 000-default
 
     - name: Deactivates the default ssl virtualhost
       command: a2dissite default-ssl
