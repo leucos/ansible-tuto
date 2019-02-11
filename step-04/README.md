@@ -69,7 +69,7 @@ PLAY RECAP *********************
 host1              : ok=2    changed=1    unreachable=0    failed=0
 ```
 
-Note: You might see a cow passing by if you have `cowsay` installed. You can
+Note: you might see a cow passing by if you have `cowsay` installed. You can
 get rid of it with `export ANSIBLE_NOCOWS="1"` if you don't like it.
 
 Let's analyse the output one line at a time.
@@ -79,8 +79,9 @@ PLAY [web] *********************
 ```
 
 Ansible tells us it's running the play on hosts `web`. A play is a suite of
-ansible instructions related to a host. If we'd have another `-host: blah` line
-in our playbook, it would show up too (but after the first play has completed).
+ansible instructions related to a host. If we'd have another `- hosts: blah`
+line in our playbook, it would show up too (but after the first play has
+completed).
 
 ```bash
 GATHERING FACTS *********************
@@ -126,9 +127,9 @@ PLAY RECAP *********************
 host1              : ok=2    changed=0    unreachable=0    failed=0
 ```
 
-Now changed is '0'. This is absolutely normal and is one of the core feature of
-ansible: the playbook will act only if there is something to do. It's called
-_idempotency_, and means that you can run your playbook as many times as you
+Now 'changed' is '0'. This is absolutely normal and is one of the core features
+of ansible: the playbook will act only if there is something to do. It's called
+_idempotency_ and means that you can run your playbook as many times as you
 want, you will always end up in the same state (well, unless you do crazy
 things with the `shell` module of course, but this is beyond ansible's
 control).
