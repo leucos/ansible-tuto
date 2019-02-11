@@ -25,7 +25,7 @@
       command: a2ensite 000-default
       when: result is failed
 
-    - name: Rolling back - Removing out virtualhost
+    - name: Rolling back - Removing our virtualhost
       command: a2dissite awesome-app
       when: result is failed
 
