@@ -40,22 +40,69 @@ but Ansible provides a more readable way to write this. Ansible can loop over a
 series of items, and use each item in an action like this:
 
 ```yaml
+...
+- name: Installs necessary packages
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+    update_cache: true
+  with_items:
+    - apache2
+    - libapache2-mod-php
+    - git
+...
+```
+
+Note: the use of a loop in a module to invoke it only once is [deprecated][]
+since version 2.7. You can specify a list of packages as shown in the table
+below:
+
+<table>
+  <tr>
+    <th>
+      Variant A
+    </th>
+    <th>
+      Variant B
+    </th>
+  </tr>
+  <td>
+
+```yaml
+- name: "Install foo & bar"
+  apt:
+    pkg: ["foo", "bar"]
+```
+
+  </td>
+  <td>
+
+```yaml
+- name: "Install foo & bar"
+  apt:
+    pkg:
+      - foo
+      - bar
+```
+
+  </td>
+</table>
+
+As a result, we ended up with the following playbook:
+
+```yaml
 - hosts: web
   tasks:
     - name: Installs necessary packages
       apt:
-        pkg: "{{ item }}"
+        pkg: ["apache2", "libapache2-mod-php", "git"]
         state: latest
         update_cache: true
-      with_items:
-        - apache2
-        - libapache2-mod-php
-        - git
 
     - name: Push future default virtual host configuration
       copy:
         src: files/awesome-app
-        dest: /etc/apache2/sites-available/
+        dest: /etc/apache2/sites-available/awesome-app.conf
         mode: 0640
 
     - name: Activates our virtualhost
@@ -64,10 +111,10 @@ series of items, and use each item in an action like this:
     - name: Check that our config is valid
       command: apache2ctl configtest
       register: result
-      ignore_errors: True
+      ignore_errors: true
 
     - name: Rolling back - Restoring old default virtualhost
-      command: a2ensite default
+      command: a2ensite 000-default
       when: result is failed
 
     - name: Rolling back - Removing out virtualhost
@@ -86,7 +133,7 @@ series of items, and use each item in an action like this:
       tags: deploy
 
     - name: Deactivates the default virtualhost
-      command: a2dissite default
+      command: a2dissite 000-default
 
     - name: Deactivates the default ssl virtualhost
       command: a2dissite default-ssl
@@ -177,3 +224,5 @@ host1              : ok=2    changed=1    unreachable=0    failed=0
 
 Ok, let's deploy another web server in
 [step-09](https://github.com/leucos/ansible-tuto/tree/master/step-09).
+
+[deprecated]: https://docs.ansible.com/ansible/latest/porting_guides/porting_guide_2.7.html#using-a-loop-on-a-package-module-via-squash-actions
