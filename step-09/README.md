@@ -23,7 +23,7 @@ what you would do in a classic situation).
 
 ## Building another web server
 
-We didn't do all this work for nothing. Deploying another web server is dead
+We didn't go to all this work for nothing. Deploying another web server is dead
 simple:
 
 ```bash
@@ -35,13 +35,9 @@ GATHERING FACTS *********************
 ok: [host2]
 ok: [host1]
 
-TASK: [Updates apt cache] *********************
-ok: [host1]
-ok: [host2]
-
 TASK: [Installs necessary packages] *********************
-ok: [host1] => (item=apache2,libapache2-mod-php,git)
-changed: [host2] => (item=apache2,libapache2-mod-php,git)
+ok: [host1]
+changed: [host2]
 
 TASK: [Push future default virtual host configuration] *********************
 ok: [host1]
@@ -79,13 +75,13 @@ TASK: [Deactivates the default ssl virtualhost] *********************
 changed: [host2]
 changed: [host1]
 
-NOTIFIED: [restart apache] *********************
+RUNNING HANDLER: [restart apache] *********************
 changed: [host1]
 changed: [host2]
 
 PLAY RECAP *********************
-host1              : ok=10   changed=5    unreachable=0    failed=0
-host2              : ok=10   changed=8    unreachable=0    failed=0
+host1              : ok=9   changed=5    unreachable=0    failed=0
+host2              : ok=9   changed=8    unreachable=0    failed=0
 ```
 
 All we had to do was remove `-l host1` from our command line.

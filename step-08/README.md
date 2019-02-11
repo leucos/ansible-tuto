@@ -157,11 +157,8 @@ PLAY [web] *********************
 GATHERING FACTS *********************
 ok: [host1]
 
-TASK: [Updates apt cache] *********************
-ok: [host1]
-
 TASK: [Installs necessary packages] *********************
-changed: [host1] => (item=apache2,libapache2-mod-php,git)
+changed: [host1]
 
 TASK: [Push future default virtual host configuration] *********************
 changed: [host1]
@@ -190,11 +187,11 @@ changed: [host1]
 TASK: [Deactivates the default ssl virtualhost] *********************
 changed: [host1]
 
-NOTIFIED: [restart apache] *********************
+RUNNING HANDLER: [restart apache] *********************
 changed: [host1]
 
 PLAY RECAP *********************
-host1              : ok=10   changed=8    unreachable=0    failed=0
+host1              : ok=9   changed=8    unreachable=0    failed=0
 ```
 
 You can now browse to [http://192.168.33.11](http://192.168.33.11), and it
