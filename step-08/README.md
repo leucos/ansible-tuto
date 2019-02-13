@@ -57,35 +57,25 @@ Note: the use of a loop in a module to invoke it only once is [deprecated][]
 since version 2.7. You can specify a list of packages as shown in the table
 below:
 
-<table>
-  <tr>
-    <th>
-      Variant A
-    </th>
-    <th>
-      Variant B
-    </th>
-  </tr>
-  <td>
-
+<table width="100%">
+  <tr><td>Option A</td><td>Option B</td></tr>
+  <tr><td>
+    
 ```yaml
-- name: "Install foo & bar"
+  - name: "Install foo & bar"
   apt:
     pkg: ["foo", "bar"]
 ```
-
-  </td>
-  <td>
+  </td><td>
 
 ```yaml
-- name: "Install foo & bar"
+  - name: "Install foo & bar"
   apt:
     pkg:
       - foo
       - bar
 ```
-
-  </td>
+  </td></tr>
 </table>
 
 As a result, we ended up with the following playbook:
