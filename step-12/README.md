@@ -224,8 +224,8 @@ this one:
 
 ```none
 host0          : ok=4    changed=0    unreachable=0 failed=0
-host1          : ok=10   changed=6    unreachable=0 failed=0
-host2          : ok=10   changed=6    unreachable=0 failed=0
+host1          : ok=9    changed=5    unreachable=0 failed=0
+host2          : ok=9    changed=5    unreachable=0 failed=0
 ```
 
 You may have noticed that running all roles in site.yml can take a long
