@@ -49,8 +49,8 @@ listen cluster
 
 We have many new things going on here.
 
-First, `{{ ansible_all_ipv4_addresses.1 }}` will be replaced by the 2nd IP of
-the server, which happens to be 192.168.33.10.
+First, `{{ ansible_host }}` will be replaced by the 2nd IP of the server, which
+happens to be 192.168.33.10.
 
 Then, we have a loop. This loop is used to build the backend servers list. It
 will loop over every host listed in the `[web]` group (and put this host in the
