@@ -223,6 +223,7 @@ Thanks to all people who have contributed to this tutorial:
 * [Marchenko Alexandr](https://github.com/mac2000)
 * [Maxim Zaitsev](http://github.com/7aitsev)
 * [Michael B. Sumulong](http://github.com/MSumulong/)
+* [Mikhail Shavliuk](https://github.com/mshavliuk)
 * [mxxcon](https://github.com/mxxcon)
 * [Patrick Pelletier](https://github.com/skinp)
 * [Pierre-Gilles Levallois](https://github.com/Pilooz)
