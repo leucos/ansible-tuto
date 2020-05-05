@@ -209,6 +209,7 @@ Thanks to all people who have contributed to this tutorial:
 * [Benny Wong](https://github.com/bdotdub)
 * [Bernardo Vale](https://github.com/bernardoVale)
 * [Chris Schmitz](https://github.com/ccschmitz)
+* [Cyril Mouchel](https://github.com/mouchh)
 * [dalton](https://github.com/dalton)
 * [Daniel Howard](https://github.com/dannyman)
 * [David Golden](https://github.com/dagolden)
