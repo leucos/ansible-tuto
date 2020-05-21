@@ -1,12 +1,13 @@
 {
     "gitbook": "3.0.x",
     "plugins": [
+        "-sharing",
         "edit-link@2.0.x",
         "github@2.0.x"
     ],
     "pluginsConfig": {
             "edit-link": {
-                "base": "https://github.com/leucos/ansible-tuto/tree/writing",
+                "base": "https://github.com/leucos/ansible-tuto/edit/master",
                 "label": "Edit"
             },
             "github": {

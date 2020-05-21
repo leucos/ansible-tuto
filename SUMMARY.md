@@ -14,7 +14,4 @@
 * [10 Templates](step-10/README.md)
 * [11 Variables again](step-11/README.md)
 * [12 Migrating to roles](step-12/README.md)
-* [13 Using tags](step-13/README.md)
-* [14 Roles dependencies (TBD)](step-14/README.md)
-* [15 Debugging (TBD)](step-15/README.md)
 * [99 The end](step-99/README.md)
