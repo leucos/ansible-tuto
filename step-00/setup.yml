@@ -22,9 +22,6 @@
         host: "{{ ansible_host }}"
       delegate_to: localhost
 
-    - name: Installs python
-      raw: apt-get update && apt-get install -y python
-
     - name: Creates destination directory
       # Workaround for #2372
       file:
