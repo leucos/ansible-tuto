@@ -17,7 +17,7 @@ step-06_apache
   host1:ok=4,changed=2,unreachable=0,failed=1
 
 step-07_apache:
-  host1:ok=8,changed=5,unreachable=0,failed=1
+  host1:ok=7,changed=4,unreachable=0,failed=1
 
 step-08_apache:
   host1:ok=9,changed=8,unreachable=0,failed=0

@@ -20,14 +20,14 @@ accessible 'master' to be able to configure remote nodes: it's the nodes
 that need to be accessible (we'll see later that 'hidden' nodes can pull their
 configuration too!), and most of the time they are.
 
-This tutorial has been tested with **Ansible 2.7.1**.
+This tutorial has been tested with **Ansible 2.9**.
 
 We're also assuming you have a keypair in your ~/.ssh directory.
 
 ## Quick start
 
 - install Vagrant if you don't have it
-- install ansible (preferably 2.7.1 and using pip+virtualenv)
+- install ansible (preferably 2.10.5+ and using pip+virtualenv)
 - `vagrant up`
 - goto [step-00](./step-00/README.md)
 
@@ -221,6 +221,7 @@ Thanks to all people who have contributed to this tutorial:
 * [Jelly Robot](https://github.com/jellyjellyrobot)
 * [Justin Garrison](https://github.com/rothgar)
 * [Karlo](https://github.com/karlo57)
+* [lenowac](https://github.com/lenowac)
 * [Marchenko Alexandr](https://github.com/mac2000)
 * [Maxim Zaitsev](http://github.com/7aitsev)
 * [Michael B. Sumulong](http://github.com/MSumulong/)

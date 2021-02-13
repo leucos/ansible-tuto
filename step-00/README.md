@@ -78,13 +78,9 @@ To check your ansible version use the command `ansible --version`. The output
 should be similar to the above:
 
 ```none
-ansible 2.7.1
-  config file = ...
-  configured module search path = [ ... ]
-  ansible python module location = ...
-  executable location = ...
-  python version = 2.7.15rc1 (default, Apr 15 2018, 21:51:34) [GCC 7.3.0]
-
+ansible 2.10.5
+  ...
+  python version = 3.8.5 (default, Jul 28 2020, 12:59:40) [GCC 9.3.0]
 ```
 
 Now head to the first step in
