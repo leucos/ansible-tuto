@@ -124,13 +124,9 @@ GATHERING FACTS *********************
 ok: [host1]
 ok: [host2]
 
-TASK: [Updates apt cache] *********************
+TASK: [Installs necessary packages] *********************
 ok: [host1]
 ok: [host2]
-
-TASK: [Installs necessary packages] *********************
-ok: [host1] => (item=apache2,libapache2-mod-php,git)
-ok: [host2] => (item=apache2,libapache2-mod-php,git)
 
 TASK: [Push future default virtual host configuration] *********************
 ok: [host2]
@@ -168,15 +164,20 @@ TASK: [Deactivates the default ssl virtualhost] *********************
 changed: [host2]
 changed: [host1]
 
-NOTIFIED: [restart apache] *********************
+RUNNING HANDLER: [restart apache] *********************
 changed: [host2]
 changed: [host1]
 
 PLAY RECAP *********************
-host1              : ok=10   changed=5    unreachable=0    failed=0
-host2              : ok=10   changed=5    unreachable=0    failed=0
+host1              : ok=9   changed=5    unreachable=0    failed=0
+host2              : ok=9   changed=5    unreachable=0    failed=0
 
 
+PLAY [web] *********************
+
+GATHERING FACTS *********************
+ok: [host1]
+ok: [host2]
 
 PLAY [haproxy] *********************
 
@@ -192,11 +193,13 @@ changed: [host0]
 TASK: [Sets default starting flag to 1] *********************
 changed: [host0]
 
-NOTIFIED: [restart haproxy] *********************
+RUNNING HANDLER: [restart haproxy] *********************
 changed: [host0]
 
 PLAY RECAP *********************
 host0              : ok=5    changed=4    unreachable=0    failed=0
+host1              : ok=10   changed=5    unreachable=0    failed=0
+host2              : ok=10   changed=5    unreachable=0    failed=0
 ```
 
 Looks good. Now head to [http://192.168.33.10/](http://192.168.33.10/) and

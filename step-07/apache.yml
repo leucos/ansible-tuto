@@ -13,9 +13,6 @@
         dest: /etc/apache2/sites-available/awesome-app.conf
         mode: 0640
 
-    - name: Deactivates the default virtualhost
-      command: a2dissite 000-default
-
     - name: Activates our virtualhost
       command: a2ensite awesome-app
 
@@ -28,7 +25,7 @@
       command: a2ensite 000-default
       when: result is failed
 
-    - name: Rolling back - Removing out virtualhost
+    - name: Rolling back - Removing our virtualhost
       command: a2dissite awesome-app
       when: result is failed
 
@@ -36,6 +33,9 @@
       fail:
         msg: "Configuration file is not valid. Please check that before re-running the playbook."
       when: result is failed
+
+    - name: Deactivates the default virtualhost
+      command: a2dissite 000-default
 
     - name: Deactivates the default ssl virtualhost
       command: a2dissite default-ssl
