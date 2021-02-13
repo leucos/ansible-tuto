@@ -58,7 +58,7 @@ Under Ubuntu, installing virtualenv & virtualenvwrapper can be done like
 so:
 
 ```bash
-sudo apt-get install python-virtualenv virtualenvwrapper python-pip
+sudo apt install python3-virtualenv virtualenvwrapper python3-pip
 exec $SHELL
 ```
 
