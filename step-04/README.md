@@ -144,3 +144,6 @@ Head to next step in
 [step-05](https://github.com/leucos/ansible-tuto/tree/master/step-05).
 
 [make it so]: https://www.google.fr/search?q=Michael+DeHaan+%22make+it+so%22 "© Michael DeHaan"
+
+Additional resources:
+[Working with Ansible Playbooks – Tips & Tricks with Examples](https://spacelift.io/blog/ansible-playbooks)
