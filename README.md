@@ -165,7 +165,7 @@ If you wish to proceed without Vagrant (not recommended!), go straight to
    and optionally some other keywords (like looping directives).
  - play: a yaml structure executing a list of roles or tasks over a list
    of hosts
- - [playbook](https://docs.ansible.com/ansible/playbooks_intro.html):
+ - [playbook](https://spacelift.io/blog/ansible-playbooks):
    yaml file containing multiple plays. Intro in
    [step-04](https://github.com/leucos/ansible-tuto/tree/master/step-04).
  - [role](https://docs.ansible.com/ansible/playbooks_roles.html): an
