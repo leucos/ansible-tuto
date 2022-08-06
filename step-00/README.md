@@ -64,7 +64,7 @@ then you probably already have SSH host keys for those IPs in your
 `~/.ssh/known_hosts`. You can remove them with `ssh-keygen -R
 <IP_ADDRESS>`.
 
-Otherwise, juste type `yes` when prompted to access ssh host keys if
+Otherwise, just type `yes` when prompted to access ssh host keys if
 requested.
 
 To polish things up, it's better to have an ssh-agent running, and add your
