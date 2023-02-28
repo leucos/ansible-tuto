@@ -42,7 +42,7 @@ listen cluster
     stats enable
     balance roundrobin
 {% for backend in groups['web'] %}
-    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend].ansible_host }} check port 80
+    server {{ hostvars[backend]['ansible_hostname'] }} {{ hostvars[backend]['ansible_facts']['default_ipv4']['address'] }} check port 80
 {% endfor %}
     option httpchk HEAD /index.php HTTP/1.0
 ```
