@@ -43,7 +43,7 @@
       register: rsa
       ignore_errors: true
 
-    - name: Pushes user's dsa key to root's vagrant box (it's NOT ok if both TASKs fail)
+    - name: Pushes user's dsa key to root's vagrant box (it's ok if this TASK fails)
       # action: authorized_key user=root key='$FILE(~/.ssh/id_dsa.pub)'
       # Workaround for #2372
       copy:
@@ -51,7 +51,19 @@
         dest: /root/.ssh/authorized_keys
         owner: root
         mode: 0600
+      register: dsa
+      ignore_errors: true
       when: rsa is failed
+
+    - name: Pushes user's ed25519 key to root's vagrant box (it's NOT ok if all TASKs fail)
+      # action: authorized_key user=root key='$FILE(~/.ssh/id_ed25519.pub)'
+      # Workaround for #2372
+      copy:
+        src: ~/.ssh/id_ed25519.pub
+        dest: /root/.ssh/authorized_keys
+        owner: root
+        mode: 0600
+      when: dsa is failed
 
     - name: Checks if resolver is working properly (issues with some VBox/Host OS combinations)
       command: host -t A ansible.cc
